@@ -1,0 +1,445 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2071138166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2071138167}
+  - component: {fileID: 2071138168}
+  m_Layer: 0
+  m_Name: UiCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2071138167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071138166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4061309984124418449}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &2071138168
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071138166}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 10
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 32
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!1 &4055929309831659383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4061309984124418449}
+  - component: {fileID: 4036685162768839143}
+  - component: {fileID: 4176608922461496625}
+  - component: {fileID: 4138499512393962271}
+  - component: {fileID: 427229399175577728}
+  - component: {fileID: 20566229239774466}
+  m_Layer: 0
+  m_Name: EazyCamera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4061309984124418449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.09926656, y: 0.0375124, z: 0.0037448984, w: 0.9943465}
+  m_LocalPosition: {x: -0.34464526, y: 2.167404, z: -4.5615582}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2071138167}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -11.402, y: 4.321, z: 0}
+--- !u!20 &4036685162768839143
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 33047
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!124 &4176608922461496625
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  m_Enabled: 1
+--- !u!81 &4138499512393962271
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  m_Enabled: 1
+--- !u!114 &427229399175577728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4b60398aa15df459f3e6809e9286d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _followTarget: {fileID: 0}
+  _settings:
+    Distance: -5
+    DefaultRotation: {x: 0, y: 0}
+    OrbitEnabled: 1
+    MoveSpeed: 15
+    SnapFactor: 0.75
+    MaxLagDistance: 1
+    RotationSpeed: 50
+    VerticalRotation:
+      Min: -89
+      Max: 89
+    EaseCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.6403704
+        outSlope: -2.6403704
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.037516177
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    InvertY: 1
+    EnableCollision: 1
+    CollisionLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    EnableZoom: 1
+    ZoomRange:
+      Min: -10
+      Max: -1
+    EnableTargetLock: 1
+    TargetLockIcon: {fileID: 0}
+--- !u!114 &20566229239774466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055929309831659383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b0b8184d49919458a463162bd17ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlledCamera: {fileID: 427229399175577728}
+  _toggleLockOn:
+    m_Name: ToggleLock
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 98475868-194c-490d-9f26-3e79ede95a91
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 13cdd05d-8cb9-4f6f-ab2f-eaafbaca304b
+      m_Path: /Keyboard/t
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ToggleLock
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 22bcbb43-dc6e-404c-98fc-8e1e622b9011
+      m_Path: /XInputControllerWindows/leftTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ToggleLock
+      m_Flags: 0
+    m_Flags: 0
+  _cycleTargets:
+    m_Name: Cycle
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9b7c387d-f879-4ad4-8c58-c810a5e9f072
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6391d8cf-aea5-419f-9fa7-d5429883e08b
+      m_Path: /Keyboard/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Cycle
+      m_Flags: 0
+    m_Flags: 0
+  _cycleRight:
+    m_Name: CycleRight
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 24931721-84c6-436c-acd9-af2b4581262b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 0620636c-0050-4450-a18b-86507062feec
+      m_Path: /Keyboard/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: CycleRight
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 79bd1ff8-cf99-44a7-b18d-c52be0f9ca58
+      m_Path: /XInputControllerWindows/rightShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: CycleRight
+      m_Flags: 0
+    m_Flags: 0
+  _cycleLeft:
+    m_Name: CycleLeft
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9b6c1009-cf2b-4854-9daf-bfec5e18e865
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 1bf04dc7-b0e1-42df-8032-b1a48dca4e26
+      m_Path: /Keyboard/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: CycleLeft
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 482defc7-e82a-4cf1-99e9-747cd10e7d68
+      m_Path: /XInputControllerWindows/leftShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: CycleLeft
+      m_Flags: 0
+    m_Flags: 0
+  _zoom:
+    m_Name: Zoom
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 8039d5bd-fee3-4d76-9d6e-bc49746baea2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 4b6858f4-8a02-4e99-bda5-49b44ae58b74
+      m_Path: /Mouse/scroll
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Zoom
+      m_Flags: 0
+    m_Flags: 0
+  _orbit:
+    m_Name: Orbit
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: cfe71c40-f5b7-4eed-814b-d86c5511e38f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9603e1f9-1a16-4f63-9fc2-1848cd48f86d
+      m_Path: /Mouse/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Orbit
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 725c9240-729f-4e6e-b424-8d357f64f15c
+      m_Path: /XInputControllerWindows/rightStick
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Orbit
+      m_Flags: 0
+    m_Flags: 0
+  _toggleUi:
+    m_Name: ToggleUi
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 39f08742-6989-4634-b87c-d401b78d28fe
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 89143be5-1c86-4cbd-92b3-ae1e899bef0a
+      m_Path: /Keyboard/u
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ToggleUi
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 59e011ee-bcf2-48be-a8f2-90c6332c9324
+      m_Path: /XInputControllerWindows/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ToggleUi
+      m_Flags: 0
+    m_Flags: 0
+  _reset:
+    m_Name: ResetCamera
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 1c2d5335-b167-4474-bdd8-9cb7b24406ee
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: fcb72bee-674f-43ec-bdb5-108728647477
+      m_Path: /Keyboard/r
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ResetCamera
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 1f0a05e4-f922-4d26-9c5b-026d421fb10c
+      m_Path: /XInputControllerWindows/rightStickPress
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: ResetCamera
+      m_Flags: 0
+    m_Flags: 0

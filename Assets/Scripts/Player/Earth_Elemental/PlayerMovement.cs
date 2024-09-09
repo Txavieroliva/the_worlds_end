@@ -17,12 +17,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //movimiento direccional
-        float movimientoHorizontal = Input.GetAxis("Horizontal");
-        float movimientoVertical = Input.GetAxis("Vertical");
+        float Horizontal = Input.GetAxis("Horizontal");
+        float Vertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(movimientoHorizontal, 0.0f, movimientoVertical);
+        Vector3 movement = new Vector3(Horizontal, 0.0f, Vertical);
         rb.AddForce(movement * speed);
-
-
     }
 }
