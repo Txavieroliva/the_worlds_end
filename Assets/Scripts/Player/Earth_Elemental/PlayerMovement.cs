@@ -1,26 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 6.0f;
-    private Rigidbody rb;
-    
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] float speed;
+    private PlayerInput input;
+    private CharacterController controller;
+
+    private void Start() 
     {
-        rb = GetComponent<Rigidbody>();
+        Inputs();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update() 
     {
-        //movimiento direccional
-        float Horizontal = Input.GetAxis("Horizontal");
-        float Vertical = Input.GetAxis("Vertical");
+        MovePlayer();
+    }
 
-        Vector3 movement = new Vector3(Horizontal, 0.0f, Vertical);
-        rb.AddForce(movement * speed);
+    private void Inputs()
+    {
+        input = GetComponent<PlayerInput>();
+        controller = GetComponent<CharacterController>();
+    }
+    private void MovePlayer()
+    {
+        Vector3 moveDir = new Vector3(input.move.x, 0, input.move.y);
+        transform.rotation = Quaternion.LookRotation(moveDir);
+        controller.Move(moveDir * speed * Time.deltaTime);
     }
 }
