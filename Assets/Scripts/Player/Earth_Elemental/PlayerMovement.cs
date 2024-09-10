@@ -12,12 +12,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform CameraTarget;
     private PlayerInput input;
     private CharacterController controller;
+    private Animator animator;
     float xRot;
     float yRot;
 
     private void Start() 
     {
-        Inputs();
+        input = GetComponent<PlayerInput>();
+        controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update() 
@@ -29,11 +32,6 @@ public class PlayerMovement : MonoBehaviour
         CameraRotation();
     }
 
-    private void Inputs()
-    {
-        input = GetComponent<PlayerInput>();
-        controller = GetComponent<CharacterController>();
-    }
     private void MovePlayer()
     {
         float speed = 0;
@@ -48,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         Vector3 playerDir = Quaternion.Euler(0, playerRot, 0) * Vector3.forward;
+        animator.SetFloat("speed", input.move.magnitude);
         controller.Move(playerDir * speed * Time.deltaTime);
     }
 
