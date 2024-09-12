@@ -44,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if(isAttacking) return;
-        
 
         float speed = 0;
         Vector3 inputDir = new Vector3(input.move.x, 0, input.move.y);
@@ -74,9 +72,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Attack()
     {
-        isAttacking = true;
         if(input.isAttacking)
         {
+            isAttacking = true;
             animator.SetTrigger("attack");
         }
 
