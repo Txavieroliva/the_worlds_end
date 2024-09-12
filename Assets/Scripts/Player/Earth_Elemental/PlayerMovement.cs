@@ -15,25 +15,36 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     float xRot;
     float yRot;
+    bool isAttacking = false;
 
     private void Start() 
     {
         input = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
+        HideMouse();
     }
 
     private void Update() 
     {
         MovePlayer();
+        Attack();
     }
 
     private void LateUpdate() {
         CameraRotation();
     }
 
+    private void HideMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void MovePlayer()
     {
+
         float speed = 0;
         Vector3 inputDir = new Vector3(input.move.x, 0, input.move.y);
         float playerRot = 0;
@@ -57,5 +68,24 @@ public class PlayerMovement : MonoBehaviour
         xRot = Mathf.Clamp(xRot, -30, 70);
         Quaternion rotation = Quaternion.Euler(xRot, yRot, 0);
         CameraTarget.rotation = rotation;
+    }
+
+    private void Attack()
+    {
+        if(input.isAttacking)
+        {
+            isAttacking = true;
+            animator.SetTrigger("attack");
+        }
+
+        StartCoroutine(ResetAttack());
+    }
+
+    private IEnumerator ResetAttack()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        isAttacking = false;
+        input.isAttacking = false;
     }
 }
