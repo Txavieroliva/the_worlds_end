@@ -28,6 +28,12 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    
+    private void FixedUpdate() 
+    {
+        Attack();
+    }
+
     private void LateUpdate() {
         CameraRotation();
     }
@@ -57,5 +63,13 @@ public class PlayerMovement : MonoBehaviour
         xRot = Mathf.Clamp(xRot, -30, 70);
         Quaternion rotation = Quaternion.Euler(xRot, yRot, 0);
         CameraTarget.rotation = rotation;
+    }
+
+    private void Attack()
+    {
+        if(Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            animator.SetTrigger("attack");
+        }
     }
 }
