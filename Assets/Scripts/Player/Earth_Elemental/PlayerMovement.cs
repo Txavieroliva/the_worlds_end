@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     float xRot;
     float yRot;
-    bool isAttacking = false;
+    bool isAttacking;
 
     private void Start() 
     {
@@ -44,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+        if(isAttacking)
+        {
+            return;
+        }
 
         float speed = 0;
         Vector3 inputDir = new Vector3(input.move.x, 0, input.move.y);
@@ -77,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = true;
             animator.SetTrigger("attack");
         }
+
+
 
         StartCoroutine(ResetAttack());
     }
