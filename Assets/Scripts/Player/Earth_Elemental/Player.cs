@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float rotSpeed;
     [SerializeField] GameObject mainCamera;
     [SerializeField] Transform CameraTarget;
+    [SerializeField] UI playerUI;
     private PlayerInput input;
     private CharacterController controller;
     private Animator animator;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
         input = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+
 
         HideMouse();
     }
@@ -93,5 +95,39 @@ public class Player : MonoBehaviour
 
         isAttacking = false;
         input.isAttacking = false;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        playerUI.health -= amount; //actualiza la vida en la UI
+        if(playerUI.health < 0)
+        {
+            playerUI.health = 0;
+            checkDeath();
+        }
+        //Debug.Log("Recibo: " + amount + " de daño");
+
+        
+    }
+
+    private void checkDeath()
+    {
+        if(playerUI.health <= 0)
+        {
+            endGame(); //finaliza el juego si la vida llega a 0 o menos
+            Debug.Log("muelte");
+        }
+    }
+
+    private void endGame()
+    {
+        Time.timeScale = 0;
+        //Application.Quit(); // Sale del juego cuando se buildee
+        Debug.Log("muelte diablo");
+    }
+
+    public void cureWounds(float amount)
+    {
+        playerUI.health += amount;
     }
 }
