@@ -125,4 +125,9 @@ public class Player : MonoBehaviour
         //Application.Quit(); // Sale del juego cuando se buildee
         Debug.Log("muelte diablo");
     }
+
+    public void cureWounds(float amount)
+    {
+        playerUI.health += amount;
+    }
 }
