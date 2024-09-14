@@ -103,10 +103,11 @@ public class Player : MonoBehaviour
         if(playerUI.health < 0)
         {
             playerUI.health = 0;
+            checkDeath();
         }
         //Debug.Log("Recibo: " + amount + " de daño");
 
-        checkDeath();
+        
     }
 
     private void checkDeath()
@@ -114,11 +115,14 @@ public class Player : MonoBehaviour
         if(playerUI.health <= 0)
         {
             endGame(); //finaliza el juego si la vida llega a 0 o menos
+            Debug.Log("muelte");
         }
     }
 
     private void endGame()
     {
-        Time.timeScale = 0f; // pausa el juego
+        Time.timeScale = 0;
+        //Application.Quit(); // Sale del juego cuando se buildee
+        Debug.Log("muelte diablo");
     }
 }
