@@ -6,98 +6,128 @@ public class Objeto_base : MonoBehaviour
 {
 protected string Identificador;
 protected string Nombre;
-public string Lugar_de_pertenencia;
+public string Lugar_De_Pertenencia;
 protected string Idle;
-protected string Material;
-protected int Firmeza_al_suelo;
-protected int Masa;
-protected int Masa_aguantada;
+protected int Firmeza_Al_Suelo;
+protected int Masa_Aguantada;
 protected int Velocidad;
 public int Vida;
-protected int Threshold_daño;
-protected int Vida_anual;
+protected int Threshold_Daño;
+protected int Vida_Anual;
 public bool Agarrable;
-protected bool Diferente_noche;
-protected bool Diferente_climas;
+protected bool Diferente_Noche;
+protected bool Diferente_Climas;
 protected bool Crece;
 public bool Destructible;
+protected float Masa;
+protected float Densidad = 1.0f;
+protected Rigidbody rb;
+
+protected Vector3 size = Vector3.one;
+
     
     
     // Start is called before the first frame update
 void Start()
     {
-        
+     // Obtenemos el Rigidbody asociado
+    rb = GetComponent<Rigidbody>();
+
+    // Calculamos la masa
+    float Masa = CalcularMasa();
+
+    // Asignamos la masa al Rigidbody
+    rb.mass = Masa; 
     }
 
-protected void	Utilizar_nombre()
-    {
+protected float CalcularVolumen()
+{
+Debug.Log(size.x);
+return size.x * size.y * size.z;
+}
 
-    }
-public void	Settear_spawner(string Lugar)
-    {
+protected float CalcularMasa()
+{
+float volume = CalcularVolumen();
+return volume * Densidad;
+}
 
-    }
-protected string Idles()
+public void	Settear_Localizacion(string Lugar)
     {
-return "jeje";
+Lugar_De_Pertenencia = Lugar;
     }
-public void	Interaccion()
-    {
 
-    }
-protected string	Destruccion_completa()
-    {
-return "jeje";
-    }
-protected void	Golpeado()
-    {
+// protected string Idles()
+//     {
 
-    }
-protected void	Destruccion_porcentual()
-    {
+//     }
+// public void	Interaccion()
+//     {
 
-    }
-protected void	Detector_daño()
-    {
+//     }
+// protected string	Destruccion_Completa()
+//     {
 
-    }
-protected void	Calculadora_daño()
-    {
+//     }
 
-    }
-protected void	Ser_agarrado()
+protected void	Golpeado(int daño)
     {
-
+if (daño > Threshold_Daño)
+{
+    Vida = Vida - daño;
+   // Destruccion_porcentual();
+}
     }
-protected void	Animator()
-    {
 
-    }
-protected void	Optimizar()
-    {
+// protected void	Destruccion_Porcentual()
+//     {
 
-    }
-protected void	Informacion_guardar()
-    {
+//     }
 
-    }
-protected void	Informacion_cargar()
-    {
-
-    }
-protected void	Algo_encima()
+protected void	Detector_Daño()
     {
 
     }
-protected void	Crecer()
+
+protected void	Calculadora_Daño()
     {
 
     }
+
+// protected void	Ser_Agarrado()
+//     {
+
+//     }
+// protected void	Animator()
+//     {
+
+//     }
+// protected void	Optimizar()
+//     {
+
+//     }
+// protected void	Informacion_Guardar()
+//     {
+
+//     }
+// protected void	Informacion_Cargar()
+//     {
+
+//     }
+// protected void	Algo_Encima()
+//     {
+
+//     }
+// protected void	Crecer()
+//     {
+
+//     }
     
     
    
 
     // Update is called once per frame
+
     void Update()
     {
         
