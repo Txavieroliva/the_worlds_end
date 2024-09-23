@@ -12,7 +12,7 @@ protected int Firmeza_Al_Suelo;
 protected int Masa_Aguantada;
 protected int Velocidad;
 public int Vida;
-protected int Threshold_Daño;
+protected int Threshold_Daño = 0;
 protected int Vida_Anual;
 public bool Agarrable;
 protected bool Diferente_Noche;
@@ -42,8 +42,8 @@ void Start()
 
 protected float CalcularVolumen()
 {
-Debug.Log(size.x);
-return size.x * size.y * size.z;
+Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+return scale.x * scale.y * scale.z;
 }
 
 protected float CalcularMasa()
