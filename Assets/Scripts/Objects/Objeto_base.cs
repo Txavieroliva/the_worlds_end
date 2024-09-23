@@ -10,7 +10,7 @@ public string Lugar_De_Pertenencia;
 protected string Idle;
 protected int Firmeza_Al_Suelo;
 protected int Masa_Aguantada;
-protected int Velocidad;
+protected float Velocidad;
 public int Vida;
 protected int Threshold_Daño = 0;
 protected int Vida_Anual;
@@ -22,11 +22,11 @@ public bool Destructible;
 protected float Masa;
 protected float Densidad = 1.0f;
 protected Rigidbody rb;
+protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
+protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
 
 protected Vector3 size = Vector3.one;
 
-    
-    
     // Start is called before the first frame update
 void Start()
     {
@@ -48,9 +48,25 @@ return scale.x * scale.y * scale.z;
 
 protected float CalcularMasa()
 {
-float volume = CalcularVolumen();
-return volume * Densidad;
+float volumen = CalcularVolumen();
+return volumen * Densidad;
 }
+ 
+protected void FixedUpdate()
+    {
+        Velocidad = rb.velocity.magnitude; // Almacena la magnitud de la velocidad
+    }
+
+private void OnCollisionEnter(Collision collision)
+    {
+        // Calcula el daño en base a la velocidad y la masa en el momento del impacto
+        float DañoFloat = Calculadora_Daño();
+
+        // Convertimos el daño a un valor entero (redondeando)
+        int DañoInt = Mathf.RoundToInt(DañoFloat);
+
+        Golpeado(DañoInt);
+    }
 
 public void	Settear_Localizacion(string Lugar)
     {
@@ -84,13 +100,21 @@ if (daño > Threshold_Daño)
 
 //     }
 
-protected void	Detector_Daño()
+protected float	Calculadora_Daño()
     {
+        Debug.Log(Velocidad);
+        // Si la velocidad es menor que la mínima, aplicamos cero daño
+        if (Velocidad < Velocidad_Min_Daño)
+        {
+            return 0f; // O ajusta un daño mínimo si prefieres
+        }
 
-    }
+        // Calculamos el daño en función de la velocidad, sin exponenciación
+        float Energia_kinetica = 0.5f * rb.mass * Velocidad; // Daño proporcional a la velocidad
+        float Daño = Energia_kinetica * Multiplicador_De_Daño;
 
-protected void	Calculadora_Daño()
-    {
+
+        return Daño;
 
     }
 

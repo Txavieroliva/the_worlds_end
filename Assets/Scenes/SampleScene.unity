@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 0
+  Vida: 100
   Agarrable: 0
   Destructible: 0
 --- !u!65 &230865883
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 0
+  Vida: 100
   Agarrable: 0
   Destructible: 0
 --- !u!65 &609875624
@@ -1792,7 +1792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 0
+  Vida: 100
   Agarrable: 0
   Destructible: 0
 --- !u!65 &707459205
@@ -3395,7 +3395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 0
+  Vida: 100
   Agarrable: 0
   Destructible: 0
 --- !u!65 &1905564980
