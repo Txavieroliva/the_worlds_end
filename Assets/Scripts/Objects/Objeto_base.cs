@@ -15,7 +15,7 @@ protected int Masa_aguantada;
 protected int Velocidad;
 public int Vida;
 protected int Threshold_daño;
-//Vida_anual
+protected int Vida_anual;
 public bool Agarrable;
 protected bool Diferente_noche;
 protected bool Diferente_climas;
@@ -29,17 +29,17 @@ void Start()
         
     }
 
-protected void	Utilizar_nombre(Nombre)
+protected void	Utilizar_nombre()
     {
 
     }
-public void	Settear_spawner(Lugar)
+public void	Settear_spawner(string Lugar)
     {
 
     }
-protected string	Idles()
+protected string Idles()
     {
-
+return "jeje";
     }
 public void	Interaccion()
     {
@@ -47,7 +47,7 @@ public void	Interaccion()
     }
 protected string	Destruccion_completa()
     {
-
+return "jeje";
     }
 protected void	Golpeado()
     {
