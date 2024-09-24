@@ -39,6 +39,10 @@ public bool Agarrable;
 
 //Variados
 protected Rigidbody rb;
+public Kit_Habilidad KitHabilidad;
+public Kit_Racial KitRacial;
+public Kit_Equipamiento KitEquipamiento;
+
 
 
 

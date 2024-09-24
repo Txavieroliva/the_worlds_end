@@ -161,6 +161,9 @@ MonoBehaviour:
   NumeroDeDrop: 1
   DropPrefab: {fileID: 144681596}
   Agarrable: 0
+  KitHabilidad: {fileID: 0}
+  KitRacial: {fileID: 0}
+  KitEquipamiento: {fileID: 0}
 --- !u!54 &3903445
 Rigidbody:
   m_ObjectHideFlags: 0
