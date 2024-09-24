@@ -43,18 +43,8 @@ protected Vector3 size = Vector3.one;
 
 //Variados
 protected Rigidbody rb;
-public Kit_Habilidad KitHabilidad;
-
-protected void Usar_Kit_Habilidad(int usar) 
-     {
-        //return KitHabilidad.attack();
-        //if (Nivel > 1) { KitHabilidad.Habilidad1(); }
-        //if (Nivel > 2) { KitHabilidad.Habilidad2(); }
-        //if (Nivel > 3) { KitHabilidad.Habilidad3(); }
-
-    }
-public Kit_Racial KitRacial;
-public Kit_Equipamiento KitEquipamiento;
+public Reaccion_Base estado;
+public Pathing_Base camino;
 
 //     Start is called before the first frame update
 void Start()
