@@ -13,12 +13,12 @@ protected int Masa_Aguantada;
 protected float Velocidad;
 public int Vida;
 protected int Threshold_Daño = 0;
-protected int Vida_Anual;
-public bool Agarrable;
-protected bool Diferente_Noche;
-protected bool Diferente_Climas;
-protected bool Crece;
-public bool Destructible;
+// protected int Vida_Anual;
+// public bool Agarrable;
+// protected bool Diferente_Noche;
+// protected bool Diferente_Climas;
+// protected bool Crece;
+// public bool Destructible;
 protected float Masa;
 protected float Densidad = 1.0f;
 protected Rigidbody rb;
@@ -38,12 +38,19 @@ void Start()
 
     // Asignamos la masa al Rigidbody
     rb.mass = Masa; 
+
+    CalcularVida();
     }
 
 protected float CalcularVolumen()
 {
 Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
 return scale.x * scale.y * scale.z;
+}
+
+protected void CalcularVida()
+{
+Vida = Vida * Mathf.RoundToInt(rb.mass);
 }
 
 protected float CalcularMasa()
@@ -59,8 +66,16 @@ protected void FixedUpdate()
 
 private void OnCollisionEnter(Collision collision)
     {
+    float Velocidad2 = 0.0f;
+        // Obtenemos la velocidad del objeto colisionado
+        if (collision.gameObject.GetComponent<Objeto_base>() != null)
+            {
+                Objeto_base otroObjeto = collision.gameObject.GetComponent<Objeto_base>();
+                Velocidad2 = otroObjeto.Velocidad  * otroObjeto.rb.mass;
+            }
+
         // Calcula el daño en base a la velocidad y la masa en el momento del impacto
-        float DañoFloat = Calculadora_Daño();
+        float DañoFloat = Calculadora_Daño(Velocidad2);
 
         // Convertimos el daño a un valor entero (redondeando)
         int DañoInt = Mathf.RoundToInt(DañoFloat);
@@ -100,20 +115,17 @@ if (daño > Threshold_Daño)
 
 //     }
 
-protected float	Calculadora_Daño()
+protected float	Calculadora_Daño(float velocidad2)
     {
-        Debug.Log(Velocidad);
         // Si la velocidad es menor que la mínima, aplicamos cero daño
-        if (Velocidad < Velocidad_Min_Daño)
+        if (Velocidad + velocidad2 < Velocidad_Min_Daño)
         {
             return 0f; // O ajusta un daño mínimo si prefieres
         }
 
         // Calculamos el daño en función de la velocidad, sin exponenciación
-        float Energia_kinetica = 0.5f * rb.mass * Velocidad; // Daño proporcional a la velocidad
+        float Energia_kinetica = ((0.5f * (Velocidad * rb.mass)) + (0.5f * velocidad2)); // Daño proporcional a la velocidad de ambos objetos
         float Daño = Energia_kinetica * Multiplicador_De_Daño;
-
-
         return Daño;
 
     }
