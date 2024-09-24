@@ -19,7 +19,7 @@ protected float Velocidad;
 protected float spawnRadius;
 protected float explosionForce = 150f;
 protected float Masa;
-protected float Densidad = 1.0f;
+public float Densidad = 1.0f;
 protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
 protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
 
@@ -44,14 +44,6 @@ protected Vector3 size = Vector3.one;
 //Variados
 protected Rigidbody rb;
 public Kit_Habilidad KitHabilidad;
-protected Usar_Kit_Habilidad(int usar)
-     {
-          return KitHabilidad.attack();
-          if(Nivel > 1)  {KitHabilidad.Habilidad1();}
-          if(Nivel > 2)  {KitHabilidad.Habilidad2();}
-          if(Nivel > 3)  {KitHabilidad.Habilidad3();}
-
-     }
 public Kit_Racial KitRacial;
 public Kit_Equipamiento KitEquipamiento;
 
@@ -90,10 +82,10 @@ return volumen * Densidad;
 protected void FixedUpdate()
     {
         Velocidad = rb.velocity.magnitude; // Almacena la magnitud de la velocidad
-        if (Vida<=0){Colapsar();}
+        if (Vida<=0){Morir();}
     }
 
-protected void Colapsar()
+protected void Morir()
     {
         GenerarDrop(); //Generar escombros
         Destroy(gameObject);
@@ -140,8 +132,8 @@ protected void OnCollisionEnter(Collision collision)
                     // Verificar si la masa del objeto colisionado es al menos el doble
                     if (otroObjeto.rb.mass >= rb.mass * Masa_Aguantada)
                     {
-                    // Aquí colapsa el objeto
-                        Colapsar();
+                    // Aquí Muere la criatura
+                        Morir();
                     }
                 }
                 Velocidad2 = otroObjeto.Velocidad  * otroObjeto.rb.mass;
@@ -203,34 +195,34 @@ protected float	Calculadora_Daño(float velocidad2)
 
     }
 
-protected void	Ser_Agarrado()
-    {
+// protected void	Ser_Agarrado()
+// {
 
-    }
-protected void	Animator()
-    {
+// }
+// protected void	Animator()
+// {
 
-    }
-protected void	Optimizar()
-    {
+// }
+// protected void	Optimizar()
+//     {
 
-    }
-protected void	Informacion_Guardar()
-    {
+//     }
+// protected void	Informacion_Guardar()
+//     {
 
-    }
-protected void	Informacion_Cargar()
-    {
+//     }
+// protected void	Informacion_Cargar()
+//     {
 
-    }
-protected void	Algo_Encima()
-    {
+//     }
+// protected void	Algo_Encima()
+//     {
 
-    }
-protected void	Crecer()
-    {
+//     }
+// protected void	Crecer()
+//     {
 
-    }
+//     }
     
     
    
