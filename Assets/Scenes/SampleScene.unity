@@ -1465,8 +1465,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 2
-  NumeroDeDebris: 0
+  Vida: 5
+  NumeroDeDebris: 10
   debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &609875624
 BoxCollider:
@@ -1885,8 +1885,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 2
-  NumeroDeDebris: 0
+  Vida: 5
+  NumeroDeDebris: 3
   debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &707459205
 BoxCollider:
@@ -1968,7 +1968,7 @@ Transform:
   m_GameObject: {fileID: 707459203}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.1, y: 6.35, z: -14.740403}
+  m_LocalPosition: {x: 80.82, y: 6.35, z: -14.740403}
   m_LocalScale: {x: 5, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3537,8 +3537,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 2
-  NumeroDeDebris: 0
+  Vida: 5
+  NumeroDeDebris: 4
   debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &1905564980
 BoxCollider:
@@ -3862,7 +3862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350.8, y: 299.7}
+  m_AnchoredPosition: {x: -350.8, y: 234}
   m_SizeDelta: {x: 303.10303, y: 22.141968}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2027931173
