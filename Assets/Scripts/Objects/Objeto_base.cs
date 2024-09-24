@@ -34,39 +34,42 @@ protected Vector3 size = Vector3.one;
     // Start is called before the first frame update
 void Start()
     {
-     // Obtenemos el Rigidbody asociado
-    rb = GetComponent<Rigidbody>();
+        // Obtenemos el Rigidbody asociado
+        rb = GetComponent<Rigidbody>();
 
-    // Calculamos la masa
-    float Masa = CalcularMasa();
+        // Calculamos la masa
+        float Masa = CalcularMasa();
 
-    // Asignamos la masa al Rigidbody
-    rb.mass = Masa; 
+        // Asignamos la masa al Rigidbody
+        rb.mass = Masa; 
 
-    CalcularVida();
+        CalcularVida();
     }
 
 protected float CalcularVolumen()
 {
-Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
-return scale.x * scale.y * scale.z;
+    Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+    return scale.x * scale.y * scale.z;
 }
 
 protected void CalcularVida()
 {
-Vida = Vida * Mathf.RoundToInt(rb.mass);
+    Vida = Vida * Mathf.RoundToInt(rb.mass);
 }
 
 protected float CalcularMasa()
 {
-float volumen = CalcularVolumen();
-return volumen * Densidad;
+    float volumen = CalcularVolumen();
+    return volumen * Densidad;
 }
  
 protected void FixedUpdate()
     {
         Velocidad = rb.velocity.magnitude; // Almacena la magnitud de la velocidad
-        if (Vida<=0){Colapsar();}
+        if (Vida<=0)
+            {
+            Colapsar();
+            }
     }
 
 protected void Colapsar()

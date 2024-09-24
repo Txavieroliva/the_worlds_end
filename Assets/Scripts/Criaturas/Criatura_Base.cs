@@ -44,6 +44,7 @@ protected Vector3 size = Vector3.one;
 //Variados
 protected Rigidbody rb;
 public Kit_Habilidad KitHabilidad;
+
 protected void Usar_Kit_Habilidad(int usar) 
      {
         //return KitHabilidad.attack();
@@ -72,19 +73,19 @@ void Start()
 
 protected float CalcularVolumen()
 {
-Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
-return scale.x * scale.y * scale.z;
+    Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+    return scale.x * scale.y * scale.z;
 }
 
 protected void CalcularVida()
 {
-Vida = Vida * Mathf.RoundToInt(rb.mass);
+    Vida = Vida * Mathf.RoundToInt(rb.mass);
 }
 
 protected float CalcularMasa()
 {
-float volumen = CalcularVolumen();
-return volumen * Densidad;
+    float volumen = CalcularVolumen();
+    return volumen * Densidad;
 }
  
 protected void FixedUpdate()
@@ -158,7 +159,7 @@ protected void OnCollisionEnter(Collision collision)
 
 public void	Settear_Localizacion(string Lugar)
     {
-Lugar_De_Pertenencia = Lugar;
+        Lugar_De_Pertenencia = Lugar;
     }
 
 // protected string Idles()
