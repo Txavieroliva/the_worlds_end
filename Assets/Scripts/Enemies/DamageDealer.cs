@@ -6,15 +6,14 @@ public class DamageDealler : MonoBehaviour
 {
     [SerializeField] private float damageAmount = 20f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        Player player = other.GetComponent<Player>();
-        
+        Player player = other.gameObject.GetComponent<Player>();
+
         if(player != null)
         {
             player.TakeDamage(damageAmount);
-            //Debug.Log("Trigger si");
         }
-    }
-
+   }
 }
+

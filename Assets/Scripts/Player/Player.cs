@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform mainCamera;
     [SerializeField] Transform CameraTarget;
     [SerializeField] UI playerUI;
+    private MeleeAttack meleeAttack;
     private PlayerInput input;
     private Rigidbody rb;
     private Animator animator;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        meleeAttack = GetComponentInChildren<MeleeAttack>();
 
         if (mainCamera == null)
         {
@@ -134,15 +136,23 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        if(input.isAttacking)
+        if(input.isAttacking && !isAttacking)
         {
             isAttacking = true;
             animator.SetTrigger("attack");
+
+            meleeAttack.ActivateTrigger();
+
+            Invoke("DeactivateAttackTrigger", 1.5f);
         }
 
+    }
 
-
+    private void DeactivateAttackTrigger()
+    {
+        meleeAttack.DeactivateTrigger();
         StartCoroutine(ResetAttack());
+
     }
 
     private IEnumerator ResetAttack()

@@ -7,9 +7,10 @@ public class HealthBuilding : MonoBehaviour
 {
    [SerializeField] private float healthAmount = 10f;
 
-   private void OnTriggerEnter(Collider other)
+   private void OnCollisionEnter(Collision other)
    {
-        Player player = other.GetComponent<Player>();
+        
+        Player player = other.gameObject.GetComponent<Player>();
 
         if(player != null)
         {
