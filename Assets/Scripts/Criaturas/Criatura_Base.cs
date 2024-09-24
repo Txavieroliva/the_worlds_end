@@ -2,45 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objeto_base : MonoBehaviour
+public class Criatura_Base : MonoBehaviour
 {
+     //Strings
 protected string Identificador;
-protected string Nombre;
+public string Nombre;
 public string Lugar_De_Pertenencia;
+public string Spawner_Designado;
+public string Area_Designada;
+public string Comportamiento;
 protected string Idle;
-protected int Firmeza_Al_Suelo;
+
+//Floats
 protected float Masa_Aguantada = 2.0f;
-public float Velocidad;
-public int Vida = 2;
-public int NumeroDeDebris;
-protected int Threshold_Daño = 0;
-public GameObject debrisPrefab;
+protected float Velocidad;
 protected float spawnRadius;
 protected float explosionForce = 150f;
-// protected int Vida_Anual;
-// public bool Agarrable;
-// protected bool Diferente_Noche;
-// protected bool Diferente_Climas;
-// protected bool Crece;
-// public bool Destructible;
 protected float Masa;
 protected float Densidad = 1.0f;
-public Rigidbody rb;
 protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
 protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
 
+//Ints
+public int Vida = 2;
+public int NumeroDeDrop;
+protected int Threshold_Daño = 0;
+public GameObject DropPrefab;
+
+//booleanos
+public bool Agarrable;
+
+// protected int Vida_Anual;
+// protected bool Diferente_Noche;
+// protected bool Diferente_Climas;
+// protected bool Crece;
+
+//Variados
+protected Rigidbody rb;
+
+
+
+
 protected Vector3 size = Vector3.one;
 
-    // Start is called before the first frame update
+//     Start is called before the first frame update
 void Start()
     {
      // Obtenemos el Rigidbody asociado
     rb = GetComponent<Rigidbody>();
 
-    // Calculamos la masa
+//     Calculamos la masa
     float Masa = CalcularMasa();
 
-    // Asignamos la masa al Rigidbody
+//     Asignamos la masa al Rigidbody
     rb.mass = Masa; 
 
     CalcularVida();
@@ -71,39 +85,40 @@ protected void FixedUpdate()
 
 protected void Colapsar()
     {
-        GenerarDebris(); //Generar escombros
+        GenerarDrop(); //Generar escombros
         Destroy(gameObject);
     }
 
-protected void GenerarDebris()
+protected void GenerarDrop()
     {
-        for(int i = 0; i < NumeroDeDebris; i++)
+        for(int i = 0; i < NumeroDeDrop; i++)
         {
-            //Genera escombros en posiciones aleatorias
+          //   Genera escombros en posiciones aleatorias
             Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
             randomOffset.y = Mathf.Abs(randomOffset.y);
 
             Vector3 spawnPosition = transform.position + randomOffset;
 
-            //Instancia del escombro
-            GameObject debris = Instantiate(debrisPrefab, spawnPosition, Quaternion.identity);
+          //   Instancia del escombro
+            GameObject Drop = Instantiate(DropPrefab, spawnPosition, Quaternion.identity);
 
-            Rigidbody debrisRb = debris.GetComponent<Rigidbody>();
+            Rigidbody DropRb = Drop.GetComponent<Rigidbody>();
 
-            if(debrisRb != null)
+            if(DropRb != null)
             {
-                Vector3 explosionDirection = (debris.transform.position - transform.position).normalized;
-                debrisRb.AddForce(explosionDirection * explosionForce);
+                Vector3 explosionDirection = (Drop.transform.position - transform.position).normalized;
+                DropRb.AddForce(explosionDirection * explosionForce);
             }
         }
     }
 
+
+// protected void OnTriggerEnter(Collider collision)
 protected void OnCollisionEnter(Collision collision)
     {
-    
 
     float Velocidad2 = 0.0f;
-        // Obtenemos la velocidad del objeto colisionado
+     //    Obtenemos la velocidad del objeto colisionado
         if (collision.gameObject.GetComponent<Objeto_base>() != null)
             {
             Objeto_base otroObjeto = collision.gameObject.GetComponent<Objeto_base>();
@@ -113,7 +128,7 @@ protected void OnCollisionEnter(Collision collision)
                     Debug.Log("El objeto está encima.");
 
                     // Verificar si la masa del objeto colisionado es al menos el doble
-                    if (otroObjeto.rb.mass>= rb.mass * Masa_Aguantada)
+                    if (otroObjeto.rb.mass >= rb.mass * Masa_Aguantada)
                     {
                     // Aquí colapsa el objeto
                         Colapsar();
@@ -122,12 +137,12 @@ protected void OnCollisionEnter(Collision collision)
                 Velocidad2 = otroObjeto.Velocidad  * otroObjeto.rb.mass;
             }
 
-        // Calcula el daño en base a la velocidad y la masa en el momento del impacto
+     //    Calcula el daño en base a la velocidad y la masa en el momento del impacto
         float DañoFloat = Calculadora_Daño(Velocidad2);
 
-        // Convertimos el daño a un valor entero (redondeando)
+     //    Convertimos el daño a un valor entero (redondeando)
         int DañoInt = Mathf.RoundToInt(DañoFloat);
-
+          Debug.Log(DañoInt);
         Golpeado(DañoInt);
     }
 
@@ -165,55 +180,55 @@ protected void	Destruccion_Porcentual()
 
 protected float	Calculadora_Daño(float velocidad2)
     {
-        // Si la velocidad es menor que la mínima, aplicamos cero daño
+        //Si la velocidad es menor que la mínima, aplicamos cero daño
         if (Velocidad + velocidad2 < Velocidad_Min_Daño)
         {
             return 0f; // O ajusta un daño mínimo si prefieres
         }
 
-        // Calculamos el daño en función de la velocidad, sin exponenciación
+        //Calculamos el daño en función de la velocidad, sin exponenciación
         float Energia_kinetica = ((0.5f * (Velocidad * rb.mass)) + (0.5f * velocidad2)); // Daño proporcional a la velocidad de ambos objetos
         float Daño = Energia_kinetica * Multiplicador_De_Daño;
         return Daño;
 
     }
 
-// protected void	Ser_Agarrado()
-//     {
+protected void	Ser_Agarrado()
+    {
 
-//     }
-// protected void	Animator()
-//     {
+    }
+protected void	Animator()
+    {
 
-//     }
-// protected void	Optimizar()
-//     {
+    }
+protected void	Optimizar()
+    {
 
-//     }
-// protected void	Informacion_Guardar()
-//     {
+    }
+protected void	Informacion_Guardar()
+    {
 
-//     }
-// protected void	Informacion_Cargar()
-//     {
+    }
+protected void	Informacion_Cargar()
+    {
 
-//     }
-// protected void	Algo_Encima()
-//     {
+    }
+protected void	Algo_Encima()
+    {
 
-//     }
-// protected void	Crecer()
-//     {
+    }
+protected void	Crecer()
+    {
 
-//     }
+    }
     
     
    
 
-    // Update is called once per frame
+    //Update is called once per frame
 
     void Update()
-    {
+    {}
         
-    }
-}
+     }
+
