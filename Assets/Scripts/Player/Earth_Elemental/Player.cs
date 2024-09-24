@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
     [SerializeField] float rotSpeed;
-    [SerializeField] GameObject mainCamera;
+    [SerializeField] Transform mainCamera;
     [SerializeField] Transform CameraTarget;
     [SerializeField] UI playerUI;
     private PlayerInput input;
-    private CharacterController controller;
+    private Rigidbody rb;
     private Animator animator;
     float xRot;
     float yRot;
@@ -21,9 +21,14 @@ public class Player : MonoBehaviour
     private void Start() 
     {
         input = GetComponent<PlayerInput>();
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        //controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
 
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main.transform;  // Asignar la cámara principal si no está asignada
+        }
 
         HideMouse();
     }
@@ -31,6 +36,7 @@ public class Player : MonoBehaviour
     private void Update() 
     {
         MovePlayer();
+        RotatePlayerWithCamera();
         Attack();
     }
 
@@ -44,27 +50,77 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
     }
 
+    // Mover al Golem basado en Rigidbody
     private void MovePlayer()
     {
         if(isAttacking)
         {
             return;
         }
-
-        float speed = 0;
-        Vector3 inputDir = new Vector3(input.move.x, 0, input.move.y);
-        float playerRot = 0;
-        if(input.move != Vector2.zero)
-        {
-            speed = moveSpeed;
-            playerRot = Quaternion.LookRotation(inputDir).eulerAngles.y + mainCamera.transform.rotation.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0, playerRot, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotSpeed * Time.deltaTime);
-        }
         
-        Vector3 playerDir = Quaternion.Euler(0, playerRot, 0) * Vector3.forward;
-        animator.SetFloat("speed", input.move.magnitude);
-        controller.Move(playerDir * speed * Time.deltaTime);
+        // Obtener la dirección de movimiento en función del input del jugador
+        Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
+
+        // Si hay movimiento, aplicamos la velocidad
+        if (movement.magnitude >= 0.1f)
+        {
+            Vector3 moveDirection = GetCameraRelativeMovement(movement);  // Convertir el movimiento relativo a la cámara
+            Vector3 moveVelocity = moveDirection * moveSpeed;
+
+            // Aplicar la velocidad al Rigidbody
+            rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+
+            // Controlar la animación de movimiento
+            animator.SetFloat("speed", movement.magnitude);
+        }
+        else
+        {
+            // Si no hay movimiento, detener la animación
+            animator.SetFloat("speed", 0f);
+        }
+    }
+
+    // Girar al jugador en la dirección de la cámara
+    private void RotatePlayerWithCamera()
+    {
+        // Obtener la dirección de movimiento en función de la cámara
+        Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
+
+        // Solo rotar si hay movimiento
+        if (movement.magnitude >= 0.1f)
+        {
+            // Convertir el movimiento a la dirección relativa a la cámara
+            Vector3 moveDirection = GetCameraRelativeMovement(movement);
+        
+            // Crear la rotación objetivo basándonos en la dirección de movimiento
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+
+            // Fijar la rotación en el eje Y, manteniendo los ejes X y Z actuales
+            targetRotation.x = 0;
+            targetRotation.z = 0;
+
+            // Suavizar la rotación hacia la rotación objetivo
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
+        }
+    }
+
+    // Método para obtener el movimiento relativo a la cámara
+    private Vector3 GetCameraRelativeMovement(Vector3 inputMovement)
+    {
+        // Obtener la dirección de la cámara en el plano XZ (horizontal)
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
+
+        // Anular la componente Y de la dirección de la cámara para mantener el movimiento horizontal
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Convertir el movimiento en función de la cámara
+        Vector3 moveDirection = (cameraForward * inputMovement.z + cameraRight * inputMovement.x);
+        return moveDirection;
     }
 
     private void CameraRotation()
