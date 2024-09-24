@@ -1465,9 +1465,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 100
-  Agarrable: 0
-  Destructible: 0
+  Vida: 2
+  NumeroDeDebris: 0
+  debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &609875624
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1548,7 +1548,7 @@ Transform:
   m_GameObject: {fileID: 609875621}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 95.1, y: 3.63, z: -14.740403}
+  m_LocalPosition: {x: 95.1, y: 18.68, z: -14.740403}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1885,9 +1885,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 100
-  Agarrable: 0
-  Destructible: 0
+  Vida: 2
+  NumeroDeDebris: 0
+  debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &707459205
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3537,9 +3537,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
-  Vida: 100
-  Agarrable: 0
-  Destructible: 0
+  Vida: 2
+  NumeroDeDebris: 0
+  debrisPrefab: {fileID: 3658423021502622965, guid: f6325f524b1ab2743be9bc20e5bfd345, type: 3}
 --- !u!65 &1905564980
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4063,3 +4063,6 @@ SceneRoots:
   - {fileID: 611440468}
   - {fileID: 1386159965}
   - {fileID: 220495462}
+  - {fileID: 609875627}
+  - {fileID: 707459208}
+  - {fileID: 1905564983}

@@ -25,12 +25,10 @@ public class MeleeAttack : MonoBehaviour
     public void ActivateTrigger()
     {
         canDealDmg = true;
-        Debug.Log("Activado");
     }
 
     public void DeactivateTrigger()
     {
         canDealDmg = false;
-        Debug.Log("Nao Nao");
     }
 }

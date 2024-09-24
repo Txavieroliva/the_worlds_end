@@ -20,7 +20,6 @@ public class StructureBase : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log("Recibio daño");
 
         if(currentHealth <= 0)
         {

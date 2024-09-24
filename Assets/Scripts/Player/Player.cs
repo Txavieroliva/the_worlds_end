@@ -181,7 +181,6 @@ public class Player : MonoBehaviour
         if(playerUI.health <= 0)
         {
             endGame(); //finaliza el juego si la vida llega a 0 o menos
-            Debug.Log("muelte");
         }
     }
 
@@ -189,7 +188,6 @@ public class Player : MonoBehaviour
     {
         Time.timeScale = 0;
         //Application.Quit(); // Sale del juego cuando se buildee
-        Debug.Log("muelte diablo");
     }
 
     public void cureWounds(float amount)

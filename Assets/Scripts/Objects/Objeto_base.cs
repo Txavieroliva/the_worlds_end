@@ -9,10 +9,14 @@ protected string Nombre;
 public string Lugar_De_Pertenencia;
 protected string Idle;
 protected int Firmeza_Al_Suelo;
-protected int Masa_Aguantada;
+protected float Masa_Aguantada = 2.0f;
 protected float Velocidad;
-public int Vida;
+public int Vida = 2;
+public int NumeroDeDebris;
 protected int Threshold_Daño = 0;
+public GameObject debrisPrefab;
+protected float spawnRadius;
+protected float explosionForce = 150f;
 // protected int Vida_Anual;
 // public bool Agarrable;
 // protected bool Diferente_Noche;
@@ -62,15 +66,59 @@ return volumen * Densidad;
 protected void FixedUpdate()
     {
         Velocidad = rb.velocity.magnitude; // Almacena la magnitud de la velocidad
+        if (Vida<=0){Colapsar();}
     }
 
-private void OnCollisionEnter(Collision collision)
+protected void Colapsar()
     {
+        GenerarDebris(); //Generar escombros
+        Destroy(gameObject);
+    }
+
+protected void GenerarDebris()
+    {
+        for(int i = 0; i < NumeroDeDebris; i++)
+        {
+            //Genera escombros en posiciones aleatorias
+            Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
+            randomOffset.y = Mathf.Abs(randomOffset.y);
+
+            Vector3 spawnPosition = transform.position + randomOffset;
+
+            //Instancia del escombro
+            GameObject debris = Instantiate(debrisPrefab, spawnPosition, Quaternion.identity);
+
+            Rigidbody debrisRb = debris.GetComponent<Rigidbody>();
+
+            if(debrisRb != null)
+            {
+                Vector3 explosionDirection = (debris.transform.position - transform.position).normalized;
+                debrisRb.AddForce(explosionDirection * explosionForce);
+            }
+        }
+    }
+
+protected void OnCollisionEnter(Collision collision)
+    {
+    
+
     float Velocidad2 = 0.0f;
         // Obtenemos la velocidad del objeto colisionado
         if (collision.gameObject.GetComponent<Objeto_base>() != null)
             {
-                Objeto_base otroObjeto = collision.gameObject.GetComponent<Objeto_base>();
+            Objeto_base otroObjeto = collision.gameObject.GetComponent<Objeto_base>();
+
+                if (collision.transform.position.y > transform.position.y)
+                {
+                    Debug.Log("El objeto está encima.");
+
+                    // Verificar si la masa del objeto colisionado es al menos el doble
+                    if (otroObjeto.rb.mass>= rb.mass * Masa_Aguantada)
+                    {
+                    // Aquí colapsa el objeto
+                        Colapsar();
+                    }
+                }
                 Velocidad2 = otroObjeto.Velocidad  * otroObjeto.rb.mass;
             }
 
