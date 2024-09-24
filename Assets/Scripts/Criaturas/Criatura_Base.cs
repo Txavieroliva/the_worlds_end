@@ -25,6 +25,7 @@ protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el da
 
 //Ints
 public int Vida = 2;
+public int Nivel;
 public int NumeroDeDrop;
 protected int Threshold_Daño = 0;
 public GameObject DropPrefab;
@@ -32,22 +33,27 @@ public GameObject DropPrefab;
 //booleanos
 public bool Agarrable;
 
-// protected int Vida_Anual;
-// protected bool Diferente_Noche;
-// protected bool Diferente_Climas;
-// protected bool Crece;
+protected int Vida_Anual;
+protected bool Diferente_Noche;
+protected bool Diferente_Climas;
+protected bool Crece;
+
+//vectores
+protected Vector3 size = Vector3.one;
 
 //Variados
 protected Rigidbody rb;
 public Kit_Habilidad KitHabilidad;
+protected Usar_Kit_Habilidad(int usar)
+     {
+          return KitHabilidad.attack();
+          if(Nivel > 1)  {KitHabilidad.Habilidad1();}
+          if(Nivel > 2)  {KitHabilidad.Habilidad2();}
+          if(Nivel > 3)  {KitHabilidad.Habilidad3();}
+
+     }
 public Kit_Racial KitRacial;
 public Kit_Equipamiento KitEquipamiento;
-
-
-
-
-
-protected Vector3 size = Vector3.one;
 
 //     Start is called before the first frame update
 void Start()
