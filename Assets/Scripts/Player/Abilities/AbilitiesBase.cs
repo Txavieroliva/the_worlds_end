@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilitiesBase : MonoBehaviour
+public abstract class AbilitiesBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float cooldown; // Cooldown de la habilidad
+    protected bool isOnCooldown; // Verifica si la habilidad esta en cooldown
 
-    // Update is called once per frame
-    void Update()
+    public abstract void UseAbiliti(); // Metodo abstracto implementado en cada habilidad especifica.
+
+    public IEnumerator StartCooldown() // Metodo que inicia el cooldown
     {
-        
+        isOnCooldown = true;
+        yield return new WaitForSeconds(cooldown);
+        isOnCooldown = false;
     }
 }
