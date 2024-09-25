@@ -43,9 +43,8 @@ protected Vector3 size = Vector3.one;
 
 //Variados
 protected Rigidbody rb;
-public Kit_Habilidad KitHabilidad;
-public Kit_Racial KitRacial;
-public Kit_Equipamiento KitEquipamiento;
+public Reaccion_Base estado;
+public Pathing_Base camino;
 
 //     Start is called before the first frame update
 void Start()
@@ -64,19 +63,19 @@ void Start()
 
 protected float CalcularVolumen()
 {
-Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
-return scale.x * scale.y * scale.z;
+    Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+    return scale.x * scale.y * scale.z;
 }
 
 protected void CalcularVida()
 {
-Vida = Vida * Mathf.RoundToInt(rb.mass);
+    Vida = Vida * Mathf.RoundToInt(rb.mass);
 }
 
 protected float CalcularMasa()
 {
-float volumen = CalcularVolumen();
-return volumen * Densidad;
+    float volumen = CalcularVolumen();
+    return volumen * Densidad;
 }
  
 protected void FixedUpdate()
@@ -150,7 +149,7 @@ protected void OnCollisionEnter(Collision collision)
 
 public void	Settear_Localizacion(string Lugar)
     {
-Lugar_De_Pertenencia = Lugar;
+        Lugar_De_Pertenencia = Lugar;
     }
 
 // protected string Idles()

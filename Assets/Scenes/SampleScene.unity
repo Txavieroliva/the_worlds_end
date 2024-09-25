@@ -158,6 +158,7 @@ MonoBehaviour:
   Area_Designada: 
   Comportamiento: 
   Vida: 2
+  Nivel: 0
   NumeroDeDrop: 1
   DropPrefab: {fileID: 144681596}
   Agarrable: 0
@@ -2515,7 +2516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 199.70001, y: -66.399994}
+  m_AnchoredPosition: {x: 200, y: -65}
   m_SizeDelta: {x: 303.1, y: 22.142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1134071929
@@ -3988,9 +3989,9 @@ RectTransform:
   - {fileID: 832817524}
   m_Father: {fileID: 611440468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350.8, y: 234}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 200, y: -35}
   m_SizeDelta: {x: 303.10303, y: 22.141968}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2027931173
@@ -4113,7 +4114,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1432951499188351216, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.883766
+      value: -30.374
       objectReference: {fileID: 0}
     - target: {fileID: 1432951499188351216, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4121,7 +4122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1432951499188351216, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.825658
+      value: -9.774
       objectReference: {fileID: 0}
     - target: {fileID: 1432951499188351216, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_LocalRotation.w
