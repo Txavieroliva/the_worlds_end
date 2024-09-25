@@ -3012,7 +3012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       propertyPath: m_Name
-      value: PlayerObj
+      value: Golem
       objectReference: {fileID: 0}
     - target: {fileID: 3816863980220602051, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       propertyPath: m_LocalScale.x
