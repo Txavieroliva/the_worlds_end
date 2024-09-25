@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Criatura_Base : MonoBehaviour
 {
-     //Strings
+//Strings
 protected string Identificador;
 public string Nombre;
 public string Lugar_De_Pertenencia;
@@ -46,7 +47,7 @@ protected Rigidbody rb;
 public Reaccion_Base estado;
 public Pathing_Base camino;
 
-//     Start is called before the first frame update
+//Start is called before the first frame update
 void Start()
     {
      // Obtenemos el Rigidbody asociado
