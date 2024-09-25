@@ -10,18 +10,21 @@ public class Abilities : MonoBehaviour
     public Text Ability1Text;
     public KeyCode Ability1Key;
     public float Ability1Cooldown = 5;
+    public AbilityBase ability1;
 
     [Header("Ability 2")]
     public Image Ability2Image;
     public Text Ability2Text;
     public KeyCode Ability2Key;
     public float Ability2Cooldown = 7;
+    public AbilityBase ability2;
 
     [Header("Ability 3")]
     public Image Ability3Image;
     public Text Ability3Text;
     public KeyCode Ability3Key;
     public float Ability3Cooldown = 15;
+    public AbilityBase ability3;
 
 
     private bool isAbility1Cooldown = false;
@@ -62,7 +65,9 @@ public class Abilities : MonoBehaviour
         {
             isAbility1Cooldown = true;
             currentAbility1Cooldown = Ability1Cooldown;
-            Debug.Log("AHHHHHH");
+            Debug.Log("Get Over Here!");
+
+            ability1.UseAbility();
         }
     }
     
@@ -72,6 +77,8 @@ public class Abilities : MonoBehaviour
         {
             isAbility2Cooldown = true;
             currentAbility2Cooldown = Ability2Cooldown;
+
+            ability2.UseAbility();
         }
     }
     
@@ -81,6 +88,8 @@ public class Abilities : MonoBehaviour
         {
             isAbility3Cooldown = true;
             currentAbility3Cooldown = Ability3Cooldown;
+
+            ability3.UseAbility();
         }
     }
 

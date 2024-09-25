@@ -18,7 +18,7 @@ public class RockSpear : AbilityBase
     {
         if(!isOnCooldown)
         {
-            animator.SetTrigger("throwSpear");
+            //animator.SetTrigger("throwSpear");
 
             GameObject spear = Instantiate(spearPrefab, spearSpawnPoint.position, spearSpawnPoint.rotation);
             Rigidbody rb = spear.GetComponent<Rigidbody>();
