@@ -1178,7 +1178,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 67.76, y: 3.35, z: -28.26}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 894592740}
@@ -1202,6 +1202,9 @@ MonoBehaviour:
   mainCamera: {fileID: 1912747152}
   CameraTarget: {fileID: 606148042}
   playerUI: {fileID: 611440469}
+  Densidad: 100
+  rb: {fileID: 546962225}
+  Vida: 1
 --- !u!114 &546962222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,17 +1265,14 @@ MonoBehaviour:
   Ability1Image: {fileID: 193045031}
   Ability1Text: {fileID: 302884654}
   Ability1Key: 113
-  Ability1Cooldown: 5
   ability1: {fileID: 894592743}
   Ability2Image: {fileID: 489296500}
   Ability2Text: {fileID: 58933980}
   Ability2Key: 101
-  Ability2Cooldown: 7
   ability2: {fileID: 0}
   Ability3Image: {fileID: 429007918}
   Ability3Text: {fileID: 1254793153}
   Ability3Key: 114
-  Ability3Cooldown: 15
   ability3: {fileID: 0}
 --- !u!54 &546962225
 Rigidbody:
@@ -1678,7 +1678,7 @@ MonoBehaviour:
   transHealthSlider: {fileID: 780245131}
   manaSlider: {fileID: 1824933975}
   transManaSlider: {fileID: 1775555819}
-  maxHealth: 100
+  maxHealth: 50
   health: 0
   maxMana: 100
   mana: 0
@@ -2403,9 +2403,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 5
-  spearPrefab: {fileID: 330224033529842155, guid: 1f7ac51b33d26db4b8ef33226ab5cf1c, type: 3}
-  spearSpawnPoint: {fileID: 2060149716}
-  spearSpeed: 50
+  lanzaPrefab: {fileID: 330224033529842155, guid: 1f7ac51b33d26db4b8ef33226ab5cf1c, type: 3}
+  lanzaSpawnPoint: {fileID: 2060149716}
+  velocidadLanza: 50
+  player: {fileID: 546962220}
 --- !u!1 &1060905551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4024,13 +4025,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060149715}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 3.77, y: 10.27, z: -2.81}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: -3.17, y: 10.27, z: -4.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 894592740}
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: -180}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
 --- !u!1 &2134809745
 GameObject:
   m_ObjectHideFlags: 0

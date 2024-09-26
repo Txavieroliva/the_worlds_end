@@ -11,13 +11,16 @@ public class Player : MonoBehaviour
     [SerializeField] Transform mainCamera;
     [SerializeField] Transform CameraTarget;
     [SerializeField] UI playerUI;
+    [SerializeField] float Densidad;
     private MeleeAttack meleeAttack;
     private PlayerInput input;
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Animator animator;
     float xRot;
     float yRot;
     bool isAttacking;
+    public float Vida;
+    
 
     private void Start() 
     {
@@ -33,6 +36,10 @@ public class Player : MonoBehaviour
         }
 
         HideMouse();
+
+        CalcularMasa();
+        CalcularVidaMax();
+        CalcularTamaño();
     }
 
     private void Update() 
@@ -40,6 +47,7 @@ public class Player : MonoBehaviour
         MovePlayer();
         RotatePlayerWithCamera();
         Attack();
+
     }
 
     private void LateUpdate() {
@@ -157,7 +165,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(2.5f);
 
         isAttacking = false;
         input.isAttacking = false;
@@ -166,6 +174,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(float amount)
     {
         playerUI.health -= amount; //actualiza la vida en la UI
+        playerUI.maxHealth -= amount;
         if(playerUI.health < 0)
         {
             playerUI.health = 0;
@@ -173,7 +182,8 @@ public class Player : MonoBehaviour
         }
         //Debug.Log("Recibo: " + amount + " de daño");
 
-        
+        CalcularTamaño();
+        //CalcularMasa();
     }
 
     private void checkDeath()
@@ -193,5 +203,55 @@ public class Player : MonoBehaviour
     public void cureWounds(float amount)
     {
         playerUI.health += amount;
+
+        if(playerUI.health > playerUI.maxHealth)
+        {
+            playerUI.maxHealth = playerUI.health;
+        }
+
+        CalcularTamaño();
+        CalcularMasa();
+
+    }
+
+    public float CalcularVolumen()
+    {
+        Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+        return scale.x;
+    }
+
+    public void CalcularVidaMax()
+    {
+        Vida = Mathf.RoundToInt(rb.mass);
+        playerUI.maxHealth = Vida;
+    }
+
+    public void CalcularVidaAct()
+    {
+        Vida = Mathf.RoundToInt(rb.mass);
+        playerUI.health = Vida;
+    }
+
+    public void CalcularMasa()
+    {
+        float volumen = CalcularVolumen();
+        rb.mass = volumen * Densidad;
+        
+        CalcularVidaAct();
+    }
+
+    public void CambiarTamaño(Vector3 escalaFinal)
+    {
+        transform.localScale = escalaFinal;
+    }
+
+    public void CalcularTamaño()
+    {
+        float vidaInc = 100;
+
+        float escala =  playerUI.maxHealth / vidaInc;
+        Vector3 escalaVec = new Vector3(escala, escala, escala);
+
+        CambiarTamaño(escalaVec);
     }
 }
