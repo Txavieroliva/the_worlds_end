@@ -170,6 +170,7 @@ public override void	Golpeado(int daño)
     {
 if (daño > Threshold_Daño)
 {
+    Debug.Log(daño);
     Vida = Vida - daño;
    Destruccion_Porcentual();
 }
