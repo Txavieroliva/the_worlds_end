@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objeto_base : MonoBehaviour
+public class Objeto_base : Base
 {
 protected string Identificador;
 protected string Nombre;
@@ -152,7 +152,7 @@ Lugar_De_Pertenencia = Lugar;
 
 //     }
 
-protected void	Golpeado(int daño)
+public override void	Golpeado(int daño)
     {
 if (daño > Threshold_Daño)
 {
