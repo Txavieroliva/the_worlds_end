@@ -10,7 +10,7 @@ public class UI : MonoBehaviour
    [SerializeField] Slider transHealthSlider;
    [SerializeField] Slider manaSlider;
    [SerializeField] Slider transManaSlider;
-   public float maxHealth = 100f;
+   public float maxHealth;
    public float health;
    public float maxMana = 100f;
    public float mana;
@@ -38,12 +38,6 @@ public class UI : MonoBehaviour
         {
             healthSlider.value = health;
         }
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            takeDamage(10);
-        }
-
    }
 
    private void healthTransition()
@@ -78,10 +72,5 @@ public class UI : MonoBehaviour
    private void useMana(float energy)
    {
      mana -= energy;
-   }
-
-   private void takeDamage(float damage)
-   {
-        health -= damage;
    }
 }

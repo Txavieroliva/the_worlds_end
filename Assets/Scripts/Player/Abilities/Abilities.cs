@@ -9,19 +9,19 @@ public class Abilities : MonoBehaviour
     public Image Ability1Image;
     public Text Ability1Text;
     public KeyCode Ability1Key;
-    public float Ability1Cooldown = 5;
+    public AbilityBase ability1;
 
     [Header("Ability 2")]
     public Image Ability2Image;
     public Text Ability2Text;
     public KeyCode Ability2Key;
-    public float Ability2Cooldown = 7;
+    public AbilityBase ability2;
 
     [Header("Ability 3")]
     public Image Ability3Image;
     public Text Ability3Text;
     public KeyCode Ability3Key;
-    public float Ability3Cooldown = 15;
+    public AbilityBase ability3;
 
 
     private bool isAbility1Cooldown = false;
@@ -48,12 +48,12 @@ public class Abilities : MonoBehaviour
     void Update()
     {
         Ability1Input();
-        Ability2Input();
-        Ability3Input();
+        // Ability2Input();
+        // Ability3Input();
 
-        AbilityCooldown(ref currentAbility1Cooldown, Ability1Cooldown, ref isAbility1Cooldown, Ability1Image, Ability1Text);
-        AbilityCooldown(ref currentAbility2Cooldown, Ability2Cooldown, ref isAbility2Cooldown, Ability2Image, Ability2Text);
-        AbilityCooldown(ref currentAbility3Cooldown, Ability3Cooldown, ref isAbility3Cooldown, Ability3Image, Ability3Text);
+        AbilityCooldown(ref currentAbility1Cooldown, ability1.cooldown, ref isAbility1Cooldown, Ability1Image, Ability1Text);
+        //AbilityCooldown(ref currentAbility2Cooldown, ability2.cooldown, ref isAbility2Cooldown, Ability2Image, Ability2Text);
+       // AbilityCooldown(ref currentAbility3Cooldown, ability3.cooldown, ref isAbility3Cooldown, Ability3Image, Ability3Text);
     }
 
     private void Ability1Input()
@@ -61,28 +61,34 @@ public class Abilities : MonoBehaviour
         if(Input.GetKeyDown(Ability1Key) && !isAbility1Cooldown)
         {
             isAbility1Cooldown = true;
-            currentAbility1Cooldown = Ability1Cooldown;
-            Debug.Log("AHHHHHH");
+            currentAbility1Cooldown = ability1.cooldown;
+            Debug.Log("Get Over Here!");
+
+            ability1.UseAbility();
         }
     }
     
-    private void Ability2Input()
-    {
-        if(Input.GetKeyDown(Ability2Key) && !isAbility2Cooldown)
-        {
-            isAbility2Cooldown = true;
-            currentAbility2Cooldown = Ability2Cooldown;
-        }
-    }
+    // private void Ability2Input()
+    // {
+    //     if(Input.GetKeyDown(Ability2Key) && !isAbility2Cooldown)
+    //     {
+    //         isAbility2Cooldown = true;
+    //         currentAbility2Cooldown = ability2.cooldown;
+
+    //         ability2.UseAbility();
+    //     }
+    // }
     
-    private void Ability3Input()
-    {
-        if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown)
-        {
-            isAbility3Cooldown = true;
-            currentAbility3Cooldown = Ability3Cooldown;
-        }
-    }
+    // private void Ability3Input()
+    // {
+    //     if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown)
+    //     {
+    //         isAbility3Cooldown = true;
+    //         currentAbility3Cooldown = ability3.cooldown;
+
+    //         ability3.UseAbility();
+    //     }
+    // }
 
    private void AbilityCooldown(ref float currentCooldown, float maxCooldown, ref bool isCooldown, Image skillImage, Text skillText)
     {
