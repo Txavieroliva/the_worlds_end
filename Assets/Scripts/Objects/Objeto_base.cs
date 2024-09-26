@@ -54,7 +54,7 @@ protected float CalcularVolumen()
 
 protected void CalcularVida()
 {
-    Vida = Vida * Mathf.RoundToInt(rb.mass);
+    Vida = Mathf.RoundToInt(rb.mass);
 }
 
 protected float CalcularMasa()
