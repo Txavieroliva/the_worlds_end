@@ -12,7 +12,7 @@ protected int Firmeza_Al_Suelo;
 protected float Masa_Aguantada = 2.0f;
 public float Velocidad;
 public int Vida = 2;
-public int NumeroDeDebris;
+protected int NumeroDeDebris;
 protected int Threshold_Daño = 0;
 public GameObject debrisPrefab;
 protected float spawnRadius;
@@ -80,6 +80,8 @@ protected void Colapsar()
 
 protected void GenerarDebris()
     {
+        NumeroDeDebris = Mathf.FloorToInt(rb.mass / 50f);
+
         for(int i = 0; i < NumeroDeDebris; i++)
         {
             //Genera escombros en posiciones aleatorias
