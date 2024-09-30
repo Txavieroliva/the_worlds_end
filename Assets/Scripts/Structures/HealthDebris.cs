@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class HealthBuilding : MonoBehaviour
+public class Debris : MonoBehaviour
 {
    [SerializeField] private float healthAmount = 10f;
 
+   public void Dar_Material(Material mater)
+   {
+    GetComponent<Renderer>().material = mater;
+   }
    private void OnCollisionEnter(Collision other)
    {
         
