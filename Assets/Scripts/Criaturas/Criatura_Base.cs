@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Criatura_Base : MonoBehaviour
+public class Criatura_Base : Base
 {
 //Strings
 protected string Identificador;
@@ -166,10 +166,11 @@ public void	Settear_Localizacion(string Lugar)
 
 //     }
 
-protected void	Golpeado(int daño)
+public override void	Golpeado(int daño)
     {
 if (daño > Threshold_Daño)
 {
+    Debug.Log(daño);
     Vida = Vida - daño;
    Destruccion_Porcentual();
 }
