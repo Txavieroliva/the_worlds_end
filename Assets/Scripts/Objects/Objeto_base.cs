@@ -78,7 +78,7 @@ protected void Colapsar()
         Destroy(gameObject);
     }
 
-protected void GenerarDebris()
+protected virtual void GenerarDebris()
     {
         NumeroDeDebris = Mathf.FloorToInt(rb.mass / 50f);
 
