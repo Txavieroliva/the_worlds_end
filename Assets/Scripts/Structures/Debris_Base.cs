@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Debris : MonoBehaviour
 {
-   [SerializeField] private float healthAmount = 10f;
+   [SerializeField] private float healthAmount;
 
    protected virtual void Awake()
    {
@@ -16,6 +16,12 @@ public class Debris : MonoBehaviour
    {
     GetComponent<Renderer>().material = mater;
    }
+
+   protected float CalcularVolumen()
+{
+    Vector3 scale = transform.localScale; // Obtenemos la escala del objeto en la escena
+    return scale.x * scale.y * scale.z;
+}
    private void OnCollisionEnter(Collision other)
    {
         
@@ -23,7 +29,7 @@ public class Debris : MonoBehaviour
 
         if(player != null)
         {
-            player.cureWounds(healthAmount);
+            player.cureWounds(CalcularVolumen() * 2f);
             Destroy(gameObject);
         }
    }

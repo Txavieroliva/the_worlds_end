@@ -72,7 +72,7 @@ protected void FixedUpdate()
             }
     }
 
-protected void Colapsar()
+protected virtual void Colapsar()
     {
         GenerarDebris(); //Generar escombros
         Destroy(gameObject);
@@ -163,7 +163,7 @@ if (daño > Threshold_Daño)
 }
     }
 
-protected void	Destruccion_Porcentual()
+protected virtual void	Destruccion_Porcentual()
     {
 
     }

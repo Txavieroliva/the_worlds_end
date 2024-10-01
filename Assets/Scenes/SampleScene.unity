@@ -3611,7 +3611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 792431d161d8a9e4e91a7b6868fa3fba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 792431d161d8a9e4e91a7b6868fa3fba, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3963,7 +3963,6 @@ MonoBehaviour:
   Vida: 2
   debrisPrefab: {fileID: 3658423021502622965, guid: 372dad7619c6e224fb63a40233213ef4, type: 3}
   spawnRadius: 0
-  Densidad: 500
   rb: {fileID: 1516388226}
   debrisPrefab1: {fileID: 3658423021502622965, guid: 3eac1238b15aee942995f7a8925b051d, type: 3}
   Debris_Madera: 5
@@ -5334,9 +5333,7 @@ MonoBehaviour:
   Vida: 2
   debrisPrefab: {fileID: 3658423021502622965, guid: 372dad7619c6e224fb63a40233213ef4, type: 3}
   spawnRadius: 0
-  Densidad: 20
   rb: {fileID: 6713207668944622677}
-  Densidad: 5
 --- !u!23 &6785496814175386226
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5446,9 +5443,7 @@ MonoBehaviour:
   Vida: 2
   debrisPrefab: {fileID: 3658423021502622965, guid: 372dad7619c6e224fb63a40233213ef4, type: 3}
   spawnRadius: 0
-  Densidad: 20
   rb: {fileID: 6785496814175386228}
-  Densidad: 5
 --- !u!4 &7419168487636688129
 Transform:
   m_ObjectHideFlags: 0
@@ -5530,9 +5525,7 @@ MonoBehaviour:
   Vida: 2
   debrisPrefab: {fileID: 3658423021502622965, guid: 372dad7619c6e224fb63a40233213ef4, type: 3}
   spawnRadius: 0
-  Densidad: 20
   rb: {fileID: 7419168487636688131}
-  Densidad: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
