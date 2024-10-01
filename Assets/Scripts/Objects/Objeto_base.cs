@@ -15,8 +15,8 @@ public int Vida = 2;
 protected int NumeroDeDebris;
 protected int Threshold_Daño = 0;
 public GameObject debrisPrefab;
-protected float spawnRadius;
-protected float explosionForce = 150f;
+public float spawnRadius;
+protected float explosionForce = 0f;
 // protected int Vida_Anual;
 // public bool Agarrable;
 // protected bool Diferente_Noche;
@@ -24,7 +24,7 @@ protected float explosionForce = 150f;
 // protected bool Crece;
 // public bool Destructible;
 protected float Masa;
-protected float Densidad = 1.0f;
+protected float Densidad = 100.0f;
 public Rigidbody rb;
 protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
 protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
@@ -72,13 +72,13 @@ protected void FixedUpdate()
             }
     }
 
-protected void Colapsar()
+protected virtual void Colapsar()
     {
         GenerarDebris(); //Generar escombros
         Destroy(gameObject);
     }
 
-protected void GenerarDebris()
+protected virtual void GenerarDebris()
     {
         NumeroDeDebris = Mathf.FloorToInt(rb.mass / 50f);
 
@@ -163,7 +163,7 @@ if (daño > Threshold_Daño)
 }
     }
 
-protected void	Destruccion_Porcentual()
+protected virtual void	Destruccion_Porcentual()
     {
 
     }
