@@ -24,7 +24,7 @@ protected float explosionForce = 0f;
 // protected bool Crece;
 // public bool Destructible;
 protected float Masa;
-public float Densidad = 1.0f;
+protected float Densidad = 100.0f;
 public Rigidbody rb;
 protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
 protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
