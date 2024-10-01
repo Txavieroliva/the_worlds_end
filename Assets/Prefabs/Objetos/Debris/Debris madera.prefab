@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8646037886286995048}
   - component: {fileID: 755676545528637132}
   - component: {fileID: 4063779720080871833}
-  - component: {fileID: 2369515258131816622}
   - component: {fileID: 5100793427579556744}
+  - component: {fileID: 6535689759464909411}
   m_Layer: 0
   m_Name: Debris madera
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1.2435, y: 1.2435, z: 1.2435}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,19 +113,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &2369515258131816622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3658423021502622965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f90fc631025103469f127e231c3e20c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthAmount: 10
 --- !u!64 &5100793427579556744
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -148,3 +135,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6535689759464909411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3658423021502622965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c532e1c528ade8a40aeaebf7e0e403a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthAmount: 10

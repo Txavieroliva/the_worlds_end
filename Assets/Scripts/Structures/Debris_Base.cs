@@ -7,6 +7,11 @@ public class Debris : MonoBehaviour
 {
    [SerializeField] private float healthAmount = 10f;
 
+   protected virtual void Awake()
+   {
+    Vector3 vecty = new Vector3(Random.Range(1,3), Random.Range(1,3), Random.Range(1,3));
+    transform.localScale = vecty; // Obtenemos la escala del objeto en la escena
+   }
    public void Dar_Material(Material mater)
    {
     GetComponent<Renderer>().material = mater;
