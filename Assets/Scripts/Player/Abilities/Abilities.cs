@@ -25,8 +25,8 @@ public class Abilities : MonoBehaviour
 
 
     private bool isAbility1Cooldown = false;
-    private bool isAbility2Cooldown = false;
-    private bool isAbility3Cooldown = false;
+    //private bool isAbility2Cooldown = false;
+    //private bool isAbility3Cooldown = false;
 
     private float currentAbility1Cooldown;
     private float currentAbility2Cooldown;

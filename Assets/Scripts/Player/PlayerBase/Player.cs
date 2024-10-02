@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     float yRot;
     bool isAttacking;
     public float Vida;
+    public float manaRegen = 1f;
+    public float costoManaMelee = 10.0f;
     
 
     private void Start() 
@@ -47,11 +49,11 @@ public class Player : MonoBehaviour
         MovePlayer();
         RotatePlayerWithCamera();
         Attack();
-
     }
 
     private void LateUpdate() {
         CameraRotation();
+        RegenerarMana();
     }
 
     private void HideMouse()
@@ -63,31 +65,28 @@ public class Player : MonoBehaviour
     // Mover al Golem basado en Rigidbody
     private void MovePlayer()
     {
-        if(isAttacking)
-        {
-            return;
-        }
+            // Obtener la dirección de movimiento en función del input del jugador
+            Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
+
+            // Si hay movimiento, aplicamos la velocidad
+            if (movement.magnitude >= 0.1f)
+            {
+                Vector3 moveDirection = GetCameraRelativeMovement(movement);  // Convertir el movimiento relativo a la cámara
+                Vector3 moveVelocity = moveDirection * moveSpeed;
+
+                // Aplicar la velocidad al Rigidbody
+                rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+
+                // Controlar la animación de movimiento
+                animator.SetFloat("speed", movement.magnitude);
+            }
+            else
+            {
+                // Si no hay movimiento, detener la animación
+                animator.SetFloat("speed", 0f);
+            }
         
-        // Obtener la dirección de movimiento en función del input del jugador
-        Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
-
-        // Si hay movimiento, aplicamos la velocidad
-        if (movement.magnitude >= 0.1f)
-        {
-            Vector3 moveDirection = GetCameraRelativeMovement(movement);  // Convertir el movimiento relativo a la cámara
-            Vector3 moveVelocity = moveDirection * moveSpeed;
-
-            // Aplicar la velocidad al Rigidbody
-            rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
-
-            // Controlar la animación de movimiento
-            animator.SetFloat("speed", movement.magnitude);
-        }
-        else
-        {
-            // Si no hay movimiento, detener la animación
-            animator.SetFloat("speed", 0f);
-        }
+        
     }
 
     // Girar al jugador en la dirección de la cámara
@@ -144,28 +143,36 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        if(input.isAttacking && !isAttacking)
+        if(input.isAttacking && !isAttacking && playerUI.mana >= costoManaMelee)
         {
             isAttacking = true;
-            animator.SetTrigger("attack");
+            animator.SetBool("attack", true);
 
+            playerUI.useMana(costoManaMelee);
             meleeAttack.ActivateTrigger();
 
-            Invoke("DeactivateAttackTrigger", 1.5f);
+            StartCoroutine(finalDeAtaque());
         }
 
     }
 
-    private void DeactivateAttackTrigger()
+    private void RegenerarMana()
     {
-        meleeAttack.DeactivateTrigger();
-        StartCoroutine(ResetAttack());
-
+        if(playerUI.mana < playerUI.maxMana)
+        {
+            playerUI.mana += manaRegen * Time.deltaTime;
+            playerUI.mana = Mathf.Clamp(playerUI.mana, 0, playerUI.maxMana);
+        }
     }
 
-    private IEnumerator ResetAttack()
+    private IEnumerator finalDeAtaque()
     {
-        yield return new WaitForSeconds(2.5f);
+        AnimatorStateInfo infoEstAtq = animator.GetCurrentAnimatorStateInfo(0);
+        
+        yield return new WaitForSeconds(infoEstAtq.length);
+
+        animator.SetBool("attack", false);
+        meleeAttack.DeactivateTrigger();
 
         isAttacking = false;
         input.isAttacking = false;

@@ -54,11 +54,6 @@ public class UI : MonoBehaviour
      {
           manaSlider.value = mana;
      }
-
-     if(Input.GetKeyDown(KeyCode.Mouse0))
-     {
-          useMana(15);
-     }
    }
 
    private void manaTransition()
@@ -69,8 +64,12 @@ public class UI : MonoBehaviour
      }
    }
 
-   private void useMana(float energy)
+   public void useMana(float energy)
    {
      mana -= energy;
+     if(mana < 0)
+     {
+          mana = 0;
+     }
    }
 }
