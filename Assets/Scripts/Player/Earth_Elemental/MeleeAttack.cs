@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
-    public float meleeDamage = 25f;
+    public int meleeDamage;
     private bool canDealDmg = false;
+    private Base basex;
+    public Rigidbody rb;
 
+private void calcular_dano()
+    {
+        meleeDamage = (Mathf.RoundToInt(rb.mass));
+    }
     private void OnTriggerEnter(Collider other)
     {
-        //Hace daño unicamente cuando se activa
+        calcular_dano();
+        Debug.Log(other);
+
+        // Hace daño unicamente cuando se activa
         if(canDealDmg)
         {
-            StructureBase structure = other.GetComponent<StructureBase>();
+            basex = other.GetComponentInParent<Base>();
+            ///other.GetComponentInParent.<Base>();
 
-            if(structure != null)
+
+            if( basex != null)  
             {
-                structure.TakeDamage(meleeDamage);
-                Debug.Log("Hit");
+                basex.Golpeado(meleeDamage);
             }
         }
     }

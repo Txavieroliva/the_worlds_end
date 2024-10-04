@@ -41,7 +41,7 @@ public class RockSpear : AbilityBase
 
         if(lanzaScript != null)
         {
-            lanzaScript.Lanzar(direction);
+            lanzaScript.Lanzar(direction, player);
             player.TakeDamage(10);
         }
     }
