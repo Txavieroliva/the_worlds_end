@@ -1484,7 +1484,7 @@ Transform:
   m_GameObject: {fileID: 546962217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.76, y: 3.35, z: -28.26}
+  m_LocalPosition: {x: 68.96, y: 3.688, z: -28.26}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1512,6 +1512,8 @@ MonoBehaviour:
   Densidad: 100
   rb: {fileID: 546962225}
   Vida: 1
+  manaRegen: 0.5
+  costoManaMelee: 10
 --- !u!114 &546962222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,10 +1571,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db55f6b57dfe544498ab98cb1e2c7aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUI: {fileID: 611440469}
   Ability1Image: {fileID: 193045031}
   Ability1Text: {fileID: 302884654}
   Ability1Key: 113
   ability1: {fileID: 894592743}
+  costeManaAbility1: 20
   Ability2Image: {fileID: 489296500}
   Ability2Text: {fileID: 58933980}
   Ability2Key: 101
@@ -2784,7 +2788,7 @@ Transform:
   m_GameObject: {fileID: 1234151118}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2782653, y: -0.027439792, z: 0.007953033, w: 0.9600793}
-  m_LocalPosition: {x: 67.76, y: 5.9199996, z: -38.34}
+  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4868,8 +4872,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060149715}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -3.17, y: 10.27, z: -4.89}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

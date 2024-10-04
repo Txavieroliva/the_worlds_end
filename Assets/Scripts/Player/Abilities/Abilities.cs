@@ -5,28 +5,34 @@ using UnityEngine.UI;
 
 public class Abilities : MonoBehaviour
 {
+    [Header("Referencia UI")]
+    [SerializeField] private UI playerUI;
+
     [Header("Ability 1")]
     public Image Ability1Image;
     public Text Ability1Text;
     public KeyCode Ability1Key;
     public AbilityBase ability1;
+    [SerializeField] float costeManaAbility1 = 20f;
 
     [Header("Ability 2")]
     public Image Ability2Image;
     public Text Ability2Text;
     public KeyCode Ability2Key;
     public AbilityBase ability2;
+    //[SerializeField] float costeManaAbility2 = 20f;
 
     [Header("Ability 3")]
     public Image Ability3Image;
     public Text Ability3Text;
     public KeyCode Ability3Key;
     public AbilityBase ability3;
+    //[SerializeField] float costeManaAbility3 = 20f;
 
 
     private bool isAbility1Cooldown = false;
-    private bool isAbility2Cooldown = false;
-    private bool isAbility3Cooldown = false;
+    //private bool isAbility2Cooldown = false;
+    //private bool isAbility3Cooldown = false;
 
     private float currentAbility1Cooldown;
     private float currentAbility2Cooldown;
@@ -58,10 +64,11 @@ public class Abilities : MonoBehaviour
 
     private void Ability1Input()
     {
-        if(Input.GetKeyDown(Ability1Key) && !isAbility1Cooldown)
+        if(Input.GetKeyDown(Ability1Key) && !isAbility1Cooldown && playerUI.mana >= costeManaAbility1)
         {
             isAbility1Cooldown = true;
             currentAbility1Cooldown = ability1.cooldown;
+            playerUI.useMana(costeManaAbility1);
             Debug.Log("Get Over Here!");
 
             ability1.UseAbility();
