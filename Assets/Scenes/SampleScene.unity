@@ -1465,6 +1465,7 @@ GameObject:
   - component: {fileID: 546962219}
   - component: {fileID: 546962220}
   - component: {fileID: 546962223}
+  - component: {fileID: 546962226}
   - component: {fileID: 546962222}
   - component: {fileID: 546962224}
   - component: {fileID: 546962225}
@@ -1612,6 +1613,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &546962226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546962217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae1bb41d5ff62045ad86b0ec7269ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimacionesCombo:
+  - Attack1
+  - Attack2
+  - Attack3
+  tiempoResetCombo: 1.5
+  velAnimacion: 1.5
+  costeManaAtq: 10
+  playerUI: {fileID: 611440469}
 --- !u!1 &584561724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3321,6 +3342,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 154.4952
       objectReference: {fileID: 0}
+    - target: {fileID: 957791961471090427, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbb7ed7250279054f96b4023258e9d4e, type: 2}
     - target: {fileID: 2653033150878090127, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -4586,7 +4611,7 @@ Transform:
   m_GameObject: {fileID: 1912747149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.76, y: 5.9199996, z: -38.34}
+  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4872,13 +4897,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060149715}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.06, y: 8.68, z: -4.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 894592740}
-  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &2076352295
 PrefabInstance:
   m_ObjectHideFlags: 0
