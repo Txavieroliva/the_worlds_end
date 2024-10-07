@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Criatura_Base : Base
+public class Criatura_Base : Base_Con_Vida
 {
 //Strings
 protected string Identificador;
@@ -11,7 +11,6 @@ public string Nombre;
 public string Lugar_De_Pertenencia;
 public string Spawner_Designado;
 public string Area_Designada;
-public string Comportamiento;
 protected string Idle;
 
 //Floats

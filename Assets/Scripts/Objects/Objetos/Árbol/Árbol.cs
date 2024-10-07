@@ -8,7 +8,6 @@ protected override void	Destruccion_Porcentual()
     {
         if (Vida < Mathf.RoundToInt(rb.mass) / 2){
         rb.isKinematic = false;
-
         }
     }
         

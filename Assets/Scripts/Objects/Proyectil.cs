@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Proyectil : Objeto_base
 {
-    public MonoBehaviour Lanzador;
+    public Base_Con_Vida Lanzador;
     public float speed = 50f;
     
     protected virtual void Awake()
@@ -22,7 +22,11 @@ public class Proyectil : Objeto_base
         CalcularVida();
     }
 
-    public void Lanzar(Vector3 direction, MonoBehaviour El_Que_Lanza)
+    public Base_Con_Vida Lanzado_Por()
+    {
+        return Lanzador;
+    }
+    public void Lanzar(Vector3 direction, Base_Con_Vida El_Que_Lanza)
     {
         if(rb != null)
         {
