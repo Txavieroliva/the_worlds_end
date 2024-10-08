@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Pasivo : Reaccion_Base
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    protected override void Reaccion_Agresivo(Base Z)
+    {}
         
-    }
+    //reacción contra pasivo
+    protected override void Reaccion_Neutral(Base Z)
+    {}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    //reacción contra agresivo
+    protected override void Reaccion_Pasivo(Base Z)
+    {}
+
 }

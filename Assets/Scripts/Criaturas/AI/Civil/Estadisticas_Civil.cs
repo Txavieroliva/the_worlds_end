@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Azar : Pathing_Base
+public class Estadisticas_civil : Estadisticas
 {
     // Start is called before the first frame update
     void Start()

@@ -43,8 +43,6 @@ protected Vector3 size = Vector3.one;
 
 //Variados
 protected Rigidbody rb;
-public Reaccion_Base estado;
-public Pathing_Base camino;
 
 //Start is called before the first frame update
 void Start()
