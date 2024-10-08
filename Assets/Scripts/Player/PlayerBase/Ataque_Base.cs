@@ -7,5 +7,5 @@ using UnityEngine;
 public class Ataque_Base : ScriptableObject
 {
     public AnimatorOverrideController animatorOV;
-    public float damage;
+    //public float damage;
 }
