@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Reaccion_Base : Base
+public class Comportamiento : Base
 {
     //. Detecta algo, se lo manda a filtrado
     protected void OnCollisionEnter(Collision collision)

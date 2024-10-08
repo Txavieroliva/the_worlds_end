@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Neutral : Reaccion_Base
+public class Neutral : Comportamiento
 {
     protected override void Reaccion_Agresivo(Base Z)
     {}
