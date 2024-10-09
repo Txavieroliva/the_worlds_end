@@ -4,71 +4,80 @@ using UnityEngine;
 
 public class Manejo_Ataque : MonoBehaviour
 {
-    public List<Ataque_Base> Combo;
-    private float tiempoUltimoClick;
-    private float finUltimoCombo;
-    private int contadorCombo;
+    public List<Ataque_Base> combo; // Lista de ataques (debería contener solo 1 ataque para pruebas)
+    private int contadorCombo;       // Contador de combos
 
     private Animator animator;
-    private PlayerInput input;
+    private PlayerInput entradaJugador;
 
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        input = GetComponent<PlayerInput>();
+        entradaJugador = GetComponent<PlayerInput>();
+        contadorCombo = 0; // Inicializa el contador de combos
+
+        // Establecer la velocidad de la animación (1 es normal, puedes aumentarlo)
+        animator.speed = 1.5f; // Aumentar para acelerar las animaciones
     }
 
     private void Update()
     {
-        if(input.isAttacking)
-        {
-            Ataque();
-        }
-        finAtaque();
+        Atacar();
     }
 
-    private void Ataque()
+    private void Atacar()
     {
-        if(Time.time - finUltimoCombo > 0.5f && contadorCombo < Combo.Count)
+        if (Input.GetButtonDown("Fire1"))
         {
-            CancelInvoke("EndCombo");
-
-            ManejoCombo();
+            RealizarAtaque(); // Llama a RealizarAtaque solo si se está atacando
+            Debug.Log("Ataque Act: " + combo.Count);
         }
     }
-
-    private void ManejoCombo()
+    
+    private void RealizarAtaque()
     {
-        if(Time.time - tiempoUltimoClick >= 0.2f)
+        // Asegúrate de que el contador de combo sea válido
+        if (contadorCombo < combo.Count)
         {
-            animator.runtimeAnimatorController = Combo[contadorCombo].animatorOV;
-            animator.Play("Attack", 0,0);
-            contadorCombo++;
-            tiempoUltimoClick = Time.time;
-
-            resetContadorCombo();
+            // Asegúrate de que no hay animación de ataque en curso
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                ReproducirAnimacionDeAtaque();
+                IncrementarContadorCombo();
+            }
         }
     }
 
-    private void resetContadorCombo()
+    private void ReproducirAnimacionDeAtaque()
     {
-        if(contadorCombo >= Combo.Count)
+        // Reproduce la animación correspondiente al ataque
+        animator.runtimeAnimatorController = combo[contadorCombo].animatorOV;
+        animator.SetTrigger("AttackTrigger"); // Cambia a la animación de ataque
+
+        // Inicia la coroutine para finalizar el ataque
+        StartCoroutine(FinalizarAtaque());
+    }
+
+    private void IncrementarContadorCombo()
+    {
+        contadorCombo++; // Incrementa el contador de combos
+
+        // Reinicia el contador si ha alcanzado el final
+        if (contadorCombo >= combo.Count)
         {
-            contadorCombo = 0;
+            contadorCombo = 0; // Reinicia al primer combo
         }
     }
 
-    private void finAtaque()
+    private IEnumerator FinalizarAtaque()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-            Invoke("finCombo", 1);
-        }
-    }
+        // Espera a que la animación de ataque termine
+        AnimatorStateInfo infoEstAtq = animator.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(infoEstAtq.length / animator.speed); // Espera la duración de la animación ajustada por la velocidad
 
-    private void finCombo()
-    {
-        contadorCombo = 0;
-        finUltimoCombo = Time.time;
+        animator.ResetTrigger("AttackTrigger"); // Reinicia el trigger de ataque
+
+        // Desactiva la entrada de ataque
+        entradaJugador.isAttacking = false; // Asegúrate de que la entrada se restablezca
     }
 }

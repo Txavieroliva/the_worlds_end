@@ -1465,11 +1465,10 @@ GameObject:
   - component: {fileID: 546962219}
   - component: {fileID: 546962220}
   - component: {fileID: 546962223}
-  - component: {fileID: 546962226}
   - component: {fileID: 546962222}
   - component: {fileID: 546962224}
   - component: {fileID: 546962225}
-  - component: {fileID: 546962227}
+  - component: {fileID: 546962226}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1623,39 +1622,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 546962217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae1bb41d5ff62045ad86b0ec7269ee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnimacionesCombo:
-  - Attack1
-  - Attack2
-  - Attack3
-  AnimClips:
-  - {fileID: 7400000, guid: 5fd94f2367418f8428fa0a9690ba0c5b, type: 2}
-  - {fileID: 7400000, guid: 7241d8d34ff6884499943bc70214c761, type: 2}
-  - {fileID: 7400000, guid: 053f7427c3701354e96c1f174cdb929b, type: 2}
-  tiempoResetCombo: 1.5
-  velAnimacion: 1.5
-  costeManaAtq: 10
-  animator: {fileID: 0}
-  comboActual: 0
-  ultimoAtq: 0
-  isAttacking: 0
-  input: {fileID: 0}
-  playerUI: {fileID: 611440469}
---- !u!114 &546962227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546962217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bca4aff61282f5343a9c9045adbfefa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combo:
+  combo:
   - {fileID: 11400000, guid: 2e87e36e0d215874cbbe71766b36a94d, type: 2}
   - {fileID: 11400000, guid: 26f02b19c533aa948a399c823c0a75bd, type: 2}
   - {fileID: 11400000, guid: 7fbe2d205a978374ab122f99e1d8cd99, type: 2}

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9636e267b97d2f149a130b61e08ae493, type: 3}
   m_Name: Attack1
   m_EditorClassIdentifier: 
+  duracion: 2.9
   animatorOV: {fileID: 22100000, guid: 38ead89fe6d12184eb99e6a46d473aa3, type: 2}
