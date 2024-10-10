@@ -8,6 +8,7 @@ public class RockSpear : AbilityBase
     public Transform lanzaSpawnPoint;
     public float velocidadLanza = 50f;
     private Animator animator;
+    private Rigidbody rb;
     private Camera mainCamera;
     [SerializeField]private Player player;
 
@@ -15,6 +16,7 @@ public class RockSpear : AbilityBase
     {
         animator = GetComponentInParent<Animator> ();
         mainCamera = Camera.main;
+        rb = GetComponent<Rigidbody>();
     }
 
     public override void UseAbility()
@@ -30,32 +32,50 @@ public class RockSpear : AbilityBase
         }
     }
 
+    public void Lanzar(Vector3 direccion, Player player)
+    {
+        rb.velocity = direccion * velocidadLanza; // Asigna la dirección y velocidad a la lanza
+    }
+
     private IEnumerator GenerarTirarLanza()
     {
         yield return new WaitForSeconds(1f);
-        GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, lanzaSpawnPoint.rotation); // Instancia la lanza
 
+        // Obtener la dirección calculada en base al mouse con Raycast
         Vector3 direction = ObtenerDirMouse();
 
-        Spear lanzaScript = lanza.GetComponent<Spear>(); // Verifica si el prefab tiene el componente Spear
+        // Spawnear la lanza en la posición del lanzaSpawnPoint
+        GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, Quaternion.LookRotation(direction));
 
-        if(lanzaScript != null)
+        // Obtener el Rigidbody de la lanza para aplicarle una velocidad
+        Rigidbody lanzaRb = lanza.GetComponent<Rigidbody>();
+        if (lanzaRb != null)
         {
-            lanzaScript.Lanzar(direction, player);
-            player.TakeDamage(10);
+            // Asignar la dirección y velocidad a la lanza
+            lanzaRb.velocity = direction * velocidadLanza;
         }
     }
 
     private Vector3 ObtenerDirMouse()
     {
+        // Crea un rayo desde la cámara hacia la posición del mouse
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        // Variable para almacenar el punto de impacto del raycast
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit))
+        // Si el raycast golpea algo en el mundo, usamos ese punto como dirección
+        if (Physics.Raycast(ray, out hit))
         {
-            return(hit.point - lanzaSpawnPoint.position).normalized;
-        }
+            // Calculamos la dirección hacia el punto de impacto desde el lanzaSpawnPoint
+            Vector3 direction = (hit.point - lanzaSpawnPoint.position).normalized;
 
-        return lanzaSpawnPoint.up;
+            return direction;
+        }
+        else
+        {
+            // Si no golpea nada, usamos la dirección del rayo normalizada
+            return ray.direction;
+        }
     }
 }

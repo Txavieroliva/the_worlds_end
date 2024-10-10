@@ -1485,9 +1485,9 @@ Transform:
   m_GameObject: {fileID: 546962217}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.96, y: 3.688, z: -28.26}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 68.96, y: 3.42, z: -28.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 894592740}
   - {fileID: 606148042}
@@ -2809,7 +2809,7 @@ Transform:
   m_GameObject: {fileID: 1234151118}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2782653, y: -0.027439792, z: 0.007953033, w: 0.9600793}
-  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
+  m_LocalPosition: {x: 68.96, y: 5.9900002, z: -38.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4663,7 +4663,7 @@ Transform:
   m_GameObject: {fileID: 1912747149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.96, y: 6.258, z: -38.34}
+  m_LocalPosition: {x: 68.96, y: 5.9900002, z: -38.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4950,13 +4950,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060149715}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.06, y: 8.68, z: -4.24}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.07, y: 8.21, z: -2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 894592740}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2060149717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4972,7 +4972,7 @@ MonoBehaviour:
   cooldown: 5
   lanzaPrefab: {fileID: 330224033529842155, guid: 1f7ac51b33d26db4b8ef33226ab5cf1c, type: 3}
   lanzaSpawnPoint: {fileID: 2060149716}
-  velocidadLanza: 50
+  velocidadLanza: 200
   player: {fileID: 546962220}
 --- !u!1001 &2076352295
 PrefabInstance:
