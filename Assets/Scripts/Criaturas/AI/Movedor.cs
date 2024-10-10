@@ -9,7 +9,7 @@ public class Movedor : MonoBehaviour
 public NavMeshAgent Cuerpo;
     void Start()
     {
-        Cuerpo = GetComponent<NavMeshAgent>();
+        Cuerpo = GetComponentInParent<NavMeshAgent>();
     }
 
     public void Mover(Vector3 Objetivo)

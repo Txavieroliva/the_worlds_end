@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Huir : Accion
+public class Atacar : Accion
 {
     public override float Calculo_Puntaje()  
     {
@@ -12,14 +12,14 @@ public class Huir : Accion
     public override void Ejecutar()
     {
         Completado = false;
-        Vector3 direccionHuida  = transform.position - MiDetector.Hostil_Cercano();
 
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
             Completado = true;
+            Debug.Log("Completado");
         } else 
         {
-        MiMovedor.Mover((transform.position + direccionHuida));
+        MiMovedor.Mover(MiDetector.Hostil_Cercano());
         }
         
     }

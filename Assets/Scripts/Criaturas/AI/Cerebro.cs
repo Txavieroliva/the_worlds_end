@@ -11,8 +11,8 @@ public class Cerebro : MonoBehaviour
 
     public void Start()
     {
-        Huir accionHuir = gameObject.AddComponent<Huir>();  // Añade el componente Huir al GameObject
-        Lista_Acciones.Add(accionHuir);
+        // Huir accionHuir = gameObject.AddComponent<Huir>();  // Añade el componente Huir al GameObject
+        // Lista_Acciones.Add(accionHuir);
 
     }
 
@@ -60,7 +60,10 @@ public class Cerebro : MonoBehaviour
         {
             if (Accion_Actual != null)
             {
-                Accion_Actual.Revisar();
+                if(Accion_Actual.Revisar() == true)
+                {
+                    Accionando = false;
+                }
             }
         }
     }

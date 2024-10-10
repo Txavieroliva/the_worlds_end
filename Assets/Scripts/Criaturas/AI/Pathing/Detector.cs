@@ -4,32 +4,66 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
+    private Vector3 Hostil_Mas_Cercano = Vector3.zero;
+    private List<Collider> HostilesEnRango = new List<Collider>(); // Lista para almacenar hostiles dentro del rango
 
-    private Vector3 Hostil_Mas_Cercano = Vector3.positiveInfinity;
-
-    private void OnTriggerStay(Collider collision)
+    void Update()
     {
-        Detectar_Hostil(collision);
-    }
-
-    private Vector3 Detectar_Hostil(Collider collision)
-    {
-            if (collision.gameObject.GetComponent<Comportamiento>() != null && collision.gameObject.GetComponent<Comportamiento>().Hostil == true)
-                {
-                    Vector3 PosicionHostil = collision.transform.position;
-                        if (Vector3.Distance(PosicionHostil, transform.position) < Vector3.Distance(Hostil_Mas_Cercano, transform.position))
-                        {
-                            Hostil_Mas_Cercano = PosicionHostil;
-                        }
+        if (HostilesEnRango.Count > 0)  // Si hay hostiles en rango
+        {
+            ActualizarHostilMasCercano();
         }
-        return Hostil_Mas_Cercano;
     }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (EsHostil(collision))
+        {
+            HostilesEnRango.Add(collision);  // Agregar a la lista
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (HostilesEnRango.Contains(collision))
+        {
+            HostilesEnRango.Remove(collision);  // Eliminar de la lista
+            Debug.Log("Hostil salió: " + collision.gameObject.name);
+            if (HostilesEnRango.Count == 0)
+            {
+                Hostil_Mas_Cercano = Vector3.zero;  // Reiniciar si no hay más hostiles
+            }
+        }
+    }
+
+    private void ActualizarHostilMasCercano()
+    {
+        float distanciaMinima = Mathf.Infinity;
+        Vector3 posicionCercana = Vector3.positiveInfinity;
+
+        foreach (Collider hostil in HostilesEnRango)
+        {
+            float distancia = Vector3.Distance(hostil.transform.position, transform.position);
+            if (distancia < distanciaMinima)
+            {
+                distanciaMinima = distancia;
+                posicionCercana = hostil.transform.position;
+            }
+        }
+            Hostil_Mas_Cercano = posicionCercana; // Actualiza la posición del hostil más cercano
+    }
+
+    private bool EsHostil(Collider collision)
+    {
+        var comportamiento = collision.gameObject.GetComponentInParent<Comportamiento>();
+        return comportamiento != null && comportamiento.Hostil;
+    }
+
     public Vector3 Hostil_Cercano()
     {
-        if (Hostil_Mas_Cercano == Vector3.positiveInfinity)  // Si no se ha encontrado ningún hostil
+        if (Hostil_Mas_Cercano == Vector3.zero)
         {
-            Debug.LogWarning("No se ha detectado ningún hostil.");
-            return Vector3.zero;  //returnea 0
+            Debug.Log("No se ha detectado ningún hostil.");
         }
         return Hostil_Mas_Cercano;
     }
