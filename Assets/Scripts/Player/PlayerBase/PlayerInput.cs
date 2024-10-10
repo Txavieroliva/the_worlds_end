@@ -23,5 +23,6 @@ public class PlayerInput : MonoBehaviour
     private void OnAttack(InputValue value)
     {
         isAttacking = value.isPressed;
+        //Debug.Log("Ataque Detectado" + isAttacking);
     }
 }

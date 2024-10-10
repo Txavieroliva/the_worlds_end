@@ -48,7 +48,7 @@ public class Player : Base_Con_Vida
     {
         MovePlayer();
         RotatePlayerWithCamera();
-        Attack();
+        //Attack();
     }
 
     private void LateUpdate() {
@@ -141,20 +141,20 @@ public class Player : Base_Con_Vida
         CameraTarget.rotation = rotation;
     }
 
-    private void Attack()
-    {
-        if(input.isAttacking && !isAttacking && playerUI.mana >= costoManaMelee)
-        {
-            isAttacking = true;
-            animator.SetBool("attack", true);
+    // private void Attack()
+    // {
+    //     if(input.isAttacking && !isAttacking && playerUI.mana >= costoManaMelee)
+    //     {
+    //         isAttacking = true;
+    //         animator.SetBool("attack", true);
 
-            playerUI.useMana(costoManaMelee);
-            meleeAttack.ActivateTrigger();
+    //         playerUI.useMana(costoManaMelee);
+    //         meleeAttack.ActivateTrigger();
 
-            StartCoroutine(finalDeAtaque());
-        }
+    //         StartCoroutine(finalDeAtaque());
+    //     }
 
-    }
+    // }
 
     private void RegenerarMana()
     {
@@ -165,18 +165,18 @@ public class Player : Base_Con_Vida
         }
     }
 
-    private IEnumerator finalDeAtaque()
-    {
-        AnimatorStateInfo infoEstAtq = animator.GetCurrentAnimatorStateInfo(0);
+    // private IEnumerator finalDeAtaque()
+    // {
+    //     AnimatorStateInfo infoEstAtq = animator.GetCurrentAnimatorStateInfo(0);
         
-        yield return new WaitForSeconds(infoEstAtq.length);
+    //     yield return new WaitForSeconds(infoEstAtq.length);
 
-        animator.SetBool("attack", false);
-        meleeAttack.DeactivateTrigger();
+    //     animator.SetBool("attack", false);
+    //     meleeAttack.DeactivateTrigger();
 
-        isAttacking = false;
-        input.isAttacking = false;
-    }
+    //     isAttacking = false;
+    //     input.isAttacking = false;
+    // }
 
     public void TakeDamage(float amount)
     {
