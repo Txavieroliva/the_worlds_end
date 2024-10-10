@@ -13,7 +13,7 @@ public class RockSpear : AbilityBase
 
     private void Start()
     {
-        animator = GetComponent<Animator> ();
+        animator = GetComponentInParent<Animator> ();
         mainCamera = Camera.main;
     }
 

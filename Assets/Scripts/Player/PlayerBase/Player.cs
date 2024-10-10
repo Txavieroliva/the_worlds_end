@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float moveSpeed;
+    [SerializeField] public float moveSpeed;
     [SerializeField] float rotSpeed;
     [SerializeField] Transform mainCamera;
     [SerializeField] Transform CameraTarget;
