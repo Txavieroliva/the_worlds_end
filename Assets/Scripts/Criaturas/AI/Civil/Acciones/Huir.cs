@@ -8,7 +8,7 @@ public class Huir : Accion
     public Movedor MiMovedor;
     public Accion huir;
 
-private void start()
+private void Start()
 {
 huir = this;
 }
@@ -19,8 +19,8 @@ huir = this;
     
     public override void Ejecutar()
     {
-        Vector3 NuevaPos = transform.position - MiDetector.Hostil_Cercano();
-        MiMovedor.Mover((transform.position + NuevaPos));
+        Vector3 direccionHuida  = transform.position - MiDetector.Hostil_Cercano().normalized;
+        MiMovedor.Mover((transform.position + direccionHuida));
     }
 
     public override bool Revisar()

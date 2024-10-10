@@ -5,32 +5,32 @@ using UnityEngine;
 public class Detector : MonoBehaviour
 {
 
-    private Vector3 Hostil_Mas_Cercano;
+    private Vector3 Hostil_Mas_Cercano = Vector3.positiveInfinity;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider collision)
     {
         Detectar_Hostil(collision);
     }
 
-    private Vector3 Detectar_Hostil(Collision collision)
+    private Vector3 Detectar_Hostil(Collider collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            if (collision.gameObject.GetComponent<Comportamiento>() != null)
+            if (collision.gameObject.GetComponent<Comportamiento>() != null && collision.gameObject.GetComponent<Comportamiento>().Hostil == true)
                 {
-                    if (collision.gameObject.GetComponent<Comportamiento>().Hostil == true)
-                    {
-                        if (Vector3.Distance(collision.gameObject.GetComponent<Transform>().position, transform.position) >= Vector3.Distance(Hostil_Mas_Cercano, transform.position))
+                    Vector3 PosicionHostil = collision.transform.position;
+                        if (Vector3.Distance(PosicionHostil, transform.position) < Vector3.Distance(Hostil_Mas_Cercano, transform.position))
                         {
-                            Hostil_Mas_Cercano = collision.gameObject.GetComponent<Transform>().position;
+                            Hostil_Mas_Cercano = PosicionHostil;
                         }
-                    }
-                }
         }
         return Hostil_Mas_Cercano;
     }
     public Vector3 Hostil_Cercano()
     {
+        if (Hostil_Mas_Cercano == Vector3.positiveInfinity)  // Si no se ha encontrado ningún hostil
+        {
+            Debug.LogWarning("No se ha detectado ningún hostil.");
+            return Vector3.zero;  //returnea 0
+        }
         return Hostil_Mas_Cercano;
     }
 }
