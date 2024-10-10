@@ -98,9 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lugar_De_Pertenencia: 
+  Velocidad: 0
   Vida: 1
-  NumeroDeDebris: 0
   debrisPrefab: {fileID: 0}
+  spawnRadius: 0
+  rb: {fileID: 0}
+  Lanzador: {fileID: 0}
   speed: 50
 --- !u!1 &1572809544637752470
 GameObject:
@@ -163,7 +166,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9da121f9c4f62ea448ed977fbe8ac95e, type: 2}
+  - {fileID: 2100000, guid: dbb7ed7250279054f96b4023258e9d4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -376,7 +379,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9da121f9c4f62ea448ed977fbe8ac95e, type: 2}
+  - {fileID: 2100000, guid: dbb7ed7250279054f96b4023258e9d4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -459,7 +462,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9da121f9c4f62ea448ed977fbe8ac95e, type: 2}
+  - {fileID: 2100000, guid: dbb7ed7250279054f96b4023258e9d4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
