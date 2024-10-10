@@ -21,6 +21,8 @@ public class LanzaRoca : AbilityBase
     {
         if(!isOnCooldown)
         {
+            DetenerPlayer();
+
             animator.SetTrigger("Ability1");
 
             StartCoroutine(GenerarLanzarRoca());
@@ -42,6 +44,8 @@ public class LanzaRoca : AbilityBase
             rocaScript.Lanzar(direction, player);
             player.TakeDamage(25);
         }
+
+        ReanudarMovimientoPlayer();
     }
 
     private Vector3 obtenerDirMouse()
@@ -56,4 +60,16 @@ public class LanzaRoca : AbilityBase
 
         return spawnPointRoca.up;
     }
+
+    private void DetenerPlayer()
+    {
+        player.rb.velocity = Vector3.zero;
+        player.moveSpeed = 0f;
+    }
+
+    private void ReanudarMovimientoPlayer()
+    {
+        player.moveSpeed = 5f;
+    }
+    
 }
