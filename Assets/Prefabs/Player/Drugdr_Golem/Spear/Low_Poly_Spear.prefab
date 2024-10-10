@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2730938048533632497}
   - component: {fileID: 4691840392363727984}
-  - component: {fileID: 2082540792233292902}
   - component: {fileID: 883922148588523470}
   m_Layer: 0
   m_Name: Low_Poly_Spear
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 330224033529842155}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.056455, y: 0.77871, z: -1.3448}
+  m_LocalPosition: {x: -0.06, y: 10.4, z: -6.34}
   m_LocalScale: {x: 3.1347685, y: 3.1347685, z: 3.1347685}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62,29 +61,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &2082540792233292902
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330224033529842155}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.05459714
-  m_Height: 2.0128114
-  m_Direction: 1
-  m_Center: {x: -0.03579226, y: 0.97564185, z: 0.003287971}
 --- !u!114 &883922148588523470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +80,7 @@ MonoBehaviour:
   spawnRadius: 0
   rb: {fileID: 4691840392363727984}
   Lanzador: {fileID: 0}
-  speed: 50
+  speed: 100
 --- !u!1 &1572809544637752470
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4963402810741092267}
+  - component: {fileID: 1469328891288524731}
   m_Layer: 0
   m_Name: Spear
   m_TagString: Untagged
@@ -276,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5540026756323845281}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.12884223, y: 87.18397, z: -0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
@@ -286,6 +263,29 @@ Transform:
   - {fileID: 4963546149087469790}
   m_Father: {fileID: 7432483062839117872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1469328891288524731
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540026756323845281}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.07026891
+  m_Height: 1.9952836
+  m_Direction: 2
+  m_Center: {x: 0.00006109214, y: 0.0000011408428, z: -0.11478635}
 --- !u!1 &8349370178052434512
 GameObject:
   m_ObjectHideFlags: 0
