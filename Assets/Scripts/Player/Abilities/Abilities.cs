@@ -20,7 +20,7 @@ public class Abilities : MonoBehaviour
     public Text Ability2Text;
     public KeyCode Ability2Key;
     public AbilityBase ability2;
-    //[SerializeField] float costeManaAbility2 = 20f;
+    [SerializeField] float costeManaAbility2 = 20f;
 
     [Header("Ability 3")]
     public Image Ability3Image;
@@ -31,7 +31,7 @@ public class Abilities : MonoBehaviour
 
 
     private bool isAbility1Cooldown = false;
-    //private bool isAbility2Cooldown = false;
+    private bool isAbility2Cooldown = false;
     //private bool isAbility3Cooldown = false;
 
     private float currentAbility1Cooldown;
@@ -54,11 +54,11 @@ public class Abilities : MonoBehaviour
     void Update()
     {
         Ability1Input();
-        // Ability2Input();
+        Ability2Input();
         // Ability3Input();
 
         AbilityCooldown(ref currentAbility1Cooldown, ability1.cooldown, ref isAbility1Cooldown, Ability1Image, Ability1Text);
-        //AbilityCooldown(ref currentAbility2Cooldown, ability2.cooldown, ref isAbility2Cooldown, Ability2Image, Ability2Text);
+        AbilityCooldown(ref currentAbility2Cooldown, ability2.cooldown, ref isAbility2Cooldown, Ability2Image, Ability2Text);
        // AbilityCooldown(ref currentAbility3Cooldown, ability3.cooldown, ref isAbility3Cooldown, Ability3Image, Ability3Text);
     }
 
@@ -75,16 +75,16 @@ public class Abilities : MonoBehaviour
         }
     }
     
-    // private void Ability2Input()
-    // {
-    //     if(Input.GetKeyDown(Ability2Key) && !isAbility2Cooldown)
-    //     {
-    //         isAbility2Cooldown = true;
-    //         currentAbility2Cooldown = ability2.cooldown;
+    private void Ability2Input()
+    {
+        if(Input.GetKeyDown(Ability2Key) && !isAbility2Cooldown && playerUI.mana >= costeManaAbility2)
+        {
+            isAbility2Cooldown = true;
+            currentAbility2Cooldown = ability2.cooldown;
 
-    //         ability2.UseAbility();
-    //     }
-    // }
+            ability2.UseAbility();
+        }
+    }
     
     // private void Ability3Input()
     // {
