@@ -6,6 +6,12 @@ using UnityEngine.AI;
 
 public class Comportamiento : Base
 {
+    public bool Hostil;
+    public bool Pasivo;
+    public bool Neutral;
+
+
+
     //. Detecta algo, se lo manda a filtrado
     protected void OnCollisionEnter(Collision collision)
     {

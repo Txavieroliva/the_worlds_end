@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cerebro : MonoBehaviour
 {
-    private Accion[] Lista_Acciones;
+    public Huir[] Lista_Acciones;
     public Accion Sig_Accion;
     public Accion Accion_Actual;
     private bool Accionando = false;
