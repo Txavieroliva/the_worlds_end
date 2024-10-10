@@ -102,7 +102,7 @@ MonoBehaviour:
   Vida: 1
   debrisPrefab: {fileID: 0}
   spawnRadius: 0
-  rb: {fileID: 0}
+  rb: {fileID: 4691840392363727984}
   Lanzador: {fileID: 0}
   speed: 50
 --- !u!1 &1572809544637752470
