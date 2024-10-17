@@ -206,6 +206,55 @@ Transform:
   - {fileID: 1322133173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &52506014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52506015}
+  - component: {fileID: 52506016}
+  m_Layer: 0
+  m_Name: RocaSP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52506015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52506014}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.74, z: -8.09}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894592740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &52506016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52506014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f317c3372274f6c4b9b4d9b43933c575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 7
+  rocaPrefab: {fileID: 3658423021502622965, guid: 3f2297a976727e54dbc2c8d31fe70234, type: 3}
+  spawnPointRoca: {fileID: 52506015}
+  velocidadRoca: 50
+  player: {fileID: 546962220}
 --- !u!1 &58933978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,12 +1815,12 @@ MonoBehaviour:
   Ability1Image: {fileID: 193045031}
   Ability1Text: {fileID: 302884654}
   Ability1Key: 113
-  ability1: {fileID: 894592743}
+  ability1: {fileID: 2060149717}
   costeManaAbility1: 20
   Ability2Image: {fileID: 489296500}
   Ability2Text: {fileID: 58933980}
   Ability2Key: 101
-  ability2: {fileID: 0}
+  ability2: {fileID: 52506016}
   costeManaAbility2: 20
   Ability3Image: {fileID: 429007918}
   Ability3Text: {fileID: 1254793153}
@@ -2747,23 +2796,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fac8b910f4bd6a142b03cf63b05e6178, type: 2}
---- !u!114 &894592743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894592739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 116a6696a8a66524498090d9999c3449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 5
-  lanzaPrefab: {fileID: 330224033529842155, guid: 1f7ac51b33d26db4b8ef33226ab5cf1c, type: 3}
-  lanzaSpawnPoint: {fileID: 2060149716}
-  velocidadLanza: 50
-  player: {fileID: 546962220}
 --- !u!1 &1060905551
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +3946,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3816863980220602051, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2060149716}
+    - targetCorrespondingSourceObject: {fileID: 3816863980220602051, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 52506015}
     - targetCorrespondingSourceObject: {fileID: 4795803781978864477, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 336651870}
@@ -3924,9 +3959,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 894592742}
-    - targetCorrespondingSourceObject: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 894592743}
     - targetCorrespondingSourceObject: {fileID: 8362161869224969350, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 557090408}
@@ -5219,6 +5251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2060149716}
+  - component: {fileID: 2060149717}
   m_Layer: 0
   m_Name: SpearSP
   m_TagString: Untagged
@@ -5235,12 +5268,29 @@ Transform:
   m_GameObject: {fileID: 2060149715}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.06, y: 8.68, z: -4.24}
+  m_LocalPosition: {x: -0.06, y: 8.68, z: -6.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 894592740}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &2060149717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060149715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116a6696a8a66524498090d9999c3449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 5
+  lanzaPrefab: {fileID: 330224033529842155, guid: 1f7ac51b33d26db4b8ef33226ab5cf1c, type: 3}
+  lanzaSpawnPoint: {fileID: 2060149716}
+  velocidadLanza: 150
+  player: {fileID: 546962220}
 --- !u!1001 &2076352295
 PrefabInstance:
   m_ObjectHideFlags: 0
