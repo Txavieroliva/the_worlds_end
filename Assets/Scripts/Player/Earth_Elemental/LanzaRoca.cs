@@ -33,7 +33,7 @@ public class LanzaRoca : AbilityBase
 
     private IEnumerator GenerarLanzarRoca()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
 
         Vector3 direction = obtenerDirMouse();
