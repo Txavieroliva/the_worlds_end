@@ -88,7 +88,7 @@ public class Abilities : MonoBehaviour
     
     private void Ability3Input()
     {
-        if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown)
+        if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown && playerUI.mana >= costeManaAbility3)
         {
             isAbility3Cooldown = true;
             currentAbility3Cooldown = ability3.cooldown;
