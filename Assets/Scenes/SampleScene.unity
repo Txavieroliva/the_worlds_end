@@ -1825,7 +1825,8 @@ MonoBehaviour:
   Ability3Image: {fileID: 429007918}
   Ability3Text: {fileID: 1254793153}
   Ability3Key: 114
-  ability3: {fileID: 0}
+  ability3: {fileID: 894592743}
+  costeManaAbility3: 20
 --- !u!54 &546962225
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2796,6 +2797,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fac8b910f4bd6a142b03cf63b05e6178, type: 2}
+--- !u!114 &894592743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894592739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d6ff7987194994facb45d7e55ba15a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  materialRequerido: 50
+  materialAcumulado: 0
+  playerUI: {fileID: 611440469}
 --- !u!1 &1060905551
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,6 +3976,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 894592742}
+    - targetCorrespondingSourceObject: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 894592743}
     - targetCorrespondingSourceObject: {fileID: 8362161869224969350, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 557090408}
@@ -4363,8 +4383,8 @@ MonoBehaviour:
   spawnRadius: 0
   rb: {fileID: 1516388226}
   debrisPrefab1: {fileID: 3658423021502622965, guid: 3eac1238b15aee942995f7a8925b051d, type: 3}
-  Debris_Madera: 5
-  Debris_Piedra: 5
+  Debris_Madera: 10
+  Debris_Piedra: 10
 --- !u!1 &1647946428 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1776966266084158026, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}

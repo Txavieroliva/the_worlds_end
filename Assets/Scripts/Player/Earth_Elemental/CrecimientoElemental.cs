@@ -5,61 +5,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class CrecimientoElemental : MonoBehaviour
+public class CrecimientoElemental : AbilityBase
 {
-    [Header("Referencia UI")]
-    [SerializeField] private UI playerUI;
-
-    [Header("Habilidad de Crecer")]
-    public UnityEngine.UI.Image imagenHabilidadCrecer;
-    public Text textoHabilidadCrecer;
-    public KeyCode keyHabilidadCrecer;
-    public float cooldownCrecer = 10f;
-
-    [Header("Pantalla Negra")]
-    public UnityEngine.UI.Image blackScreen;
-
-    [Header("Materiales")]
-    public float materialTotalRecolectado = 0f;
+    [Header("Crecer Config")]
     public float materialRequerido = 50f;
+    [SerializeField] private float materialAcumulado = 0f;
 
     private Player player;
-    private PlayerInput input;
+    [SerializeField] private UI playerUI;
     private bool estaCreciendo = false;
-    private bool estaCreciendoCooldown = false;
-    private float actualCooldownCrecimiento;
 
-
-    void Start()
+    private void Start()
     {
-        player = GetComponent<Player>();
-        input = GetComponent<PlayerInput>();
+        player = GetComponentInParent<Player>();
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public override void UseAbility()
     {
-        AbilityCooldown(ref actualCooldownCrecimiento, cooldownCrecer, ref estaCreciendoCooldown, imagenHabilidadCrecer, textoHabilidadCrecer);
-    }
-
-    private void iniciarVar()
-    {
-        imagenHabilidadCrecer.fillAmount = 0;
-        textoHabilidadCrecer.text = "";
-        blackScreen.color = new Color(0,0,0,0);
-    }
-
-    private void HabilidadCrecer()
-    {
-        if(Input.GetKeyDown(keyHabilidadCrecer) && !estaCreciendoCooldown && materialTotalRecolectado >= materialRequerido && !estaCreciendo)
+        if (!isOnCooldown && materialAcumulado >= materialRequerido && !estaCreciendo)
         {
-            estaCreciendo = true;
-            actualCooldownCrecimiento = cooldownCrecer;
-
-            materialTotalRecolectado = 0;
-
             StartCoroutine(CrecerGolem());
+
+            // Iniciar el cooldown
+            StartCoroutine(StartCooldown());
         }
     }
 
@@ -67,75 +35,28 @@ public class CrecimientoElemental : MonoBehaviour
     {
         estaCreciendo = true;
 
-        StartCoroutine(OscurecerPantalla(true));
-
         player.rb.velocity = Vector3.zero;
-        player.moveSpeed = 0f;
+        player.moveSpeed = 0;
 
         yield return new WaitForSeconds(1f);
 
-        playerUI.maxHealth += materialTotalRecolectado;
-        player.CalcularTamaño();
-
-        StartCoroutine(OscurecerPantalla(false));
+        playerUI.maxHealth += materialAcumulado;
+        playerUI.health = playerUI.maxHealth;
+        
+        Vector3 newScale = player.transform.localScale * (1 + materialAcumulado / playerUI.maxHealth);
+        player.transform.localScale = newScale;
 
         yield return new WaitForSeconds(1f);
         player.moveSpeed = 5f;
 
+        materialAcumulado = 0f;
+
         estaCreciendo = false;
     }
 
-    private IEnumerator OscurecerPantalla (bool oscurecer)
+    public void coleccionarMaterial(float cantidad)
     {
-        float duracion = 1f;
-        float tiempoTranscurrido = 0f;
-        Color colorInicio = blackScreen.color;
-        Color colorFinal = oscurecer ? new Color(0,0,0,1) : new Color(0,0,0,0);
-
-        while(tiempoTranscurrido < duracion)
-        {
-            tiempoTranscurrido += Time.deltaTime;
-            blackScreen.color = Color.Lerp(colorInicio, colorFinal, tiempoTranscurrido / duracion);
-            yield return null;
-        }
+        materialAcumulado += cantidad;
     }
 
-    private void AbilityCooldown(ref float currentCooldown, float maxCooldown, ref bool isCooldown, UnityEngine.UI.Image skillImage, Text skillText)
-    {
-        if (isCooldown)
-        {
-            currentCooldown -= Time.deltaTime;
-
-            // Actualizar la barra de cooldown
-            if (skillImage != null)
-            {
-                skillImage.fillAmount = currentCooldown / maxCooldown;
-            }
-
-            // Mostrar el tiempo restante en el texto
-            if (skillText != null)
-            {
-                skillText.text = Mathf.Ceil(currentCooldown).ToString();
-            }
-
-            // Verificar si el cooldown ha terminado
-            if (currentCooldown <= 0f)
-            {
-                isCooldown = false;
-                currentCooldown = 0f;
-
-                // Restablecer la barra y el texto
-                if (skillImage != null)
-                {
-                    skillImage.fillAmount = 0f;
-                }
-
-                if (skillText != null)
-                {
-                    skillText.text = "";
-                }
-            }
-        }
-    }
-    
 }

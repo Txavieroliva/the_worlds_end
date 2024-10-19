@@ -27,12 +27,12 @@ public class Abilities : MonoBehaviour
     public Text Ability3Text;
     public KeyCode Ability3Key;
     public AbilityBase ability3;
-    //[SerializeField] float costeManaAbility3 = 20f;
+    [SerializeField] float costeManaAbility3 = 20f;
 
 
     private bool isAbility1Cooldown = false;
     private bool isAbility2Cooldown = false;
-    //private bool isAbility3Cooldown = false;
+    private bool isAbility3Cooldown = false;
 
     private float currentAbility1Cooldown;
     private float currentAbility2Cooldown;
@@ -55,11 +55,11 @@ public class Abilities : MonoBehaviour
     {
         Ability1Input();
         Ability2Input();
-        // Ability3Input();
+        Ability3Input();
 
         AbilityCooldown(ref currentAbility1Cooldown, ability1.cooldown, ref isAbility1Cooldown, Ability1Image, Ability1Text);
         AbilityCooldown(ref currentAbility2Cooldown, ability2.cooldown, ref isAbility2Cooldown, Ability2Image, Ability2Text);
-       // AbilityCooldown(ref currentAbility3Cooldown, ability3.cooldown, ref isAbility3Cooldown, Ability3Image, Ability3Text);
+       AbilityCooldown(ref currentAbility3Cooldown, ability3.cooldown, ref isAbility3Cooldown, Ability3Image, Ability3Text);
     }
 
     private void Ability1Input()
@@ -86,16 +86,16 @@ public class Abilities : MonoBehaviour
         }
     }
     
-    // private void Ability3Input()
-    // {
-    //     if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown)
-    //     {
-    //         isAbility3Cooldown = true;
-    //         currentAbility3Cooldown = ability3.cooldown;
+    private void Ability3Input()
+    {
+        if(Input.GetKeyDown(Ability3Key) && !isAbility3Cooldown)
+        {
+            isAbility3Cooldown = true;
+            currentAbility3Cooldown = ability3.cooldown;
 
-    //         ability3.UseAbility();
-    //     }
-    // }
+            ability3.UseAbility();
+        }
+    }
 
    private void AbilityCooldown(ref float currentCooldown, float maxCooldown, ref bool isCooldown, Image skillImage, Text skillText)
     {

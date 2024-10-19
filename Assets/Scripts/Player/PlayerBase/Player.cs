@@ -41,7 +41,6 @@ public class Player : Base_Con_Vida
 
         CalcularMasa();
         CalcularVidaMax();
-        CalcularTamaño();
     }
 
     private void Update() 
@@ -188,8 +187,6 @@ public class Player : Base_Con_Vida
             checkDeath();
         }
         //Debug.Log("Recibo: " + amount + " de daño");
-
-        CalcularTamaño();
         //CalcularMasa();
     }
 
@@ -216,7 +213,6 @@ public class Player : Base_Con_Vida
             playerUI.maxHealth = playerUI.health;
         }
 
-        CalcularTamaño();
         CalcularMasa();
 
     }
@@ -245,20 +241,5 @@ public class Player : Base_Con_Vida
         rb.mass = volumen * Densidad;
         
         CalcularVidaAct();
-    }
-
-    public void CambiarTamaño(Vector3 escalaFinal)
-    {
-        transform.localScale = escalaFinal;
-    }
-
-    public void CalcularTamaño()
-    {
-        float vidaInc = 100;
-
-        float escala =  playerUI.maxHealth / vidaInc;
-        Vector3 escalaVec = new Vector3(escala, escala, escala);
-
-        CambiarTamaño(escalaVec);
     }
 }
