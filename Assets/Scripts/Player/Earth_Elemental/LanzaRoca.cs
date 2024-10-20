@@ -10,6 +10,8 @@ public class LanzaRoca : AbilityBase
     private Animator animator;
     private Camera mainCamera;
     [SerializeField] private Player player;
+    [SerializeField] private Collider golemCollider;
+    [SerializeField] private Collider meleeCollider;
 
     private void Start()
     {
@@ -34,9 +36,18 @@ public class LanzaRoca : AbilityBase
     private IEnumerator GenerarLanzarRoca()
     {
         yield return new WaitForSeconds(1f);
-        GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
 
         Vector3 direction = obtenerDirMouse();
+        
+        GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
+        Collider rocaCollider = roca.GetComponentInChildren<Collider>();
+
+        Physics.IgnoreCollision(rocaCollider, golemCollider, true);
+        Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
+
+
+
+
         Roca rocaScript = roca.GetComponent<Roca>();
 
         if(rocaScript != null)
