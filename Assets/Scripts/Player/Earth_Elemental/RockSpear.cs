@@ -49,19 +49,18 @@ public class RockSpear : AbilityBase
         Collider lanzaCollider = lanza.GetComponentInChildren<Collider>();
 
 
-            Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
-            Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
-            Debug.Log("Desactivada Collider");
+        Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
+        Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
+        //Debug.Log("Desactivada Collider");
 
-            StartCoroutine(ReactivarColision(lanzaCollider));
-
-
+        StartCoroutine(ReactivarColision(lanzaCollider));
 
         // Aplicar la dirección y velocidad a la lanza
         Rigidbody lanzaRb = lanza.GetComponent<Rigidbody>();
         if (lanzaRb != null)
         {
             lanzaRb.velocity = direccion * velocidadLanza;
+            player.TakeDamage(10);
         }
         else
         {
