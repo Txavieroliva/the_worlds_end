@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Casa : Objeto_base
@@ -56,6 +57,15 @@ protected override void GenerarDebris()
                 Vector3 explosionDirection = (debris.transform.position - transform.position).normalized;
                 debrisRb.AddForce(explosionDirection * explosionForce);
             }
+        }
+    }
+    
+    public override void Golpeado(int daño)
+    {
+        if (daño > Threshold_Daño)
+        {
+            Vida -= daño;
+            Destruccion_Porcentual();
         }
     }
 
