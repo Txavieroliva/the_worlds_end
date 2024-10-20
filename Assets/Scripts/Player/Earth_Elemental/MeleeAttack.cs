@@ -6,28 +6,44 @@ public class MeleeAttack : MonoBehaviour
 {
     public int meleeDamage;
     private bool canDealDmg = false;
-    private Base basex;
+    private Base base_base;
+    private Objeto_base base_objeto;
     public Rigidbody rb;
-
-private void calcular_dano()
+    private Collider other;
+    
+    private void Start()
     {
-        meleeDamage = (Mathf.RoundToInt(rb.mass));
+        rb = GetComponentInParent<Rigidbody>();
     }
-    private void OnTriggerEnter(Collider other)
+    
+    private void Update()
     {
         calcular_dano();
+    }
+
+    private void calcular_dano()
+    {
+        meleeDamage = Mathf.RoundToInt(rb.mass);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
         Debug.Log(other);
+
+        base_base = other.GetComponent<Base>();
+        base_objeto = other.GetComponent<Objeto_base>();
 
         // Hace daño unicamente cuando se activa
         if(canDealDmg)
         {
-            basex = other.GetComponentInParent<Base>();
-            ///other.GetComponentInParent.<Base>();
-
-
-            if( basex != null)  
+            if( base_base != null)  
             {
-                basex.Golpeado(meleeDamage);
+                base_base.Golpeado(meleeDamage);
+            }
+            else if (base_objeto != null)
+            {
+                base_objeto.Golpeado(meleeDamage);
             }
         }
     }
@@ -35,10 +51,12 @@ private void calcular_dano()
     public void ActivateTrigger()
     {
         canDealDmg = true;
+        Debug.Log("Activado");
     }
 
     public void DeactivateTrigger()
     {
         canDealDmg = false;
+        Debug.Log("Desactivado");
     }
 }

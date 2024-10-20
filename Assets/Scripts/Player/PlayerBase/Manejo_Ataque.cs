@@ -47,8 +47,8 @@ public class Manejo_Ataque : MonoBehaviour
             // Asegúrate de que no hay animación de ataque en curso
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
             {
-                ReproducirAnimacionDeAtaque();
                 melee.ActivateTrigger();
+                ReproducirAnimacionDeAtaque();
                 IncrementarContadorCombo();
             }
         }
@@ -64,6 +64,7 @@ public class Manejo_Ataque : MonoBehaviour
 
         // Inicia la coroutine para finalizar el ataque
         StartCoroutine(FinalizarAtaque());
+        
 
         StartCoroutine(ReiniciarComboInact());
     }
@@ -86,11 +87,12 @@ public class Manejo_Ataque : MonoBehaviour
         yield return new WaitForSeconds(infoEstAtq.length / animator.speed); // Espera la duración de la animación ajustada por la velocidad
 
         animator.ResetTrigger("AttackTrigger"); // Reinicia el trigger de ataque
-        melee.DeactivateTrigger();
+        
         comboEnCurso = false;
 
         // Desactiva la entrada de ataque
         input.isAttacking = false; // Asegúrate de que la entrada se restablezca
+        melee.DeactivateTrigger();
     }
 
     private IEnumerator ReiniciarComboInact()

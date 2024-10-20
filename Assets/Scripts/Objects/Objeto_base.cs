@@ -154,13 +154,13 @@ Lugar_De_Pertenencia = Lugar;
 
 //     }
 
-public override void	Golpeado(int daño)
+    public override void	Golpeado(int daño)
     {
-if (daño > Threshold_Daño)
-{
-    Vida = Vida - daño;
-   Destruccion_Porcentual();
-}
+        if (daño > Threshold_Daño)
+        {
+            Vida -= daño;
+            Destruccion_Porcentual();
+        }
     }
 
 protected virtual void	Destruccion_Porcentual()
