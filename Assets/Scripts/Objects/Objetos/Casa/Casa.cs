@@ -10,12 +10,6 @@ public class Casa : Objeto_base
     public int Debris_Madera;
     public int Debris_Piedra;
     
-    protected override void	Destruccion_Porcentual()
-    {
-        if (Vida < Mathf.RoundToInt(rb.mass) / 2){
-        rb.isKinematic = false;
-        }
-    }
 protected override void GenerarDebris()
     {
         NumeroDeDebris = Mathf.FloorToInt(rb.mass / 50f);
@@ -57,15 +51,6 @@ protected override void GenerarDebris()
                 Vector3 explosionDirection = (debris.transform.position - transform.position).normalized;
                 debrisRb.AddForce(explosionDirection * explosionForce);
             }
-        }
-    }
-    
-    public override void Golpeado(int daño)
-    {
-        if (daño > Threshold_Daño)
-        {
-            Vida -= daño;
-            Destruccion_Porcentual();
         }
     }
 

@@ -158,6 +158,7 @@ Lugar_De_Pertenencia = Lugar;
     {
         if (daño > Threshold_Daño)
         {
+            Debug.Log("A");
             Vida -= daño;
             Destruccion_Porcentual();
         }

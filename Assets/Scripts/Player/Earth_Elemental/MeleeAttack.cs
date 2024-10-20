@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
-    public int meleeDamage = 50;
+    public int meleeDamage;
     private bool canDealDmg = false;
     private Base base_base;
     private Objeto_base base_objeto;
@@ -41,7 +41,7 @@ public class MeleeAttack : MonoBehaviour
             {
                 base_base.Golpeado(meleeDamage);
             }
-            if (base_objeto != null)
+            else if (base_objeto != null)
             {
                 base_objeto.Golpeado(meleeDamage);
             }
