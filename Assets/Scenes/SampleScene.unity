@@ -1948,25 +1948,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26f02b19c533aa948a399c823c0a75bd, type: 2}
   - {fileID: 11400000, guid: 7fbe2d205a978374ab122f99e1d8cd99, type: 2}
   tiempoReinicioCombo: 2
---- !u!1 &557090406 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8362161869224969350, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
-  m_PrefabInstance: {fileID: 1476607581}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &557090408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 557090406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e65ae3f19976474380f699af106fcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeDamage: 20
-  rb: {fileID: 546962225}
+  melee: {fileID: 336651874}
 --- !u!1 &584561724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4150,9 +4132,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3039248276027103882, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 894592743}
-    - targetCorrespondingSourceObject: {fileID: 8362161869224969350, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 557090408}
   m_SourcePrefab: {fileID: 100100000, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}
 --- !u!1 &1501855932
 GameObject:
