@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cosechar : Accion
+public class Cosechar : Accion_Granjero
 {
-    public float terrainSize = 10f; // Tamaño del terreno (10x10)   
     public override float Calculo_Puntaje()
     {
         return 10;
@@ -19,15 +18,16 @@ public class Cosechar : Accion
             // Generar una posición aleatoria en el terreno de 10x10
             Vector3 randomPos = new Vector3
             (
-                Random.Range(-terrainSize / 2, terrainSize / 2), 
+                Random.Range(Stats.Mi_Granja.position.x, Stats.Mi_Granja.position.x + Stats.Mi_Granja.localScale.x /2), 
                 0, 
-                Random.Range(-terrainSize / 2, terrainSize / 2)
+                Random.Range(Stats.Mi_Granja.position.z, Stats.Mi_Granja.position.z + Stats.Mi_Granja.localScale.z /2)
             );
 
             // Mover usando el Movedor
             MiMovedor.Mover(randomPos);
             Completado = false;
         }
+
     }
 
     public override bool Revisar()
@@ -38,6 +38,8 @@ public class Cosechar : Accion
             Completado = true;
         }
 
-        return Completado;
+        //siempre devuelve que está completo, para que si ocurre algo urgente, haga eso.
+        return true;
     }
+
 }

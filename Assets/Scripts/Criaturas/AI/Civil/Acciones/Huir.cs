@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Huir : Accion
+public class Huir : Accion_Granjero
 {
     public override float Calculo_Puntaje()  
     {
@@ -40,11 +40,12 @@ public class Huir : Accion
         if (Completado == false)
         {
             Ejecutar();
-            return Completado;
+            return false;
         } else
         {
             //Lo mismo, pero lo deja quieto si ya está completado.
             MiMovedor.Mover(transform.position);
+            Debug.Log("pito");
             return Completado;
         }
     }
