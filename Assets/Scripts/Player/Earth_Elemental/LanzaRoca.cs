@@ -10,6 +10,8 @@ public class LanzaRoca : AbilityBase
     private Animator animator;
     private Camera mainCamera;
     [SerializeField] private Player player;
+    [SerializeField] private Collider golemCollider;
+    [SerializeField] private Collider meleeCollider;
 
     private void Start()
     {
@@ -34,31 +36,51 @@ public class LanzaRoca : AbilityBase
     private IEnumerator GenerarLanzarRoca()
     {
         yield return new WaitForSeconds(1f);
-        GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
 
-        Vector3 direction = obtenerDirMouse();
+        Vector3 direction = ObtenerDireccionDelMouse();
+        
+        GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
+        Collider rocaCollider = roca.GetComponentInChildren<Collider>();
+
+        Physics.IgnoreCollision(rocaCollider, golemCollider, true);
+        Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
+
+        StartCoroutine(ReactivarColision(rocaCollider));
+
+
+
+
         Roca rocaScript = roca.GetComponent<Roca>();
 
         if(rocaScript != null)
         {
             rocaScript.Lanzar(direction, player);
-            player.TakeDamage(25);
+            player.TakeDamage(20);
         }
 
         ReanudarMovimientoPlayer();
     }
 
-    private Vector3 obtenerDirMouse()
+    private Vector3 ObtenerDireccionDelMouse()
     {
+        // Crear un rayo desde la cámara hacia la posición del mouse
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        // Variable para almacenar el punto de impacto del raycast
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit))
+        // Intentar hacer un Raycast en el plano del mundo
+        if (Physics.Raycast(ray, out hit))
         {
-            return(hit.point - spawnPointRoca.position).normalized;
+            // Calcular la dirección desde el lanzaSpawnPoint hacia el punto de impacto del rayo
+            Vector3 direccion = (hit.point - spawnPointRoca.position).normalized;
+            return direccion;
         }
-
-        return spawnPointRoca.up;
+        else
+        {
+            // Si el raycast no golpea nada, devolver la dirección hacia adelante
+            return mainCamera.transform.forward;
+        }
     }
 
     private void DetenerPlayer()
@@ -70,6 +92,15 @@ public class LanzaRoca : AbilityBase
     private void ReanudarMovimientoPlayer()
     {
         player.moveSpeed = 5f;
+    }
+
+    private IEnumerator ReactivarColision(Collider rocaCollider)
+    {
+        yield return new WaitForSeconds(1f);
+        //Debug.Log("Activado Collider");
+
+        Physics.IgnoreCollision(rocaCollider, golemCollider, false);
+        Physics.IgnoreCollision(rocaCollider, meleeCollider, false);
     }
     
 }

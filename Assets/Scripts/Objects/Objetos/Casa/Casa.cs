@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Casa : Objeto_base
@@ -9,12 +10,6 @@ public class Casa : Objeto_base
     public int Debris_Madera;
     public int Debris_Piedra;
     
-    protected override void	Destruccion_Porcentual()
-    {
-        if (Vida < Mathf.RoundToInt(rb.mass) / 2){
-        rb.isKinematic = false;
-        }
-    }
 protected override void GenerarDebris()
     {
         NumeroDeDebris = Mathf.FloorToInt(rb.mass / 50f);
