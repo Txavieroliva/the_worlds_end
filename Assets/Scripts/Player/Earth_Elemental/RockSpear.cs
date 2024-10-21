@@ -1,81 +1,102 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RockSpear : AbilityBase
 {
-    public GameObject lanzaPrefab;
-    public Transform lanzaSpawnPoint;
-    public float velocidadLanza = 50f;
+    public GameObject lanzaPrefab;  // Prefab de la lanza
+    public Transform lanzaSpawnPoint;  // Punto desde donde se spawnea la lanza
+    public float velocidadLanza = 50f;  // Velocidad de la lanza
     private Animator animator;
-    private Rigidbody rb;
     private Camera mainCamera;
-    [SerializeField]private Player player;
+    [SerializeField] private Player player;
+    [SerializeField] private Collider golemCollider;
+    [SerializeField] private Collider meleeCollider;
 
     private void Start()
     {
-        animator = GetComponentInParent<Animator> ();
+        animator = GetComponentInParent<Animator>();
         mainCamera = Camera.main;
-        rb = GetComponent<Rigidbody>();
+        golemCollider = GetComponentInParent<Collider>();
+        
     }
 
     public override void UseAbility()
     {
-        if(!isOnCooldown)
+        if (!isOnCooldown)
         {
+            // Activar la animación de la habilidad
             animator.SetTrigger("Ability1");
 
+            // Generar y lanzar la lanza
             StartCoroutine(GenerarTirarLanza());
 
+            // Iniciar el cooldown
             StartCoroutine(StartCooldown());
-
         }
     }
 
-    public void Lanzar(Vector3 direccion, Player player)
-    {
-        rb.velocity = direccion * velocidadLanza; // Asigna la dirección y velocidad a la lanza
-    }
-
+    // Método para generar y lanzar la lanza
     private IEnumerator GenerarTirarLanza()
     {
-        yield return new WaitForSeconds(1f);
+        // Esperar a que la animación se reproduzca parcialmente
+        yield return new WaitForSeconds(0.2f);
 
-        // Obtener la dirección calculada en base al mouse con Raycast
-        Vector3 direction = ObtenerDirMouse();
+        // Obtener la dirección hacia la que se lanzará la lanza
+        Vector3 direccion = ObtenerDireccionDelMouse();
 
-        // Spawnear la lanza en la posición del lanzaSpawnPoint
-        GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, Quaternion.LookRotation(direction));
+        // Instanciar la lanza en la posición del lanzaSpawnPoint con la rotación hacia la dirección
+        GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, Quaternion.LookRotation(direccion));
+        Collider lanzaCollider = lanza.GetComponentInChildren<Collider>();
 
-        // Obtener el Rigidbody de la lanza para aplicarle una velocidad
+
+        Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
+        Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
+        //Debug.Log("Desactivada Collider");
+
+        StartCoroutine(ReactivarColision(lanzaCollider));
+
+        // Aplicar la dirección y velocidad a la lanza
         Rigidbody lanzaRb = lanza.GetComponent<Rigidbody>();
         if (lanzaRb != null)
         {
-            // Asignar la dirección y velocidad a la lanza
-            lanzaRb.velocity = direction * velocidadLanza;
+            lanzaRb.velocity = direccion * velocidadLanza;
+            player.TakeDamage(10);
+        }
+        else
+        {
+            Debug.LogError("El Rigidbody no está configurado en la lanza.");
         }
     }
 
-    private Vector3 ObtenerDirMouse()
+    // Método para obtener la dirección desde el spawnpoint hacia el mouse
+    private Vector3 ObtenerDireccionDelMouse()
     {
-        // Crea un rayo desde la cámara hacia la posición del mouse
+        // Crear un rayo desde la cámara hacia la posición del mouse
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
         // Variable para almacenar el punto de impacto del raycast
         RaycastHit hit;
 
-        // Si el raycast golpea algo en el mundo, usamos ese punto como dirección
+        // Intentar hacer un Raycast en el plano del mundo
         if (Physics.Raycast(ray, out hit))
         {
-            // Calculamos la dirección hacia el punto de impacto desde el lanzaSpawnPoint
-            Vector3 direction = (hit.point - lanzaSpawnPoint.position).normalized;
-
-            return direction;
+            // Calcular la dirección desde el lanzaSpawnPoint hacia el punto de impacto del rayo
+            Vector3 direccion = (hit.point - lanzaSpawnPoint.position).normalized;
+            return direccion;
         }
         else
         {
-            // Si no golpea nada, usamos la dirección del rayo normalizada
-            return ray.direction;
+            // Si el raycast no golpea nada, devolver la dirección hacia adelante
+            return mainCamera.transform.forward;
         }
+    }
+
+    private IEnumerator ReactivarColision(Collider lanzaCollider)
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Activado Collider");
+
+        Physics.IgnoreCollision(lanzaCollider, golemCollider, false);
+        Physics.IgnoreCollision(lanzaCollider, meleeCollider, false);
     }
 }
