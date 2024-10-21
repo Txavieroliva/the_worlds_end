@@ -45,8 +45,7 @@ public class Huir : Accion_Granjero
         {
             //Lo mismo, pero lo deja quieto si ya está completado.
             MiMovedor.Mover(transform.position);
-            Debug.Log("pito");
-            return Completado;
+                return Completado;
         }
     }
 
