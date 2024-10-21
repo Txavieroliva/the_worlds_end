@@ -16,7 +16,7 @@ private void calcular_dano()
     private void OnTriggerEnter(Collider other)
     {
         calcular_dano();
-        Debug.Log(other);
+        // Debug.Log(other);
 
         // Hace daño unicamente cuando se activa
         if(canDealDmg)
