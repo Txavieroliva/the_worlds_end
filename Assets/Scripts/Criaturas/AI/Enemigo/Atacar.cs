@@ -6,7 +6,13 @@ public class Atacar : Accion
 {
     public override float Calculo_Puntaje()  
     {
-        return 100;
+        if (MiDetector.Hostil_Cercano() == Vector3.zero)
+        {
+            return 100;
+        } else 
+        {
+        return 0;
+        }
     }
     
     public override void Ejecutar()

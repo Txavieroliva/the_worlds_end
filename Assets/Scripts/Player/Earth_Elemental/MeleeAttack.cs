@@ -19,6 +19,7 @@ public class MeleeAttack : MonoBehaviour
     private void Update()
     {
         calcular_dano();
+        // Debug.Log(other);
     }
 
     private void calcular_dano()

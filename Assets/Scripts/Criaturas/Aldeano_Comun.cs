@@ -12,7 +12,7 @@ public class Aldeano_Comun : MonoBehaviour
         
         // Añadir acciones al cerebro del enemigo
         miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Huir>());
-        // miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Atacar>());
+        miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Cosechar>());
         // miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Defender>());
     }
 }
