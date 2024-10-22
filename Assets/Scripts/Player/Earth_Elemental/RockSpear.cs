@@ -39,7 +39,7 @@ public class RockSpear : AbilityBase
     private IEnumerator GenerarTirarLanza()
     {
         // Esperar a que la animación se reproduzca parcialmente
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
 
         // Obtener la dirección hacia la que se lanzará la lanza
         Vector3 direccion = ObtenerDireccionDelMouse();
@@ -48,17 +48,16 @@ public class RockSpear : AbilityBase
         GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, Quaternion.LookRotation(direccion));
         Collider lanzaCollider = lanza.GetComponentInChildren<Collider>();
 
-
-        Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
-        Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
-        //Debug.Log("Desactivada Collider");
-
-        StartCoroutine(ReactivarColision(lanzaCollider));
-
         // Aplicar la dirección y velocidad a la lanza
         Rigidbody lanzaRb = lanza.GetComponent<Rigidbody>();
         if (lanzaRb != null)
         {
+            Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
+            Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
+            //Debug.Log("Desactivada Collider");
+
+            StartCoroutine(ReactivarColision(lanzaCollider));
+
             lanzaRb.velocity = direccion * velocidadLanza;
             player.TakeDamage(10);
         }

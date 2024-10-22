@@ -42,18 +42,14 @@ public class LanzaRoca : AbilityBase
         GameObject roca = Instantiate(rocaPrefab, spawnPointRoca.position, spawnPointRoca.rotation);
         Collider rocaCollider = roca.GetComponentInChildren<Collider>();
 
-        Physics.IgnoreCollision(rocaCollider, golemCollider, true);
-        Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
-
-        StartCoroutine(ReactivarColision(rocaCollider));
-
-
-
-
         Roca rocaScript = roca.GetComponent<Roca>();
 
         if(rocaScript != null)
         {
+            Physics.IgnoreCollision(rocaCollider, golemCollider, true);
+            Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
+
+            StartCoroutine(ReactivarColision(rocaCollider));
             rocaScript.Lanzar(direction, player);
             player.TakeDamage(20);
         }
