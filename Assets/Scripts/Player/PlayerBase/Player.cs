@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class Player : Base_Con_Vida
 {
@@ -47,6 +48,7 @@ public class Player : Base_Con_Vida
     {
         MovePlayer();
         RotatePlayerWithCamera();
+        CalcularSize();
         //Attack();
     }
 
@@ -57,8 +59,8 @@ public class Player : Base_Con_Vida
 
     private void HideMouse()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     // Mover al Golem basado en Rigidbody
@@ -181,9 +183,12 @@ public class Player : Base_Con_Vida
     {
         playerUI.health -= amount; //actualiza la vida en la UI
         playerUI.maxHealth -= amount;
-        if(playerUI.health < 0)
+        
+
+        if(playerUI.health <= 0 || playerUI.maxHealth <= 0)
         {
             playerUI.health = 0;
+            playerUI.maxHealth = 0;
             checkDeath();
         }
         //Debug.Log("Recibo: " + amount + " de daño");
@@ -192,7 +197,7 @@ public class Player : Base_Con_Vida
 
     private void checkDeath()
     {
-        if(playerUI.health <= 0)
+        if(playerUI.health <= 0 || playerUI.maxHealth <= 0)
         {
             endGame(); //finaliza el juego si la vida llega a 0 o menos
         }
@@ -241,5 +246,14 @@ public class Player : Base_Con_Vida
         rb.mass = volumen * Densidad;
         
         CalcularVidaAct();
+    }
+
+    public void CalcularSize()
+    {
+        float sizer = playerUI.maxHealth * 0.01f;
+        rb.mass = playerUI.maxHealth;
+        CalcularMasa();
+        Vector3 size = new Vector3(sizer, sizer, sizer);
+        transform.localScale = size;
     }
 }

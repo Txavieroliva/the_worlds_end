@@ -573,7 +573,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: tree random
       settings:
-        brushRadius: 20
+        brushRadius: 15
         brushSpacing: 3
         brushOverlapCheckMode: 0
         brushOverlapDistance: 5
@@ -700,13 +700,13 @@ MonoBehaviour:
       - gameObject: {fileID: 100618, guid: e07b9ca3ecaff4d4fbf82c30d96cf38b, type: 3}
       - gameObject: {fileID: 178792, guid: 0dd60fda408f047bfb07894449319218, type: 3}
       - gameObject: {fileID: 131906, guid: ba260558c316b4cda92178dc6fef1161, type: 3}
-      - gameObject: {fileID: 1955220120978140, guid: e03898b14a86f234a97b28e18ce3a154, type: 3}
+      - gameObject: {fileID: 0}
       - gameObject: {fileID: 1756270387487942424, guid: 1286e3a745458f4438fb05c8ad88add5, type: 3}
       - gameObject: {fileID: 6072388752852186013, guid: 21bcc0bca40a5e04f84a508b8437b2fd, type: 3}
       - gameObject: {fileID: 1191365904497370, guid: 66b2ba6f28a15344e8faa85458712b9d, type: 3}
       - gameObject: {fileID: 1034720945285278, guid: 2ed5b1506cf0a264683623f6ebafa66d, type: 3}
       - gameObject: {fileID: 0}
-      selectedSlot: 4
+      selectedSlot: 5
       selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
@@ -4271,7 +4271,7 @@ MonoBehaviour:
     levelsInWhite: 255
     levelsOutBlack: 0
     levelsOutWhite: 255
-  activeTab: 5
+  activeTab: 0
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2

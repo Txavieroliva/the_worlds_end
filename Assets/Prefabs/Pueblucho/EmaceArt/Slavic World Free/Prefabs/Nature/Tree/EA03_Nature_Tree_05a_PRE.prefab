@@ -82,6 +82,7 @@ MonoBehaviour:
   Vida: 2
   debrisPrefab: {fileID: 3658423021502622965, guid: 372dad7619c6e224fb63a40233213ef4, type: 3}
   spawnRadius: 0
+  Densidad: 100
   rb: {fileID: 0}
 --- !u!54 &-7290614061502308177
 Rigidbody:
