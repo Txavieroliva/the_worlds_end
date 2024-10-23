@@ -573,7 +573,7 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: tree random
       settings:
-        brushRadius: 100
+        brushRadius: 20
         brushSpacing: 3
         brushOverlapCheckMode: 0
         brushOverlapDistance: 5
@@ -1833,7 +1833,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: powerup
@@ -4264,7 +4264,14 @@ MonoBehaviour:
     levelsInWhite: 255
     levelsOutBlack: 0
     levelsOutWhite: 255
-  activeTab: 4
+  - name: New Tab
+    brushes: []
+    levelsGamma: 1
+    levelsInBlack: 0
+    levelsInWhite: 255
+    levelsOutBlack: 0
+    levelsOutWhite: 255
+  activeTab: 5
   paintOnSelected: 0
   paintLayers:
     serializedVersion: 2
@@ -4281,7 +4288,7 @@ MonoBehaviour:
   pinSnapScale: 0
   placeAngleStep: 15
   placeScaleStep: 0.1
-  eraseBrushRadius: 104
+  eraseBrushRadius: 60
   eraseByLayer: 1
   eraseLayers:
     serializedVersion: 2

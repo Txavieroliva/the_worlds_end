@@ -10,8 +10,10 @@ public class WelcomeWindow : EditorWindow
     private Texture2D top;
 
     private Texture2D image1;
-
-    private Texture2D linkButton;
+    private Texture2D image2;
+    private Texture2D image3;
+    private Texture2D image4;
+    private Texture2D image5;
 
     private Texture2D logo;
 
@@ -30,7 +32,7 @@ public class WelcomeWindow : EditorWindow
     private static void OpenWindow()
     {
         EditorWindow panel = GetWindow<WelcomeWindow>();
-        panel.titleContent = new GUIContent("Hello Developer!", Resources.Load<Texture2D>("Favi_top"));
+        panel.titleContent = new GUIContent("Hello Developer", Resources.Load<Texture2D>("Favi_top"));
         //  panel.minSize = new Vector2(600, Mathf.Min(Screen.currentResolution.height, 862));
         // panel.maxSize = new Vector2(600, Mathf.Min(Screen.currentResolution.height, 862));
         //panel.ShowUtility();
@@ -46,8 +48,10 @@ public class WelcomeWindow : EditorWindow
         top = Resources.Load<Texture2D>("EA_Top");
 
         image1 = Resources.Load<Texture2D>("Btn_01");
-
-        linkButton = Resources.Load<Texture2D>("button_free_zone");
+     //   image2 = Resources.Load<Texture2D>("Btn_02");
+     //   image3 = Resources.Load<Texture2D>("Btn_03");
+     // image4 = Resources.Load<Texture2D>("Btn_04");
+     //   image5 = Resources.Load<Texture2D>("Btn_05");
 
         logo = Resources.Load<Texture2D>("Logo");
     }
@@ -70,18 +74,38 @@ public class WelcomeWindow : EditorWindow
     private void DrawHeader()
     {
         if (GUILayout.Button(top, textureButton))
-            Application.OpenURL("https://assetstore.unity.com/packages/3d/environments/fantasy/slavic-medieval-village-town-interior-and-exterior-pack-environm-137794");
+            Application.OpenURL("https://assetstore.unity.com/packages/3d/environments/urban/stylized-fantasy-graveyard-huuuge-world-144129");
     }
 
     private void DrawBody()
     {
-        GUILayout.Label("Thanks for checkin Slavica Lite", headingText);
+        GUILayout.Label("Thanks for checkin NecroPOLY Lite", headingText);
         GUILayout.Space(1f);
-        GUILayout.Label("This pack perfect match with the Medieval Slavica Town Full!", commonText);
+        GUILayout.Label("This pack perfect match with the NecroPOLY FULL!", commonText);
         GUILayout.Space(20f);
 
         if (GUILayout.Button(image1, textureButton))
-            Application.OpenURL("https://assetstore.unity.com/packages/3d/environments/fantasy/slavic-medieval-village-town-interior-and-exterior-pack-environm-137794");
+            Application.OpenURL("https://assetstore.unity.com/packages/3d/environments/urban/stylized-fantasy-graveyard-huuuge-world-144129");
+
+    //    GUILayout.Space(10f);
+
+  //      if (GUILayout.Button(image2, textureButton))
+  //          Application.OpenURL("https://www.emaceart.com");
+
+ //       GUILayout.Space(10f);
+
+  //      if (GUILayout.Button(image3, textureButton))
+ //           Application.OpenURL("https://www.emaceart.com");
+
+   //     GUILayout.Space(10f);
+
+  //      if (GUILayout.Button(image4, textureButton))
+   //         Application.OpenURL("https://www.emaceart.com");
+
+ //       GUILayout.Space(10f);
+
+ //       if (GUILayout.Button(image5, textureButton))
+ //           Application.OpenURL("https://www.emaceart.com");
     }
 
     private void DrawFooter()
@@ -91,10 +115,10 @@ public class WelcomeWindow : EditorWindow
             Application.OpenURL("https://www.emaceart.com");
 
         GUILayout.BeginVertical();
-        GUILayout.Space(10f);
+GUILayout.Space(10f);
         GUILayout.Label("Visit my free zone. If you like this content, don't forget leave review :)", commonText);
-        GUILayout.Space(10f);
-        if (GUILayout.Button(linkButton, textureButton))
+GUILayout.Space(10f);
+        if (GUILayout.Button("FREE ZONE!"))
             Application.OpenURL("https://assetstore.unity.com/lists/free-zone-178789");
 
         GUILayout.EndVertical();
