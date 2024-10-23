@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Accion : Accion_Base
+public class Accion_Granjero : Accion
 {
-    public Estadisticas Stats;
-    public float Puntos;
-    public bool Completado = false;
-    public Detector MiDetector;
-    public Movedor MiMovedor;
+    public Estadisticas_Civil Stats;
 
 void Start()
     {
         // Encuentra los componentes en el mismo objeto (si están ahí)
         MiDetector = GetComponentInParent<Detector>();
         MiMovedor = GetComponentInParent<Movedor>();
-        Stats = GetComponentInParent<Estadisticas>();
+        Stats = GetComponent<Estadisticas_Civil>();
 
         
         if (MiDetector == null)
@@ -27,19 +23,5 @@ void Start()
             Debug.LogError("No se encontró Movedor en el GameObject");
         }
     }
-    public virtual float Calculo_Puntaje()  
-    {
-        return Puntos;
-    }
-    
-    public override void Ejecutar()
-    {
-        
-    }
-
-    public virtual bool Revisar()
-    {
-        return Completado;
-    }
-    
 }
+

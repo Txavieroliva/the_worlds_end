@@ -50,10 +50,10 @@ void Start()
      // Obtenemos el Rigidbody asociado
     rb = GetComponent<Rigidbody>();
 
-//     Calculamos la masa
+//Calculamos la masa
     float Masa = CalcularMasa();
 
-//     Asignamos la masa al Rigidbody
+//Asignamos la masa al Rigidbody
     rb.mass = Masa; 
 
     CalcularVida();
@@ -124,7 +124,7 @@ protected void OnCollisionEnter(Collision collision)
 
                 if (collision.transform.position.y > transform.position.y)
                 {
-                    Debug.Log("El objeto está encima.");
+                    // Debug.Log("El objeto está encima.");
 
                     // Verificar si la masa del objeto colisionado es al menos el doble
                     if (otroObjeto.rb.mass >= rb.mass * Masa_Aguantada)
@@ -141,7 +141,7 @@ protected void OnCollisionEnter(Collision collision)
 
      //    Convertimos el daño a un valor entero (redondeando)
         int DañoInt = Mathf.RoundToInt(DañoFloat);
-          Debug.Log(DañoInt);
+        //   Debug.Log(DañoInt);
         Golpeado(DañoInt);
     }
 
@@ -150,24 +150,11 @@ public void	Settear_Localizacion(string Lugar)
         Lugar_De_Pertenencia = Lugar;
     }
 
-// protected string Idles()
-//     {
-
-//     }
-// public void	Interaccion()
-//     {
-
-//     }
-// protected string	Destruccion_Completa()
-//     {
-
-//     }
-
 public override void	Golpeado(int daño)
     {
 if (daño > Threshold_Daño)
 {
-    Debug.Log(daño);
+    // Debug.Log(daño);
     Vida = Vida - daño;
    Destruccion_Porcentual();
 }
@@ -193,42 +180,9 @@ protected float	Calculadora_Daño(float velocidad2)
 
     }
 
-// protected void	Ser_Agarrado()
-// {
-
-// }
-// protected void	Animator()
-// {
-
-// }
-// protected void	Optimizar()
-//     {
-
-//     }
-// protected void	Informacion_Guardar()
-//     {
-
-//     }
-// protected void	Informacion_Cargar()
-//     {
-
-//     }
-// protected void	Algo_Encima()
-//     {
-
-//     }
-// protected void	Crecer()
-//     {
-
-//     }
-    
-    
-   
-
     //Update is called once per frame
-
     void Update()
     {}
         
-     }
+}
 

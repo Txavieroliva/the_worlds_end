@@ -1124,7 +1124,6 @@ GameObject:
   - component: {fileID: 1164209843}
   - component: {fileID: 1164209842}
   - component: {fileID: 1164209841}
-  - component: {fileID: 1164209840}
   - component: {fileID: 1164209839}
   - component: {fileID: 1164209838}
   m_Layer: 0
@@ -1162,9 +1161,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 0
---- !u!114 &1164209840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1394,7 +1390,6 @@ GameObject:
   - component: {fileID: 1420604074}
   - component: {fileID: 1420604073}
   - component: {fileID: 1420604072}
-  - component: {fileID: 1420604071}
   - component: {fileID: 1420604076}
   - component: {fileID: 1420604077}
   m_Layer: 0
@@ -1404,9 +1399,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1420604071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -2045,6 +2037,7 @@ GameObject:
   - component: {fileID: 1666540856}
   - component: {fileID: 1666540857}
   - component: {fileID: 1666540858}
+  - component: {fileID: 1666540859}
   m_Layer: 0
   m_Name: Detectorium
   m_TagString: Untagged
@@ -2125,6 +2118,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6addfe891c04a2449f65892dea51a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1666540859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
 --- !u!1 &1872566717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,7 +2133,6 @@ GameObject:
   - component: {fileID: 1872566722}
   - component: {fileID: 1872566721}
   - component: {fileID: 1872566720}
-  - component: {fileID: 1872566719}
   - component: {fileID: 1872566718}
   - component: {fileID: 1872566724}
   m_Layer: 0
@@ -2160,12 +2155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 20
---- !u!114 &1872566719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872566717}
   m_Enabled: 0
   m_EditorHideFlags: 0
@@ -2388,7 +2377,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 600, y: 1, z: 600}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 259209891}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2076352295
@@ -3337,9 +3327,9 @@ SceneRoots:
   - {fileID: 3903446}
   - {fileID: 1420604075}
   - {fileID: 1872566723}
-  - {fileID: 259209891}
   - {fileID: 1164209844}
   - {fileID: 1516388223}
   - {fileID: 1055603529236514336}
   - {fileID: 3745876748941018480}
   - {fileID: 7419168487636688129}
+  - {fileID: 748251236}
