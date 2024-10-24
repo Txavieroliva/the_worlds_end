@@ -6,7 +6,7 @@ public class Accion : Accion_Base
 {
     public Estadisticas Stats;
     public float Puntos;
-    public bool Completado = false;
+    public bool Completado = true;
     public Detector MiDetector;
     public Movedor MiMovedor;
 
@@ -14,7 +14,7 @@ void Start()
     {
         // Encuentra los componentes en el mismo objeto (si están ahí)
         MiDetector = GetComponentInParent<Detector>();
-        MiMovedor = GetComponentInParent<Movedor>();
+        MiMovedor = GetComponent<Movedor>();
         Stats = GetComponentInParent<Estadisticas>();
 
         
@@ -41,5 +41,6 @@ void Start()
     {
         return Completado;
     }
-    
+    public void Terminar()
+    {MiMovedor.Cuerpo.ResetPath();}
 }

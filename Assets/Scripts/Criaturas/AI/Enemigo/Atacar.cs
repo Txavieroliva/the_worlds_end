@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Atacar : Accion
+public class Atacar : Accion_Soldado
 {
     public override float Calculo_Puntaje()  
     {
-        if (MiDetector.Hostil_Cercano() == Vector3.zero)
+
+        if (MiDetector.Hostil_Cercano() == Vector3.zero || Vector3.Distance(Stats.Mi_Patrulla.position, transform.position)>(Stats.Mi_Patrulla.localScale.x /2)+10f)
         {
-            return 100;
+            return 0;
         } else 
         {
-        return 0;
+        return 100;
         }
     }
     
@@ -22,7 +23,7 @@ public class Atacar : Accion
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
             Completado = true;
-            Debug.Log("Completado");
+            // MiMovedor.Mover(transform.position);
         } else 
         {
         MiMovedor.Mover(MiDetector.Hostil_Cercano());
@@ -32,15 +33,17 @@ public class Atacar : Accion
 
     public override bool Revisar()
     {
+      //si no esta completado, se ejecuta nuevamente, returnea que no está completado (si es que no lo está).
         if (Completado == false)
         {
             Ejecutar();
-            return Completado;
         } else
         {
+            //Lo mismo, pero lo deja quieto si ya está completado.
             MiMovedor.Mover(transform.position);
-            return Completado;
         }
-    }
+    return true;
 
+
+    }
 }

@@ -14,6 +14,7 @@ public NavMeshAgent Cuerpo;
 
     public void Mover(Vector3 Objetivo)
     {
-     Cuerpo.destination = Objetivo;
+    Cuerpo.ResetPath();
+    Cuerpo.SetDestination(Objetivo);    
     }
 }
