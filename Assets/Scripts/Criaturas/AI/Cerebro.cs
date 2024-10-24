@@ -9,7 +9,6 @@ public class Cerebro : MonoBehaviour
     public Accion Accion_Actual;
     private bool Accionando = false;
 
-
     //esta función agarra la lista de acciones y las revisa una por una para sacar a la que tenga mayor puntaje.
     private void Calcular_Acciones(List<Accion> Lista_Compara)
     {
@@ -57,6 +56,7 @@ public class Cerebro : MonoBehaviour
         {
             //calcula la acción con mayor puntos y le otorga el valor sig accion
             Calcular_Acciones(Lista_Acciones);
+            if (Sig_Accion != Accion_Actual && Sig_Accion != null && Accion_Actual != null){Accion_Actual.Terminar();}
                 // ejecuta la acción asignada a sig_accion
                 Ejecutar_Accion(Sig_Accion);
                     //Aplica acción actual

@@ -12,7 +12,7 @@ public class Hostil_Comun : MonoBehaviour
         
         // Añadir acciones al cerebro del enemigo
         miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Atacar>());
-        // miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Atacar>());
+        miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Patrullaje>());
         // miCerebro.Lista_Acciones.Add(gameObject.AddComponent<Defender>());
     }
 }

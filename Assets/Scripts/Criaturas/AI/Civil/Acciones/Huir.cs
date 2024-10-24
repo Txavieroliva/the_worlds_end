@@ -9,6 +9,8 @@ public class Huir : Accion_Granjero
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
             return 0;
+            MiMovedor.Mover(transform.position);
+
         } else 
         {
         return 100;
@@ -25,6 +27,8 @@ public class Huir : Accion_Granjero
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
             Completado = true;
+            MiMovedor.Mover(transform.position);
+
         } else 
         
         //lo mueve en la dirección contraria al enemigo más cercano.
@@ -40,13 +44,14 @@ public class Huir : Accion_Granjero
         if (Completado == false)
         {
             Ejecutar();
-            return false;
         } else
         {
             //Lo mismo, pero lo deja quieto si ya está completado.
             MiMovedor.Mover(transform.position);
-                return Completado;
         }
+     return true;
+
     }
+    
 
 }
