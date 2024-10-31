@@ -9,8 +9,6 @@ public class Huir : Accion_Granjero
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
             return 0;
-            MiMovedor.Mover(transform.position);
-
         } else 
         {
         return 100;
