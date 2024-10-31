@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Accion : Accion_Base
 {
-    public Estadisticas Stats;
     public float Puntos;
     public bool Completado = true;
     public Detector MiDetector;
@@ -15,7 +14,6 @@ void Start()
         // Encuentra los componentes en el mismo objeto (si están ahí)
         MiDetector = GetComponentInParent<Detector>();
         MiMovedor = GetComponent<Movedor>();
-        Stats = GetComponentInParent<Estadisticas>();
 
         
         if (MiDetector == null)
