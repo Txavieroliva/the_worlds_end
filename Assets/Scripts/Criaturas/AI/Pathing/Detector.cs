@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +5,14 @@ public class Detector : MonoBehaviour
 {
     private Vector3 Hostil_Mas_Cercano = Vector3.zero;
     private List<Collider> HostilesEnRango = new List<Collider>(); // Lista para almacenar hostiles dentro del rango
-
-
+    private bool necesitaActualizarHostilCercano = false; // Marca si es necesario actualizar el más cercano
 
     void Update()
     {
-        if (HostilesEnRango.Count > 0)  // Si hay hostiles en rango
+        if (necesitaActualizarHostilCercano && HostilesEnRango.Count > 0)  // Solo si es necesario actualizar y hay hostiles
         {
-            ActualizarHostilMasCercano(); //Guarda al más cercano
+            ActualizarHostilMasCercano();
+            necesitaActualizarHostilCercano = false;
         }
     }
 
@@ -21,40 +20,45 @@ public class Detector : MonoBehaviour
     {
         if (EsHostil(collision))
         {
-            HostilesEnRango.Add(collision);  // Agregar a la lista
+            HostilesEnRango.Add(collision); // Agrega el hostil a la lista
+            necesitaActualizarHostilCercano = true; // Marca para actualizar el hostil más cercano
         }
     }
 
     private void OnTriggerExit(Collider collision)
     {
-        if (HostilesEnRango.Contains(collision))
+        if (HostilesEnRango.Remove(collision)) // Elimina si está en la lista y devuelve true
         {
-            HostilesEnRango.Remove(collision);  // Eliminar de la lista
-            // Debug.Log("Hostil salió: " + collision.gameObject.name);
             if (HostilesEnRango.Count == 0)
             {
-                Hostil_Mas_Cercano = Vector3.zero;  // Reiniciar si no hay más hostiles
+                Hostil_Mas_Cercano = Vector3.zero;  // Reinicia si no hay más hostiles
+                necesitaActualizarHostilCercano = false;
+            }
+            else
+            {
+                necesitaActualizarHostilCercano = true; // Marca para actualizar el hostil más cercano
             }
         }
     }
 
-    //Se fija cual de los hostiles está más cerca al transform y lo actualiza.
+    // Se fija cuál de los hostiles está más cerca al transform y lo actualiza.
     private void ActualizarHostilMasCercano()
     {
-        float distanciaMinima = Mathf.Infinity;
+        float distanciaMinimaSqr = Mathf.Infinity;
         Vector3 posicionCercana = Vector3.positiveInfinity;
+        Vector3 posicionActual = transform.position;
 
-        foreach (Collider hostil in HostilesEnRango) //por cada hostil en rango:
+        foreach (Collider hostil in HostilesEnRango) // Recorre solo hostiles en rango
         {
-            float distancia = Vector3.Distance(hostil.transform.position, transform.position); // detecta la distancia a sí mismo
+            float distanciaSqr = (hostil.transform.position - posicionActual).sqrMagnitude; // Usa magnitud cuadrada
 
-            if (distancia < distanciaMinima) //si la distancia es menor a la distancia necesaria o de la ultima detección:
+            if (distanciaSqr < distanciaMinimaSqr) // Si es más cercano
             {
-                distanciaMinima = distancia;
+                distanciaMinimaSqr = distanciaSqr;
                 posicionCercana = hostil.transform.position;
             }
         }
-            Hostil_Mas_Cercano = posicionCercana; // Actualiza la posición del hostil más cercano
+        Hostil_Mas_Cercano = posicionCercana; // Actualiza la posición del hostil más cercano
     }
 
     private bool EsHostil(Collider collision)
@@ -65,10 +69,6 @@ public class Detector : MonoBehaviour
 
     public Vector3 Hostil_Cercano()
     {
-        if (Hostil_Mas_Cercano == Vector3.zero)
-        {
-            // Debug.Log("No se ha detectado ningún hostil.");
-        }
-        return Hostil_Mas_Cercano;
+        return Hostil_Mas_Cercano; // Devuelve la posición actual del hostil más cercano
     }
 }
