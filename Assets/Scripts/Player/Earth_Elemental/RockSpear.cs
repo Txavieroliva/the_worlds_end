@@ -9,6 +9,7 @@ public class RockSpear : AbilityBase
     private Animator animator;
     private Camera mainCamera;
     [SerializeField] private Player player;
+    [SerializeField] private UI playerUI;
     [SerializeField] private Collider golemCollider;
     [SerializeField] private Collider meleeCollider;
 
@@ -46,6 +47,9 @@ public class RockSpear : AbilityBase
 
         // Instanciar la lanza en la posición del lanzaSpawnPoint con la rotación hacia la dirección
         GameObject lanza = Instantiate(lanzaPrefab, lanzaSpawnPoint.position, Quaternion.LookRotation(direccion));
+
+        AjustarSize(lanza);
+
         Collider lanzaCollider = lanza.GetComponentInChildren<Collider>();
 
         // Aplicar la dirección y velocidad a la lanza
@@ -54,9 +58,6 @@ public class RockSpear : AbilityBase
         {
             Physics.IgnoreCollision(lanzaCollider, golemCollider, true);
             Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
-            //Debug.Log("Desactivada Collider");
-
-            StartCoroutine(ReactivarColision(lanzaCollider));
 
             lanzaRb.velocity = direccion * velocidadLanza;
             player.TakeDamage(10);
@@ -65,6 +66,15 @@ public class RockSpear : AbilityBase
         {
             Debug.LogError("El Rigidbody no está configurado en la lanza.");
         }
+    }
+
+    private void AjustarSize(GameObject lanza)
+    {
+        float sizer = playerUI.maxHealth * 0.05f;
+        Vector3 size = new Vector3(sizer, sizer, sizer);
+
+        // Ajusta la escala de la lanza
+        lanza.transform.localScale = size;
     }
 
     // Método para obtener la dirección desde el spawnpoint hacia el mouse
@@ -88,14 +98,5 @@ public class RockSpear : AbilityBase
             // Si el raycast no golpea nada, devolver la dirección hacia adelante
             return mainCamera.transform.forward;
         }
-    }
-
-    private IEnumerator ReactivarColision(Collider lanzaCollider)
-    {
-        yield return new WaitForSeconds(1f);
-        Debug.Log("Activado Collider");
-
-        Physics.IgnoreCollision(lanzaCollider, golemCollider, false);
-        Physics.IgnoreCollision(lanzaCollider, meleeCollider, false);
     }
 }
