@@ -7,11 +7,10 @@ using UnityEngine.UIElements;
 
 public class CrecimientoElemental : AbilityBase
 {
-    [Header("Crecer Config")]
+    [Header("Configuración de Crecimiento")]
     public float materialRequerido = 50f;
     [SerializeField] private float materialAcumulado = 0f;
-    public UnityEngine.UI.Image blackScreen;
-    public Text MaterialRecolectadoText;
+    [SerializeField] private UnityEngine.UI.Image iconoHabilidad;
 
     private Player player;
     [SerializeField] private UI playerUI;
@@ -19,25 +18,23 @@ public class CrecimientoElemental : AbilityBase
 
     private void Start()
     {
+        iconoHabilidad.fillAmount = 1;
+        iconoHabilidad.color = Color.red;
         player = GetComponentInParent<Player>();
-
-        iniciarBlackScreen();
-
-        ActualizarMaterial();
+        ActualizarBarraHabilidad();
     }
 
     private void Update()
     {
-        ActualizarMaterial();
+        ActualizarBarraHabilidad();
     }
 
     public override void UseAbility()
     {
         if (!isOnCooldown && materialAcumulado >= materialRequerido && !estaCreciendo)
         {
+            iconoHabilidad.color = Color.red;
             StartCoroutine(CrecerGolem());
-
-            // Iniciar el cooldown
             StartCoroutine(StartCooldown());
         }
     }
@@ -45,66 +42,62 @@ public class CrecimientoElemental : AbilityBase
     private IEnumerator CrecerGolem()
     {
         estaCreciendo = true;
-        
-        yield return StartCoroutine(TransicionNegro(true));
-        
 
-        player.rb.velocity = Vector3.zero;
-        player.moveSpeed = 0;
+        Vector3 tamañoInicial = player.transform.localScale;
+        float escalaObjetivo = tamañoInicial.y + (materialAcumulado / 50f);
+        Vector3 tamañoFinal = new Vector3(escalaObjetivo, escalaObjetivo, escalaObjetivo);
 
-        yield return new WaitForSeconds(1f);
+        float tiempoCrecimiento = 1.5f;
+        float tiempoTranscurrido = 0f;
+
+        while (tiempoTranscurrido < tiempoCrecimiento)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+
+            // Calcular el factor de progreso normalizado
+            float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
+
+            // Utilizar Lerp para interpolar entre el tamaño inicial y el tamaño final
+            player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
+
+            yield return null; // Esperar al siguiente frame
+        }
+
+        // Asegurarse de que el Golem alcance exactamente el tamaño final
+        player.transform.localScale = tamañoFinal;
 
         playerUI.maxHealth += materialAcumulado;
         playerUI.health = playerUI.maxHealth;
-        
-        Vector3 newScale = player.transform.localScale * (1 + materialAcumulado / playerUI.maxHealth);
-        player.transform.localScale = newScale;
+
         materialAcumulado = 0f;
-        player.moveSpeed = 5f;
-        //yield return new WaitForSeconds(1f);
-        
-        yield return StartCoroutine(TransicionNegro(false));
+        ActualizarBarraHabilidad();
 
         estaCreciendo = false;
     }
 
-    public void coleccionarMaterial(float cantidad)
+    public void ColeccionarMaterial(float cantidad)
     {
         materialAcumulado += cantidad;
+        ActualizarBarraHabilidad();
     }
 
-    private void iniciarBlackScreen()
+    private void ActualizarBarraHabilidad()
     {
-        Color colorInicial = blackScreen.color;
-        colorInicial.a = 0f; // Lo hace transparente
-        blackScreen.color = colorInicial;
-    }
-
-    private IEnumerator TransicionNegro(bool TransicionNegro)
-    {
-        float duracion = 2f;
-        float tiempoTranscurrido = 0f;
-        float colorObjetivo = TransicionNegro ? 1f : 0f;
-        Color colorPantalla = blackScreen.color;
-
-        while(tiempoTranscurrido < duracion)
+        if (iconoHabilidad != null)
         {
-            tiempoTranscurrido += Time.deltaTime;
-            colorPantalla.a = Mathf.Lerp(colorPantalla.a, colorObjetivo, tiempoTranscurrido/ duracion);
-            blackScreen.color = colorPantalla;
-            yield return null;
-        }
+            float fillValue = 1 - (materialAcumulado / materialRequerido);
+            iconoHabilidad.fillAmount = fillValue;
 
-        colorPantalla.a = colorObjetivo;
-        blackScreen.color = colorPantalla;
-    }
-    
-    private void ActualizarMaterial()
-    {
-        if(MaterialRecolectadoText != null)
-        {
-            MaterialRecolectadoText.text = "Material Recolectado: " + materialAcumulado.ToString("F1") + " / " + materialRequerido.ToString("F1");
+            // Cambiar color en función del fillAmount
+            if (materialAcumulado >= materialRequerido)
+            {
+                iconoHabilidad.color = Color.green; // Cambiar a verde si está lleno
+                iconoHabilidad.fillAmount = 1;
+            }
+            else
+            {
+                iconoHabilidad.color = Color.red; // Cambiar a rojo si no está lleno
+            }
         }
     }
-
 }
