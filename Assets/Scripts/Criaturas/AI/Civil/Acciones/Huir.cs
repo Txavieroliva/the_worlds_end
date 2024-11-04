@@ -8,9 +8,11 @@ public class Huir : Accion_Granjero
     {
         if (MiDetector.Hostil_Cercano() == Vector3.zero)
         {
+            Puntos = 0;
             return 0;
         } else 
         {
+        Puntos = 100;
         return 100;
         }
     }

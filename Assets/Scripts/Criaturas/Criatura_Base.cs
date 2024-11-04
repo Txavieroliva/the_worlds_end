@@ -88,28 +88,28 @@ protected void Morir()
         Destroy(gameObject);
     }
 
-protected void GenerarDrop()
-    {
-        for(int i = 0; i < NumeroDeDrop; i++)
-        {
-          //   Genera escombros en posiciones aleatorias
-            Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
-            randomOffset.y = Mathf.Abs(randomOffset.y);
+// protected void GenerarDrop()
+//     {
+//         for(int i = 0; i < NumeroDeDrop; i++)
+//         {
+//           //   Genera escombros en posiciones aleatorias
+//             Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
+//             randomOffset.y = Mathf.Abs(randomOffset.y);
 
-            Vector3 spawnPosition = transform.position + randomOffset;
+//             Vector3 spawnPosition = transform.position + randomOffset;
 
-          //   Instancia del escombro
-            GameObject Drop = Instantiate(DropPrefab, spawnPosition, Quaternion.identity);
+//           //   Instancia del escombro
+//             GameObject Drop = Instantiate(DropPrefab, spawnPosition, Quaternion.identity);
 
-            Rigidbody DropRb = Drop.GetComponent<Rigidbody>();
+//             Rigidbody DropRb = Drop.GetComponent<Rigidbody>();
 
-            if(DropRb != null)
-            {
-                Vector3 explosionDirection = (Drop.transform.position - transform.position).normalized;
-                DropRb.AddForce(explosionDirection * explosionForce);
-            }
-        }
-    }
+//             if(DropRb != null)
+//             {
+//                 Vector3 explosionDirection = (Drop.transform.position - transform.position).normalized;
+//                 DropRb.AddForce(explosionDirection * explosionForce);
+//             }
+//         }
+//     }
 
 
 // protected void OnTriggerEnter(Collider collision)
