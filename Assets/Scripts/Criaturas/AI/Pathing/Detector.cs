@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +8,21 @@ public class Detector : MonoBehaviour
     private List<Collider> HostilesEnRango = new List<Collider>();
     private bool necesitaActualizarHostilCercano = false;
 
-    void Update()
+    void Start()
     {
-        if (necesitaActualizarHostilCercano && HostilesEnRango.Count > 0)
+        StartCoroutine(Chequeo());
+    }
+
+    private System.Collections.IEnumerator Chequeo() // Uso explícito de System.Collections.IEnumerator
+    {
+        for(;;)
         {
-            ActualizarHostilMasCercano();
-            necesitaActualizarHostilCercano = false;
+            if (necesitaActualizarHostilCercano && HostilesEnRango.Count > 0)
+            {
+                ActualizarHostilMasCercano();
+                necesitaActualizarHostilCercano = false;
+            }
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
@@ -70,4 +80,3 @@ public class Detector : MonoBehaviour
         return HostilesEnRango.Count > 0 ? Hostil_Mas_Cercano : Vector3.zero;
     }
 }
-
