@@ -189,25 +189,25 @@ public class Player : Base_Con_Vida
         {
             playerUI.health = 0;
             playerUI.maxHealth = 0;
-            checkDeath();
+            // checkDeath();
         }
         //Debug.Log("Recibo: " + amount + " de daño");
         //CalcularMasa();
     }
 
-    private void checkDeath()
-    {
-        if(playerUI.health <= 0 || playerUI.maxHealth <= 0)
-        {
-            endGame(); //finaliza el juego si la vida llega a 0 o menos
-        }
-    }
+    // private void checkDeath()
+    // {
+    //     if(playerUI.health <= 0 || playerUI.maxHealth <= 0)
+    //     {
+    //         endGame(); //finaliza el juego si la vida llega a 0 o menos
+    //     }
+    // }
 
-    private void endGame()
-    {
-        Time.timeScale = 0;
-        //Application.Quit(); // Sale del juego cuando se buildee
-    }
+    // private void endGame()
+    // {
+    //     Time.timeScale = 0;
+    //     //Application.Quit(); // Sale del juego cuando se buildee
+    // }
 
     public void cureWounds(float amount)
     {
