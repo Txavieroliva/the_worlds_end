@@ -84,7 +84,7 @@ protected void FixedUpdate()
 
 protected void Morir()
     {
-        GenerarDrop(); //Generar escombros
+        // GenerarDrop(); //Generar escombros
         Destroy(gameObject);
     }
 
@@ -118,7 +118,7 @@ protected void OnCollisionEnter(Collision collision)
 
     float Velocidad2 = 0.0f;
      //    Obtenemos la velocidad del objeto colisionado
-        if (collision.gameObject.GetComponent<Objeto_base>() != null)
+            if (collision.gameObject.GetComponent<Objeto_base>() != null)
             {
             Objeto_base otroObjeto = collision.gameObject.GetComponent<Objeto_base>();
 
