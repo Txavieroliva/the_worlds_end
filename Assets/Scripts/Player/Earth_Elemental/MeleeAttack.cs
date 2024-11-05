@@ -41,7 +41,7 @@ public class MeleeAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(canDealDmg);
+//         Debug.Log(canDealDmg);
         // Intentar obtener el componente Objeto_base, sin importar si es Casa u otro derivado
         Objeto_base base_objeto = other.GetComponentInParent<Objeto_base>();  // Buscamos en padres también si es necesario
         Base base_base = other.GetComponentInParent<Base>();  // Buscamos también Base si fuera necesario
