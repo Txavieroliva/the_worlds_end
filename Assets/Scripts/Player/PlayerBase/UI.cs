@@ -10,11 +10,16 @@ public class UI : MonoBehaviour
    [SerializeField] Slider transHealthSlider;
    [SerializeField] Slider manaSlider;
    [SerializeField] Slider transManaSlider;
+   [SerializeField] Slider WC_Slider;
+   [SerializeField] Slider transWC_Slider;
+
+
    public float maxHealth;
    public float health;
    public float maxMana = 100f;
    public float mana;
    private float lerpSpeed = 0.005f;
+   private float WinCondition = 300;
 
    private void Start()
    {
@@ -22,6 +27,7 @@ public class UI : MonoBehaviour
         transHealthSlider.value = maxHealth;
         mana = maxMana;
         transManaSlider.value = maxMana;
+        transWC_Slider.value = WinCondition;
    } 
 
    private void Update()
@@ -30,13 +36,14 @@ public class UI : MonoBehaviour
         healthTransition();
         manaUpdate();
         manaTransition();
+        update_wc_slide();
    }
 
    private void updateHealth()
    {
         if(healthSlider.value != health)
         {
-            healthSlider.value = health;
+          healthSlider.value = health;
         }
    }
 
@@ -71,5 +78,19 @@ public class UI : MonoBehaviour
      {
           mana = 0;
      }
+   }
+   private void update_wc_slide()
+     {
+          if(WC_Slider.value != health)
+          {
+               WC_Slider.value = health;
+          }
+     }
+   private void WC_Transition()
+   {
+        if(WC_Slider.value != transWC_Slider.value)
+        {
+          transWC_Slider.value = Mathf.Lerp(transWC_Slider.value, health, lerpSpeed);
+        }
    }
 }
