@@ -7,37 +7,38 @@ using UnityEngine.UIElements;
 
 public class CrecimientoElemental : AbilityBase
 {
-    [Header("Crecer Config")]
-    public float materialRequerido = 50f;
+    [Header("Configuración de Crecimiento")]
+    public float materialRequerido = 25f;
     [SerializeField] private float materialAcumulado = 0f;
-    public UnityEngine.UI.Image blackScreen;
-    public Text MaterialRecolectadoText;
+    [SerializeField] private UnityEngine.UI.Image iconoHabilidad;
 
     private Player player;
     [SerializeField] private UI playerUI;
     private bool estaCreciendo = false;
+    public UnityEngine.Material characterMaterial; // Asigna aquí el material de tu personaje
+    private float originalAlpha;
 
     private void Start()
     {
+        iconoHabilidad.fillAmount = 1;
+        iconoHabilidad.color = Color.red;
         player = GetComponentInParent<Player>();
-
-        iniciarBlackScreen();
-
-        ActualizarMaterial();
+        ActualizarBarraHabilidad();
+        originalAlpha = characterMaterial.color.a;
     }
 
     private void Update()
     {
-        ActualizarMaterial();
+        ActualizarBarraHabilidad();
     }
 
     public override void UseAbility()
     {
         if (!isOnCooldown && materialAcumulado >= materialRequerido && !estaCreciendo)
         {
+            iconoHabilidad.color = Color.red;
+            MakeTransparent(100, 2);
             StartCoroutine(CrecerGolem());
-
-            // Iniciar el cooldown
             StartCoroutine(StartCooldown());
         }
     }
@@ -45,66 +46,120 @@ public class CrecimientoElemental : AbilityBase
     private IEnumerator CrecerGolem()
     {
         estaCreciendo = true;
+
+        // Tamaño inicial y tamaño final calculados en base al material acumulado
+        Vector3 tamañoInicial = player.transform.localScale;
+        float escalaObjetivo = tamañoInicial.y + (materialAcumulado / 25f);  
+        Vector3 tamañoFinal = new Vector3(escalaObjetivo, escalaObjetivo, escalaObjetivo);
+
+        float tiempoCrecimiento = 0.4f;  // Duración del crecimiento
+        float tiempoTranscurrido = 0f;
+
+        while (tiempoTranscurrido < tiempoCrecimiento)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+
+            
+            float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
+
+            // Interpolación entre el tamaño inicial y final
+            player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
+
+            yield return null;
+        }
+
         
-        yield return StartCoroutine(TransicionNegro(true));
+        player.transform.localScale = tamañoFinal;
+
         
-
-        player.rb.velocity = Vector3.zero;
-        player.moveSpeed = 0;
-
-        yield return new WaitForSeconds(1f);
-
         playerUI.maxHealth += materialAcumulado;
         playerUI.health = playerUI.maxHealth;
+
         
-        Vector3 newScale = player.transform.localScale * (1 + materialAcumulado / playerUI.maxHealth);
-        player.transform.localScale = newScale;
         materialAcumulado = 0f;
-        player.moveSpeed = 5f;
-        //yield return new WaitForSeconds(1f);
-        
-        yield return StartCoroutine(TransicionNegro(false));
+        ActualizarBarraHabilidad();
+        RestoreMaterial();
 
         estaCreciendo = false;
     }
 
-    public void coleccionarMaterial(float cantidad)
+    public void ColeccionarMaterial(float cantidad)
     {
         materialAcumulado += cantidad;
-    }
-
-    private void iniciarBlackScreen()
-    {
-        Color colorInicial = blackScreen.color;
-        colorInicial.a = 0f; // Lo hace transparente
-        blackScreen.color = colorInicial;
-    }
-
-    private IEnumerator TransicionNegro(bool TransicionNegro)
-    {
-        float duracion = 2f;
-        float tiempoTranscurrido = 0f;
-        float colorObjetivo = TransicionNegro ? 1f : 0f;
-        Color colorPantalla = blackScreen.color;
-
-        while(tiempoTranscurrido < duracion)
+        if(materialAcumulado > materialRequerido)
         {
-            tiempoTranscurrido += Time.deltaTime;
-            colorPantalla.a = Mathf.Lerp(colorPantalla.a, colorObjetivo, tiempoTranscurrido/ duracion);
-            blackScreen.color = colorPantalla;
-            yield return null;
+            materialAcumulado = materialRequerido;
         }
-
-        colorPantalla.a = colorObjetivo;
-        blackScreen.color = colorPantalla;
+        ActualizarBarraHabilidad();
     }
-    
-    private void ActualizarMaterial()
+
+    private void ActualizarBarraHabilidad()
     {
-        if(MaterialRecolectadoText != null)
+        if (iconoHabilidad != null)
         {
-            MaterialRecolectadoText.text = "Material Recolectado: " + materialAcumulado.ToString("F1") + " / " + materialRequerido.ToString("F1");
+            float fillValue = 1 - (materialAcumulado / materialRequerido);
+            iconoHabilidad.fillAmount = fillValue;
+
+            // Cambiar color en función del fillAmount
+            if (materialAcumulado >= materialRequerido)
+            {
+                iconoHabilidad.color = Color.green; // Cambiar a verde si está lleno
+                iconoHabilidad.fillAmount = 1;
+            }
+            else
+            {
+                iconoHabilidad.color = Color.red; // Cambiar a rojo si no está lleno
+            }
         }
+    }
+
+    public void MakeTransparent(float transparencyAmount, float duration)
+    {
+        // Cambiar el modo de renderizado a transparente
+        SetMaterialRenderingModeTransparent();
+
+        // Ajustar la transparencia
+        Color color = characterMaterial.color;
+        color.a = transparencyAmount;
+        characterMaterial.color = color;
+
+        // Restaurar la opacidad después de la duración especificada
+        Invoke(nameof(RestoreMaterial), duration);
+    }
+
+    private void RestoreMaterial()
+    {
+        // Restaurar el modo de renderizado a opaco
+        SetMaterialRenderingModeOpaque();
+
+        // Restaurar el alfa original
+        Color color = characterMaterial.color;
+        color.a = originalAlpha;
+        characterMaterial.color = color;
+    }
+
+    private void SetMaterialRenderingModeTransparent()
+    {
+        characterMaterial.SetFloat("_Mode", 3); // 3 es el valor para Transparent en el shader Standard
+        characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        characterMaterial.SetInt("_ZWrite", 0);
+        characterMaterial.DisableKeyword("_ALPHATEST_ON");
+        characterMaterial.EnableKeyword("_ALPHABLEND_ON");
+        characterMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        characterMaterial.renderQueue = 3000;
+    }
+
+    private void SetMaterialRenderingModeOpaque()
+    {
+        characterMaterial.SetFloat("_Mode", 0); // 0 es el valor para Opaque en el shader Standard
+        characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        characterMaterial.SetInt("_ZWrite", 1);
+        characterMaterial.DisableKeyword("_ALPHATEST_ON");
+        characterMaterial.DisableKeyword("_ALPHABLEND_ON");
+        characterMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        characterMaterial.renderQueue = -1;
     }
 
 }
