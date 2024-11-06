@@ -1,28 +1,30 @@
 using System.Collections;
-using System.Collections.Generic;
-using GLTF.Schema;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class CrecimientoElemental : AbilityBase
 {
     [Header("Configuración de Crecimiento")]
     public float materialRequerido = 25f;
     [SerializeField] private float materialAcumulado = 0f;
-    [SerializeField] private UnityEngine.UI.Image iconoHabilidad;
+    [SerializeField] private Image iconoHabilidad;
 
     private Player player;
     [SerializeField] private UI playerUI;
     private bool estaCreciendo = false;
-    public UnityEngine.Material characterMaterial; // Asigna aquí el material de tu personaje
+    public Material characterMaterial;
     private float originalAlpha;
+    private Rigidbody playerRigidbody;
+
+    // Factor de corrección de altura
+    private float factorAltura = 5f; // Ajusta este valor según sea necesario
 
     private void Start()
     {
         iconoHabilidad.fillAmount = 1;
         iconoHabilidad.color = Color.red;
         player = GetComponentInParent<Player>();
+        playerRigidbody = player.GetComponent<Rigidbody>();
         ActualizarBarraHabilidad();
         originalAlpha = characterMaterial.color.a;
     }
@@ -37,7 +39,7 @@ public class CrecimientoElemental : AbilityBase
         if (!isOnCooldown && materialAcumulado >= materialRequerido && !estaCreciendo)
         {
             iconoHabilidad.color = Color.red;
-            MakeTransparent(100, 2);
+            MakeTransparent(100f, 2);
             StartCoroutine(CrecerGolem());
             StartCoroutine(StartCooldown());
         }
@@ -47,34 +49,41 @@ public class CrecimientoElemental : AbilityBase
     {
         estaCreciendo = true;
 
+        // Desactivar temporalmente la gravedad
+        playerRigidbody.useGravity = false;
+        playerRigidbody.velocity = Vector3.zero;
+
         // Tamaño inicial y tamaño final calculados en base al material acumulado
         Vector3 tamañoInicial = player.transform.localScale;
         float escalaObjetivo = tamañoInicial.y + (materialAcumulado / 25f);  
         Vector3 tamañoFinal = new Vector3(escalaObjetivo, escalaObjetivo, escalaObjetivo);
 
-        float tiempoCrecimiento = 0.4f;  // Duración del crecimiento
+        // Posición inicial y posición final ajustada
+        Vector3 posicionInicial = player.transform.position;
+        float diferenciaAltura = (escalaObjetivo - tamañoInicial.y) * factorAltura;
+        Vector3 posicionFinal = posicionInicial + new Vector3(0, diferenciaAltura, 0);
+
+        float tiempoCrecimiento = 0.5f;
         float tiempoTranscurrido = 0f;
 
         while (tiempoTranscurrido < tiempoCrecimiento)
         {
             tiempoTranscurrido += Time.deltaTime;
-
             float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
-            // Debug.Log(tiempoTranscurrido);
-            // Debug.Log(factorProgreso);
-            // Debug.Log("");
-            // if(factorProgreso > 1)
-            // {
-            //     factorProgreso = 1;
-            // }
 
-            // Interpolación entre el tamaño inicial y final
+            // Interpolar tanto el tamaño como la posición
+            player.transform.position = Vector3.Lerp(posicionInicial, posicionFinal, factorProgreso);
             player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
 
             yield return null;
         }
-        
+
+        // Asegurarse de que el Golem alcance exactamente el tamaño y la posición final
         player.transform.localScale = tamañoFinal;
+        player.transform.position = posicionFinal;
+
+        // Reactivar la gravedad
+        playerRigidbody.useGravity = true;
 
         playerUI.maxHealth += materialAcumulado;
         playerUI.health = playerUI.maxHealth;
@@ -89,7 +98,7 @@ public class CrecimientoElemental : AbilityBase
     public void ColeccionarMaterial(float cantidad)
     {
         materialAcumulado += cantidad;
-        if(materialAcumulado > materialRequerido)
+        if (materialAcumulado > materialRequerido)
         {
             materialAcumulado = materialRequerido;
         }
@@ -103,39 +112,30 @@ public class CrecimientoElemental : AbilityBase
             float fillValue = 1 - (materialAcumulado / materialRequerido);
             iconoHabilidad.fillAmount = fillValue;
 
-            // Cambiar color en función del fillAmount
             if (materialAcumulado >= materialRequerido)
             {
-                iconoHabilidad.color = Color.green; // Cambiar a verde si está lleno
+                iconoHabilidad.color = Color.green;
                 iconoHabilidad.fillAmount = 1;
             }
             else
             {
-                iconoHabilidad.color = Color.red; // Cambiar a rojo si no está lleno
+                iconoHabilidad.color = Color.red;
             }
         }
     }
 
     public void MakeTransparent(float transparencyAmount, float duration)
     {
-        // Cambiar el modo de renderizado a transparente
         SetMaterialRenderingModeTransparent();
-
-        // Ajustar la transparencia
         Color color = characterMaterial.color;
         color.a = transparencyAmount;
         characterMaterial.color = color;
-
-        // Restaurar la opacidad después de la duración especificada
         Invoke(nameof(RestoreMaterial), duration);
     }
 
     private void RestoreMaterial()
     {
-        // Restaurar el modo de renderizado a opaco
         SetMaterialRenderingModeOpaque();
-
-        // Restaurar el alfa original
         Color color = characterMaterial.color;
         color.a = originalAlpha;
         characterMaterial.color = color;
@@ -143,7 +143,7 @@ public class CrecimientoElemental : AbilityBase
 
     private void SetMaterialRenderingModeTransparent()
     {
-        characterMaterial.SetFloat("_Mode", 3); // 3 es el valor para Transparent en el shader Standard
+        characterMaterial.SetFloat("_Mode", 3);
         characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         characterMaterial.SetInt("_ZWrite", 0);
@@ -155,7 +155,7 @@ public class CrecimientoElemental : AbilityBase
 
     private void SetMaterialRenderingModeOpaque()
     {
-        characterMaterial.SetFloat("_Mode", 0); // 0 es el valor para Opaque en el shader Standard
+        characterMaterial.SetFloat("_Mode", 0);
         characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
         characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
         characterMaterial.SetInt("_ZWrite", 1);
@@ -164,5 +164,4 @@ public class CrecimientoElemental : AbilityBase
         characterMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         characterMaterial.renderQueue = -1;
     }
-
 }
