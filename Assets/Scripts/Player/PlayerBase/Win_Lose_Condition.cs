@@ -21,7 +21,7 @@ public class Win_Lose_Condition : MonoBehaviour
     }
    private void Win_Condition()
    {
-    if (Mi_Player.Vida >= 500)
+    if (Mi_Player.Vida >= 300)
     {
         //Mostrar_Pantalla_Win; 
         Time.timeScale = 0;
