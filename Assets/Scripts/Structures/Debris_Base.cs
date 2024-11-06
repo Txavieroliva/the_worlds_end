@@ -32,7 +32,7 @@ public class Debris : MonoBehaviour
             CrecimientoElemental golemGrowth = player.GetComponentInChildren<CrecimientoElemental>();
             if (golemGrowth != null)
             {
-                golemGrowth.coleccionarMaterial(healthAmount);
+                golemGrowth.ColeccionarMaterial(healthAmount);
             }
 
             // Destruir el debris después de que haya sido recolectado

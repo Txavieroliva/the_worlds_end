@@ -49,7 +49,6 @@ public class LanzaRoca : AbilityBase
             Physics.IgnoreCollision(rocaCollider, golemCollider, true);
             Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
 
-            StartCoroutine(ReactivarColision(rocaCollider));
             rocaScript.Lanzar(direction, player);
             player.TakeDamage(20);
         }
@@ -90,13 +89,5 @@ public class LanzaRoca : AbilityBase
         player.moveSpeed = 5f;
     }
 
-    private IEnumerator ReactivarColision(Collider rocaCollider)
-    {
-        yield return new WaitForSeconds(1f);
-        //Debug.Log("Activado Collider");
-
-        Physics.IgnoreCollision(rocaCollider, golemCollider, false);
-        Physics.IgnoreCollision(rocaCollider, meleeCollider, false);
-    }
     
 }

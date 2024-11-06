@@ -25,6 +25,7 @@ public class RockSpear : AbilityBase
     {
         if (!isOnCooldown)
         {
+            DetenerPlayer();
             // Activar la animación de la habilidad
             animator.SetTrigger("Ability1");
 
@@ -66,6 +67,7 @@ public class RockSpear : AbilityBase
         {
             Debug.LogError("El Rigidbody no está configurado en la lanza.");
         }
+        ReanudarMovimientoPlayer();
     }
 
     private void AjustarSize(GameObject lanza)
@@ -98,5 +100,16 @@ public class RockSpear : AbilityBase
             // Si el raycast no golpea nada, devolver la dirección hacia adelante
             return mainCamera.transform.forward;
         }
+    }
+
+    private void DetenerPlayer()
+    {
+        player.rb.velocity = Vector3.zero;
+        player.moveSpeed = 0f;
+    }
+
+    private void ReanudarMovimientoPlayer()
+    {
+        player.moveSpeed = 5f;
     }
 }

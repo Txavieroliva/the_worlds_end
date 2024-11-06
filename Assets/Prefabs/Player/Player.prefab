@@ -200,6 +200,7 @@ MonoBehaviour:
   lanzaSpawnPoint: {fileID: 7462055343878189079}
   velocidadLanza: 50
   player: {fileID: 4106702764118548742}
+  playerUI: {fileID: 0}
   golemCollider: {fileID: 792659735060839452}
   meleeCollider: {fileID: 6297818886785120271}
 --- !u!1 &6144623457548667078
@@ -799,9 +800,9 @@ MonoBehaviour:
   cooldown: 10
   materialRequerido: 50
   materialAcumulado: 0
-  blackScreen: {fileID: 0}
-  MaterialRecolectadoText: {fileID: 0}
+  iconoHabilidad: {fileID: 0}
   playerUI: {fileID: 0}
+  characterMaterial: {fileID: 0}
 --- !u!4 &9058967893344491358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4795803781978864477, guid: c9f407918bce78e43925498ed5ad62e7, type: 3}

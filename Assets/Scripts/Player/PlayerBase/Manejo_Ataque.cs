@@ -104,7 +104,7 @@ public class Manejo_Ataque : MonoBehaviour
         if(!input.isAttacking && !comboEnCurso)
         {
             contadorCombo = 0;
-            Debug.Log("Se reinicio el combo");
+//            Debug.Log("Se reinicio el combo");
         }
     }
 }

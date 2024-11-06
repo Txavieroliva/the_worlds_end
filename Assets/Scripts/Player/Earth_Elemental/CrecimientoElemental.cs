@@ -1,43 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
-using GLTF.Schema;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class CrecimientoElemental : AbilityBase
 {
-    [Header("Crecer Config")]
-    public float materialRequerido = 50f;
+    [Header("Configuración de Crecimiento")]
+    public float materialRequerido = 25f;
     [SerializeField] private float materialAcumulado = 0f;
-    public UnityEngine.UI.Image blackScreen;
-    public Text MaterialRecolectadoText;
+    [SerializeField] private Image iconoHabilidad;
 
     private Player player;
     [SerializeField] private UI playerUI;
     private bool estaCreciendo = false;
+    public Material characterMaterial;
+    private float originalAlpha;
+    private Rigidbody playerRigidbody;
+
+    // Factor de corrección de altura
+    private float factorAltura = 5f; // Ajusta este valor según sea necesario
 
     private void Start()
     {
+        iconoHabilidad.fillAmount = 1;
+        iconoHabilidad.color = Color.red;
         player = GetComponentInParent<Player>();
-
-        iniciarBlackScreen();
-
-        ActualizarMaterial();
+        playerRigidbody = player.GetComponent<Rigidbody>();
+        ActualizarBarraHabilidad();
+        originalAlpha = characterMaterial.color.a;
     }
 
     private void Update()
     {
-        ActualizarMaterial();
+        ActualizarBarraHabilidad();
     }
 
     public override void UseAbility()
     {
         if (!isOnCooldown && materialAcumulado >= materialRequerido && !estaCreciendo)
         {
+            iconoHabilidad.color = Color.red;
+            MakeTransparent(100f, 2);
             StartCoroutine(CrecerGolem());
-
-            // Iniciar el cooldown
             StartCoroutine(StartCooldown());
         }
     }
@@ -45,66 +48,120 @@ public class CrecimientoElemental : AbilityBase
     private IEnumerator CrecerGolem()
     {
         estaCreciendo = true;
-        
-        yield return StartCoroutine(TransicionNegro(true));
-        
 
-        player.rb.velocity = Vector3.zero;
-        player.moveSpeed = 0;
+        // Desactivar temporalmente la gravedad
+        playerRigidbody.useGravity = false;
+        playerRigidbody.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(1f);
+        // Tamaño inicial y tamaño final calculados en base al material acumulado
+        Vector3 tamañoInicial = player.transform.localScale;
+        float escalaObjetivo = tamañoInicial.y + (materialAcumulado / 25f);  
+        Vector3 tamañoFinal = new Vector3(escalaObjetivo, escalaObjetivo, escalaObjetivo);
+
+        // Posición inicial y posición final ajustada
+        Vector3 posicionInicial = player.transform.position;
+        float diferenciaAltura = (escalaObjetivo - tamañoInicial.y) * factorAltura;
+        Vector3 posicionFinal = posicionInicial + new Vector3(0, diferenciaAltura, 0);
+
+        float tiempoCrecimiento = 0.5f;
+        float tiempoTranscurrido = 0f;
+
+        while (tiempoTranscurrido < tiempoCrecimiento)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+            float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
+
+            // Interpolar tanto el tamaño como la posición
+            player.transform.position = Vector3.Lerp(posicionInicial, posicionFinal, factorProgreso);
+            player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
+
+            yield return null;
+        }
+
+        // Asegurarse de que el Golem alcance exactamente el tamaño y la posición final
+        player.transform.localScale = tamañoFinal;
+        player.transform.position = posicionFinal;
+
+        // Reactivar la gravedad
+        playerRigidbody.useGravity = true;
 
         playerUI.maxHealth += materialAcumulado;
         playerUI.health = playerUI.maxHealth;
-        
-        Vector3 newScale = player.transform.localScale * (1 + materialAcumulado / playerUI.maxHealth);
-        player.transform.localScale = newScale;
+
         materialAcumulado = 0f;
-        player.moveSpeed = 5f;
-        //yield return new WaitForSeconds(1f);
-        
-        yield return StartCoroutine(TransicionNegro(false));
+        ActualizarBarraHabilidad();
+        RestoreMaterial();
 
         estaCreciendo = false;
     }
 
-    public void coleccionarMaterial(float cantidad)
+    public void ColeccionarMaterial(float cantidad)
     {
         materialAcumulado += cantidad;
-    }
-
-    private void iniciarBlackScreen()
-    {
-        Color colorInicial = blackScreen.color;
-        colorInicial.a = 0f; // Lo hace transparente
-        blackScreen.color = colorInicial;
-    }
-
-    private IEnumerator TransicionNegro(bool TransicionNegro)
-    {
-        float duracion = 2f;
-        float tiempoTranscurrido = 0f;
-        float colorObjetivo = TransicionNegro ? 1f : 0f;
-        Color colorPantalla = blackScreen.color;
-
-        while(tiempoTranscurrido < duracion)
+        if (materialAcumulado > materialRequerido)
         {
-            tiempoTranscurrido += Time.deltaTime;
-            colorPantalla.a = Mathf.Lerp(colorPantalla.a, colorObjetivo, tiempoTranscurrido/ duracion);
-            blackScreen.color = colorPantalla;
-            yield return null;
+            materialAcumulado = materialRequerido;
         }
-
-        colorPantalla.a = colorObjetivo;
-        blackScreen.color = colorPantalla;
+        ActualizarBarraHabilidad();
     }
-    
-    private void ActualizarMaterial()
+
+    private void ActualizarBarraHabilidad()
     {
-        if(MaterialRecolectadoText != null)
+        if (iconoHabilidad != null)
         {
-            MaterialRecolectadoText.text = "Material Recolectado: " + materialAcumulado.ToString("F1") + " / " + materialRequerido.ToString("F1");
+            float fillValue = 1 - (materialAcumulado / materialRequerido);
+            iconoHabilidad.fillAmount = fillValue;
+
+            if (materialAcumulado >= materialRequerido)
+            {
+                iconoHabilidad.color = Color.green;
+                iconoHabilidad.fillAmount = 1;
+            }
+            else
+            {
+                iconoHabilidad.color = Color.red;
+            }
         }
     }
 
+    public void MakeTransparent(float transparencyAmount, float duration)
+    {
+        SetMaterialRenderingModeTransparent();
+        Color color = characterMaterial.color;
+        color.a = transparencyAmount;
+        characterMaterial.color = color;
+        Invoke(nameof(RestoreMaterial), duration);
+    }
+
+    private void RestoreMaterial()
+    {
+        SetMaterialRenderingModeOpaque();
+        Color color = characterMaterial.color;
+        color.a = originalAlpha;
+        characterMaterial.color = color;
+    }
+
+    private void SetMaterialRenderingModeTransparent()
+    {
+        characterMaterial.SetFloat("_Mode", 3);
+        characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        characterMaterial.SetInt("_ZWrite", 0);
+        characterMaterial.DisableKeyword("_ALPHATEST_ON");
+        characterMaterial.EnableKeyword("_ALPHABLEND_ON");
+        characterMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        characterMaterial.renderQueue = 3000;
+    }
+
+    private void SetMaterialRenderingModeOpaque()
+    {
+        characterMaterial.SetFloat("_Mode", 0);
+        characterMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        characterMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        characterMaterial.SetInt("_ZWrite", 1);
+        characterMaterial.DisableKeyword("_ALPHATEST_ON");
+        characterMaterial.DisableKeyword("_ALPHABLEND_ON");
+        characterMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        characterMaterial.renderQueue = -1;
+    }
 }
