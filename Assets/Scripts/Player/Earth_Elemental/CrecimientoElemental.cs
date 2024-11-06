@@ -59,23 +59,26 @@ public class CrecimientoElemental : AbilityBase
         {
             tiempoTranscurrido += Time.deltaTime;
 
-            
             float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
+            // Debug.Log(tiempoTranscurrido);
+            // Debug.Log(factorProgreso);
+            // Debug.Log("");
+            // if(factorProgreso > 1)
+            // {
+            //     factorProgreso = 1;
+            // }
 
             // Interpolación entre el tamaño inicial y final
             player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
 
             yield return null;
         }
-
         
         player.transform.localScale = tamañoFinal;
 
-        
         playerUI.maxHealth += materialAcumulado;
         playerUI.health = playerUI.maxHealth;
 
-        
         materialAcumulado = 0f;
         ActualizarBarraHabilidad();
         RestoreMaterial();
