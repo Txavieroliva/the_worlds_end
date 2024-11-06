@@ -8,32 +8,31 @@ public class Botones : MonoBehaviour
 {
     
     // Variable para almacenar la imagen
-    public UnityEngine.UI.Image image;
+    public UnityEngine.UI.Image imagen;
     public Color color;
     
 
     void Start()
     {
-        // Busca el componente de imagen en el GameObject
-        image = GetComponent<Image>();
-        
         // Obtiene el color actual de la imagen
-        Color color = image.color;
+        Color color = imagen.color;
 
         // Cambia solo el valor de alfa (transparencia) del color
         color.a = 0f;
 
         // Asigna el nuevo color a la imagen
-        image.color = color;
+        imagen.color = color;
 
 
-        if (image == null)
+        if (imagen == null)
         {
             Debug.LogError("No se encontró el componente Image en el GameObject.");
         }
     }
     public void Jugar()
     {
+        Tutorial();
+        StartCoroutine(Esperar());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
     }
 
@@ -47,16 +46,22 @@ public class Botones : MonoBehaviour
 
     private void Tutorial()
     {
-        if (image != null)
+        if (imagen != null)
         {
             // Obtiene el color actual de la imagen
-            Color color = image.color;
+            Color color = imagen.color;
 
             // Cambia solo el valor de alfa (transparencia) del color
-            color.a = 1f;
+            color.a = 255f;
             
             // Asigna el nuevo color a la imagen
-            image.color = color;
+            imagen.color = color;
         }
+    }
+
+    private IEnumerator Esperar()
+    {
+        // Espera 8 segundos
+        yield return new WaitForSeconds(8);
     }
 }
