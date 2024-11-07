@@ -40,12 +40,12 @@ public class CrecimientoElemental : AbilityBase
         {
             iconoHabilidad.color = Color.red;
             MakeTransparent(100f, 2);
-            StartCoroutine(CrecerGolem());
+            CrecerGolem();
             StartCoroutine(StartCooldown());
         }
     }
 
-    private IEnumerator CrecerGolem()
+    private void CrecerGolem()
     {
         estaCreciendo = true;
 
@@ -55,7 +55,7 @@ public class CrecimientoElemental : AbilityBase
 
         // Tamaño inicial y tamaño final calculados en base al material acumulado
         Vector3 tamañoInicial = player.transform.localScale;
-        float escalaObjetivo = tamañoInicial.y + (materialAcumulado / 25f);  
+        float escalaObjetivo = tamañoInicial.y + Mathf.Min(materialAcumulado, materialRequerido) / 25f;
         Vector3 tamañoFinal = new Vector3(escalaObjetivo, escalaObjetivo, escalaObjetivo);
 
         // Posición inicial y posición final ajustada
@@ -63,30 +63,31 @@ public class CrecimientoElemental : AbilityBase
         float diferenciaAltura = (escalaObjetivo - tamañoInicial.y) * factorAltura;
         Vector3 posicionFinal = posicionInicial + new Vector3(0, diferenciaAltura, 0);
 
-        float tiempoCrecimiento = 0.5f;
+        float tiempoCrecimiento = 5f;
         float tiempoTranscurrido = 0f;
+        
 
-        while (tiempoTranscurrido < tiempoCrecimiento)
-        {
-            tiempoTranscurrido += Time.deltaTime;
-            float factorProgreso = tiempoTranscurrido / tiempoCrecimiento;
+    // for (float t = 0; t < tiempoCrecimiento; t += Time.deltaTime)
+    // {
+    //     float factorProgreso = t / tiempoCrecimiento;
 
-            // Interpolar tanto el tamaño como la posición
-            player.transform.position = Vector3.Lerp(posicionInicial, posicionFinal, factorProgreso);
-            player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
+        // Interpolar tanto el tamaño como la posición
+       
+        // player.transform.localScale = Vector3.Lerp(tamañoInicial, tamañoFinal, factorProgreso);
 
-            yield return null;
-        }
-
+          // Espera al siguiente frame
+    // }
+    //     yield return null;
         // Asegurarse de que el Golem alcance exactamente el tamaño y la posición final
-        player.transform.localScale = tamañoFinal;
-        player.transform.position = posicionFinal;
+        // player.transform.localScale = tamañoFinal;
+        // player.transform.position = posicionFinal;
 
         // Reactivar la gravedad
         playerRigidbody.useGravity = true;
-
-        playerUI.maxHealth += materialAcumulado;
-        playerUI.health = playerUI.maxHealth;
+ 
+        player.transform.position =posicionFinal;
+        playerUI.maxHealth = playerUI.health + materialAcumulado;
+        playerUI.health += materialAcumulado;
 
         materialAcumulado = 0f;
         ActualizarBarraHabilidad();

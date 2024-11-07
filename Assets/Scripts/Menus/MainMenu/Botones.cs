@@ -68,6 +68,6 @@ public class Botones : MonoBehaviour
     private IEnumerator Esperar()
     {
         // Espera 8 segundos
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(15);
     }
 }
