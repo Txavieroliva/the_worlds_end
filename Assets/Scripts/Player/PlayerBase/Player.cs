@@ -7,7 +7,10 @@ using UnityEngine.UIElements;
 
 public class Player : Base_Con_Vida
 {
-    [SerializeField] public float moveSpeed;
+    public float moveSpeed;
+    [SerializeField] private float correrMultiplicador = 1.5f;
+    [SerializeField] private float correrAnimMultiplicador = 1.5f;
+    [SerializeField] private KeyCode keyCorrer;
     [SerializeField] float rotSpeed;
     [SerializeField] Transform mainCamera;
     [SerializeField] Transform CameraTarget;
@@ -66,28 +69,33 @@ public class Player : Base_Con_Vida
     // Mover al Golem basado en Rigidbody
     private void MovePlayer()
     {
-            // Obtener la dirección de movimiento en función del input del jugador
-            Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
+        float currentSpeed = moveSpeed;
 
-            // Si hay movimiento, aplicamos la velocidad
-            if (movement.magnitude >= 0.1f)
-            {
-                Vector3 moveDirection = GetCameraRelativeMovement(movement);  // Convertir el movimiento relativo a la cámara
-                Vector3 moveVelocity = moveDirection * moveSpeed;
+        // Verificar si la tecla de correr está presionada
+        if (Input.GetKey(keyCorrer))
+        {
+            currentSpeed *= correrMultiplicador;  // Aumentar la velocidad de movimiento
+            animator.speed = correrAnimMultiplicador;  // Aumentar la velocidad de la animación
+        }
+        else
+        {
+            animator.speed = 1f;  // Restablecer la velocidad de la animación a la normalidad
+        }
 
-                // Aplicar la velocidad al Rigidbody
-                rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+        Vector3 movement = new Vector3(input.move.x, 0, input.move.y).normalized;
 
-                // Controlar la animación de movimiento
-                animator.SetFloat("speed", movement.magnitude);
-            }
-            else
-            {
-                // Si no hay movimiento, detener la animación
-                animator.SetFloat("speed", 0f);
-            }
-        
-        
+        if (movement.magnitude >= 0.1f)
+        {
+            Vector3 moveDirection = GetCameraRelativeMovement(movement);
+            Vector3 moveVelocity = moveDirection * currentSpeed * Time.deltaTime;
+
+            rb.MovePosition(rb.position + moveVelocity);
+            animator.SetFloat("speed", movement.magnitude * currentSpeed);
+        }
+        else
+        {
+            animator.SetFloat("speed", 0f);
+        }
     }
 
     // Girar al jugador en la dirección de la cámara
