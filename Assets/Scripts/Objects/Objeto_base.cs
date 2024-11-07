@@ -17,17 +17,18 @@ protected int Threshold_Daño = 0;
 public GameObject debrisPrefab;
 public float spawnRadius;
 protected float explosionForce = 0f;
-// protected int Vida_Anual;
-// public bool Agarrable;
-// protected bool Diferente_Noche;
-// protected bool Diferente_Climas;
-// protected bool Crece;
-// public bool Destructible;
 protected float Masa;
 public float Densidad = 100.0f;
 public Rigidbody rb;
 protected float Multiplicador_De_Daño = 0.5f;  // Factor para ajustar el daño calculado
 protected float Velocidad_Min_Daño = 10.0f; // Velocidad mínima para que el daño comience
+
+//Sistema de particulas
+[SerializeField] private ParticleSystem Sistema_de_particulas;
+ private ParticleSystem Particulas_instancia;
+
+
+
 
 protected Vector3 size = Vector3.one;
 
@@ -42,6 +43,9 @@ void Start()
 
         // Asignamos la masa al Rigidbody
         rb.mass = Masa; 
+
+        Sistema_de_particulas = GameObject.Find("Golpeado_particulas").GetComponentInChildren<ParticleSystem>();
+
 
         CalcularVida();
     }
@@ -158,6 +162,7 @@ Lugar_De_Pertenencia = Lugar;
     {
         if (daño > Threshold_Daño)
         {
+            Spawn_Particulas_Daño();
             Vida -= daño;
             Destruccion_Porcentual();
         }
@@ -183,35 +188,10 @@ protected float	Calculadora_Daño(float velocidad2)
 
     }
 
-// protected void	Ser_Agarrado()
-//     {
-
-//     }
-// protected void	Animator()
-//     {
-
-//     }
-// protected void	Optimizar()
-//     {
-
-//     }
-// protected void	Informacion_Guardar()
-//     {
-
-//     }
-// protected void	Informacion_Cargar()
-//     {
-
-//     }
-// protected void	Algo_Encima()
-//     {
-
-//     }
-// protected void	Crecer()
-//     {
-
-//     }
-    
+private void Spawn_Particulas_Daño()
+{
+    Particulas_instancia = Instantiate(Sistema_de_particulas, transform.position, Quaternion.identity);
+}
     
    
 
