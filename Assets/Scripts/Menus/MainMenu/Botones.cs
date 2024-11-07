@@ -34,6 +34,12 @@ public class Botones : MonoBehaviour
         Tutorial();
         StartCoroutine(Esperar());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        Time.timeScale = 1;
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
 
     public void Salir()
