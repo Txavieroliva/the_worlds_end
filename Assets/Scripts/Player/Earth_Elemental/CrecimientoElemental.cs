@@ -63,8 +63,8 @@ public class CrecimientoElemental : AbilityBase
         float diferenciaAltura = (escalaObjetivo - tamañoInicial.y) * factorAltura;
         Vector3 posicionFinal = posicionInicial + new Vector3(0, diferenciaAltura, 0);
 
-        float tiempoCrecimiento = 5f;
-        float tiempoTranscurrido = 0f;
+        //float tiempoCrecimiento = 5f;
+        //float tiempoTranscurrido = 0f;
         
 
     // for (float t = 0; t < tiempoCrecimiento; t += Time.deltaTime)
