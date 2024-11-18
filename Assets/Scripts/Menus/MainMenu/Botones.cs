@@ -9,6 +9,7 @@ public class Botones : MonoBehaviour
     
     // Variable para almacenar la imagen
     public UnityEngine.UI.Image imagen;
+    public GameObject panelExplicacion; 
     public Color color;
     
 
@@ -28,13 +29,21 @@ public class Botones : MonoBehaviour
         {
             Debug.LogError("No se encontró el componente Image en el GameObject.");
         }
+
+        if(panelExplicacion != null)
+        {
+            panelExplicacion.SetActive(false);
+        }
     }
     public void Jugar()
     {
-        Tutorial();
-        StartCoroutine(Esperar());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-        Time.timeScale = 1;
+        if(panelExplicacion != null)
+        {
+            MostrarCursor();
+            Time.timeScale = 0;
+            panelExplicacion.SetActive(true);
+        }
     }
 
     public void MainMenu()
@@ -46,6 +55,16 @@ public class Botones : MonoBehaviour
     {
         Debug.Log("Salir...");
         Application.Quit();
+    }
+
+    public void Play()
+    {
+        if(panelExplicacion != null)
+        {
+            Time.timeScale = 1;
+            panelExplicacion.SetActive(false);
+            OcultarCursor();
+        }
     }
 
 
@@ -69,5 +88,17 @@ public class Botones : MonoBehaviour
     {
         // Espera 8 segundos
         yield return new WaitForSeconds(15);
+    }
+
+    private void MostrarCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;  // Desbloquea el cursor
+        Cursor.visible = true;  // Hace visible el cursor
+    }
+
+    private void OcultarCursor()
+    {
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 }
