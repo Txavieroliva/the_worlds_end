@@ -10,6 +10,7 @@ public class Botones : MonoBehaviour
     // Variable para almacenar la imagen
     public UnityEngine.UI.Image imagen;
     public GameObject panelExplicacion; 
+    public GameObject panelTutorial;
     public Color color;
     
 
@@ -34,15 +35,20 @@ public class Botones : MonoBehaviour
         {
             panelExplicacion.SetActive(false);
         }
+
+        if(panelTutorial != null)
+        {
+            panelTutorial.SetActive(false);
+        }
     }
     public void Jugar()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-        if(panelExplicacion != null)
+        if(panelTutorial != null)
         {
             MostrarCursor();
             Time.timeScale = 0;
-            panelExplicacion.SetActive(true);
+            panelTutorial.SetActive(true);
         }
     }
 
@@ -67,27 +73,22 @@ public class Botones : MonoBehaviour
         }
     }
 
-
-
-    private void Tutorial()
+    public void MostrarExplicacion()
     {
-        if (imagen != null)
+        if(panelExplicacion != null && panelTutorial != null)
         {
-            // Obtiene el color actual de la imagen
-            Color color = imagen.color;
-
-            // Cambia solo el valor de alfa (transparencia) del color
-            color.a = 255f;
-            
-            // Asigna el nuevo color a la imagen
-            imagen.color = color;
+            panelTutorial.SetActive(false);
+            panelExplicacion.SetActive(true);
         }
     }
 
-    private IEnumerator Esperar()
+    public void MostrarTutorial()
     {
-        // Espera 8 segundos
-        yield return new WaitForSeconds(15);
+        if(panelTutorial != null && panelExplicacion != null)
+        {
+            panelExplicacion.SetActive(false);
+            panelTutorial.SetActive(true);
+        }
     }
 
     private void MostrarCursor()
