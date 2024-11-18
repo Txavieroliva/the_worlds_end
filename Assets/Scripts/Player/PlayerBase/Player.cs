@@ -35,13 +35,14 @@ public class Player : Base_Con_Vida
         //controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         meleeAttack = GetComponentInChildren<MeleeAttack>();
+        Time.timeScale = 0;
 
         if (mainCamera == null)
         {
             mainCamera = Camera.main.transform;  // Asignar la cámara principal si no está asignada
         }
 
-        HideMouse();
+        //HideMouse();
 
         CalcularMasa();
         CalcularVidaMax();
