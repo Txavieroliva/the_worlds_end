@@ -7,30 +7,13 @@ using UnityEngine.UI;
 public class Botones : MonoBehaviour
 {
     
-    // Variable para almacenar la imagen
-    public UnityEngine.UI.Image imagen;
     public GameObject panelExplicacion; 
     public GameObject panelTutorial;
-    public Color color;
+
     
 
     void Start()
     {
-        // Obtiene el color actual de la imagen
-        Color color = imagen.color;
-
-        // Cambia solo el valor de alfa (transparencia) del color
-        color.a = 0f;
-
-        // Asigna el nuevo color a la imagen
-        imagen.color = color;
-
-
-        if (imagen == null)
-        {
-            Debug.LogError("No se encontró el componente Image en el GameObject.");
-        }
-
         if(panelExplicacion != null)
         {
             panelExplicacion.SetActive(false);
@@ -38,7 +21,7 @@ public class Botones : MonoBehaviour
 
         if(panelTutorial != null)
         {
-            panelTutorial.SetActive(false);
+            panelTutorial.SetActive(true);
         }
     }
     public void Jugar()
