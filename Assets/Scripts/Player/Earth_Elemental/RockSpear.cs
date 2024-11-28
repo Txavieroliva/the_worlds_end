@@ -61,7 +61,7 @@ public class RockSpear : AbilityBase
             Physics.IgnoreCollision(lanzaCollider, meleeCollider, true);
 
             lanzaRb.velocity = direccion * velocidadLanza;
-            player.TakeDamage(10);
+            player.TakeDamage(5);
         }
         else
         {
