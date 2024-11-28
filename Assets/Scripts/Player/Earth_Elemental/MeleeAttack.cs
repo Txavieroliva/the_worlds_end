@@ -10,16 +10,37 @@ public class MeleeAttack : MonoBehaviour
     private Objeto_base base_objeto;
     public Rigidbody rb;
     private Collider other;
-    
+
+    //SHAKE
+    public Transform myCamera;
+    public float shakeDuration;
+    public float shakeAmount = 0.25f;
+    public float decreaseFactor = 1.0f;
+    private Vector3 originalPos;
+    private bool isShaking = false;
+
     private void Start()
     {
         rb = GetComponentInParent<Rigidbody>();
+        if (myCamera != null)
+        {
+            originalPos = myCamera.localPosition; // Guarda la posición inicial al comienzo
+        }
     }
-    
+
     private void Update()
     {
-        calcular_dano();
-        // Debug.Log(other);
+        if (shakeDuration > 0)
+        {
+            isShaking = true;
+            myCamera.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+            shakeDuration -= Time.deltaTime * decreaseFactor;
+        }
+        else if (isShaking)
+        {
+            isShaking = false;
+            myCamera.localPosition = originalPos; // Restaura la posición original al finalizar el shake
+        }
     }
 
     private void calcular_dano()
@@ -41,22 +62,21 @@ public class MeleeAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-//         Debug.Log(canDealDmg);
-        // Intentar obtener el componente Objeto_base, sin importar si es Casa u otro derivado
-        Objeto_base base_objeto = other.GetComponentInParent<Objeto_base>();  // Buscamos en padres también si es necesario
-        Base base_base = other.GetComponentInParent<Base>();  // Buscamos también Base si fuera necesario
+        Objeto_base base_objeto = other.GetComponentInParent<Objeto_base>();
+        Base base_base = other.GetComponentInParent<Base>();
 
-        if(canDealDmg)
+        if (canDealDmg)
         {
+            Debug.Log("jeje, god");
             if (base_base != null)
             {
-                //Aplica lógica para el componente base (si existe)
-                base_base.Golpeado(meleeDamage);  // Ajustar el valor de damageAmount según tu sistema de daño
+                shakeDuration = 0.2f; // Activa el shake durante 0.15 segundos
+                base_base.Golpeado(meleeDamage);
             }
             else if (base_objeto != null)
             {
-                //Aplica lógica para el componente Objeto_base (o derivadas como Casa)
-                base_objeto.Golpeado(meleeDamage);  // Ajustar el valor de damageAmount según tu sistema de daño
+                shakeDuration = 0.2f; // Activa el shake durante 0.15 segundos
+                base_objeto.Golpeado(meleeDamage);
                 Debug.Log("Golpeado: " + base_objeto.gameObject.name + " con " + meleeDamage + " de daño.");
             }
             else
@@ -64,7 +84,5 @@ public class MeleeAttack : MonoBehaviour
                 Debug.Log("No se encontró Objeto_base o Base en " + other.gameObject.name);
             }
         }
-        
     }
-
 }
