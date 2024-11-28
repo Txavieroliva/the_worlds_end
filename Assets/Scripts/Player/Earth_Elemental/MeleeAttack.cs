@@ -68,13 +68,14 @@ public class MeleeAttack : MonoBehaviour
         if (canDealDmg)
         {
             Debug.Log("jeje, god");
-            shakeDuration = 0.3f; // Activa el shake durante 0.3 segundos
             if (base_base != null)
             {
+                shakeDuration = 0.15f; // Activa el shake durante 0.15 segundos
                 base_base.Golpeado(meleeDamage);
             }
             else if (base_objeto != null)
             {
+                shakeDuration = 0.15f; // Activa el shake durante 0.15 segundos
                 base_objeto.Golpeado(meleeDamage);
                 Debug.Log("Golpeado: " + base_objeto.gameObject.name + " con " + meleeDamage + " de daño.");
             }
