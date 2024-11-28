@@ -13,8 +13,8 @@ public class MeleeAttack : MonoBehaviour
 
     //SHAKE
     public Transform myCamera;
-    public float shakeDuration = 0.3f;
-    public float shakeAmount = 2.0f;
+    public float shakeDuration;
+    public float shakeAmount = 0.25f;
     public float decreaseFactor = 1.0f;
     private Vector3 originalPos;
     private bool isShaking = false;
@@ -70,12 +70,12 @@ public class MeleeAttack : MonoBehaviour
             Debug.Log("jeje, god");
             if (base_base != null)
             {
-                shakeDuration = 0.15f; // Activa el shake durante 0.15 segundos
+                shakeDuration = 0.2f; // Activa el shake durante 0.15 segundos
                 base_base.Golpeado(meleeDamage);
             }
             else if (base_objeto != null)
             {
-                shakeDuration = 0.15f; // Activa el shake durante 0.15 segundos
+                shakeDuration = 0.2f; // Activa el shake durante 0.15 segundos
                 base_objeto.Golpeado(meleeDamage);
                 Debug.Log("Golpeado: " + base_objeto.gameObject.name + " con " + meleeDamage + " de daño.");
             }
