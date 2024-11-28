@@ -50,7 +50,7 @@ public class LanzaRoca : AbilityBase
             Physics.IgnoreCollision(rocaCollider, meleeCollider, true);
 
             rocaScript.Lanzar(direction, player);
-            player.TakeDamage(20);
+            player.TakeDamage(10);
         }
 
         ReanudarMovimientoPlayer();
